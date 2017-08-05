@@ -1,22 +1,23 @@
 package entity;
 
-public class Account {
+public class User {
 	int id;
 	int itcode;
-	long balance;
+	String name;
 	
-	public Account() {};
+	public User() {};
 	
-	public Account(int id, int itcode, long balance) {
+	public User(int id, int itcode, String name) {
+		super();
 		this.id = id;
 		this.itcode = itcode;
-		this.balance = balance;
+		this.name = name;
 	}
 
 	public int getId() {
 		return id;
 	}
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -29,21 +30,20 @@ public class Account {
 		this.itcode = itcode;
 	}
 
-
-	public long getBalance() {
-		return balance;
+	public String getName() {
+		return name;
 	}
 
-	public void setBalance(long balance) {
-		this.balance = balance;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return ("ID:" + id + "  ITcode:" + itcode + "  balance:" + balance);
+		return ("ID:"+ id +"  ITcode:" + itcode + "  name:" + name );
 	}
-	
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

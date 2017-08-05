@@ -15,26 +15,23 @@ import dao.AccountDAO;
 @Controller
 public class TopupController {
 
-	private static final Logger logger = LoggerFactory.getLogger(TopupController.class);
 	@Autowired
-    JdbcTemplate jdbcTemplate;
+	JdbcTemplate jdbcTemplate;
+	private static final Logger logger = LoggerFactory.getLogger(TopupController.class);
 	
 	@RequestMapping(value="/topup_page")
 	public String topUp(String itcode, String username, String amount, Locale locale, Model model) {
 		
-		logger.info("ITcode:" +itcode +"username:"+username + "充值"+ amount);
+		logger.info("ITcode:" +itcode +"	username:"+username + "	充值"+ amount);
 		
+		int ic = Integer.parseInt(itcode);
+		long am = Long.parseLong(amount);
 		
-		int i = AccountDAO.topUp(itcode, username, amount, locale, jdbcTemplate);
 		String result = null;
-		if(i == 1) {
+		if(AccountDAO.topUp(ic, username, am, locale, jdbcTemplate)) {
 			result = "你变强了！";
 		}else {
-			if(i == -1) {
-				result = "账号信息填写错误";
-			}else {
-				result = "充值失败，等一会再来吧";
-			}
+			result = "充值失败，请确认用户信息后再尝试！";
 		}
 		
 		model.addAttribute("result", result);

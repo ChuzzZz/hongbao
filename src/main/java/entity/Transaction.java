@@ -1,14 +1,16 @@
 package entity;
 
+import java.sql.Timestamp;
+
 public class Transaction {
 	int id;
 	int account_id;
-	int amount;
-	String time;
+	long amount;
+	Timestamp time;
 
 	public Transaction() {};
 	
-	public Transaction(int id, int account_id, int amount, String time) {
+	public Transaction(int id, int account_id, long amount, Timestamp time) {
 		this.id = id;
 		this.account_id = account_id;
 		this.amount = amount;
@@ -31,19 +33,19 @@ public class Transaction {
 		this.account_id = account_id;
 	}
 	
-	public int getAmount() {
+	public long getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(long amount) {
 		this.amount = amount;
 	}
 
-	public String getTime() {
+	public Timestamp getTime() {
 		return time;
 	}
 
-	public void setTime(String time) {
+	public void setTime(Timestamp time) {
 		this.time = time;
 	}
 
