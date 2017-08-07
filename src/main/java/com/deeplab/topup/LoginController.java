@@ -16,14 +16,14 @@ public class LoginController {
 	JdbcTemplate jdbcTemplate;
 	private static final Logger logger = LoggerFactory.getLogger(TopupController.class);
 	
-	@RequestMapping(value = "/login")
+	@RequestMapping(value = "/login_verify")
 	public String logIn(String itcode, String username,Model model) {
 		int ic = Integer.parseInt(itcode);
 		if(UserDAO.userExists(ic, username, jdbcTemplate)) {
 			return "topup";
 		}else {
 			model.addAttribute("login_result", "用户不存在！");
-			return "home";
+			return "login";
 		}
 	}
 	

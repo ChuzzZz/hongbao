@@ -66,10 +66,15 @@ public class UserDAO {
 	 * @return true if create user,false if failed
 	 * 
 	 */
-	public static boolean createUser(int itcode, String name, JdbcTemplate jdbcTemplate) {
-		String sql = "insert into user values(0,?,?);";
+	public static boolean createUser(int itcode, String name, int onsite, JdbcTemplate jdbcTemplate) {
+		User user = new User(0, itcode, name, onsite);
+		return createUser(user, jdbcTemplate);
+	}
+	
+	public static boolean createUser(User user, JdbcTemplate jdbcTemplate) {
+		String sql = "insert into user values(0,?,?,?);";
 		try {
-			int i = jdbcTemplate.update(sql,new Object[] {itcode,name});
+			jdbcTemplate.update(sql,new Object[] {user.getItcode(),user.getName(),user.getOnsite()});
 		}catch (Exception e) {
 			e.printStackTrace();
 			return false;

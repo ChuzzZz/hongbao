@@ -92,7 +92,7 @@ public class AccountDAO {
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
 			
 			TransactionDAO.addTransaction(account.getId(), amount, ts, jdbcTemplate);
-			addAccountBalance(account.getId(), amount, jdbcTemplate);
+//			addAccountBalance(account.getId(), amount, jdbcTemplate);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
