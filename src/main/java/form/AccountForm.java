@@ -7,15 +7,14 @@ import javax.validation.constraints.Size;
 
 public class AccountForm {
 	@NotNull
+	int itcode;
+	@NotNull
 	@Size(min=2,max=16)
 	String name;
 	@NotNull
-	@Size(min=2,max=16)
-	int itcode;
-	@NotNull
 	@Min(100)
 	@Max(100000)
-	int amount;
+	long amount;
 	
 	public String getName() {
 		return name;
@@ -33,11 +32,11 @@ public class AccountForm {
 		this.itcode = itcode;
 	}
 
-	public int getAmount() {
+	public long getAmount() {
 		return amount;
 	}
 
-	public void setAmount(int amount) {
+	public void setAmount(long amount) {
 		this.amount = amount;
 	}
 

@@ -12,11 +12,11 @@
 	充值才能变强
 </h1>
 <hr>
-<p>  The time on the server is ${serverTime}. </p>
+<p>${message}</p>
 <form action="topup_page">
 	<table>
 		<tr><td>ITCode：</td><td><input name="itcode"></td></tr>
-		<tr><td>姓名：</td><td><input name="username"></td></tr>
+		<tr><td>姓名：</td><td><input name="name"></td></tr>
 		<tr><td>充值金额：</td><td><input name="amount"></td></tr>
 		<tr><td><input type="submit" value="变强"></td></tr>
 	</table>
