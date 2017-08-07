@@ -54,9 +54,4 @@ public class User {
 		return ("ID:"+ id +"  ITcode:" + itcode + "  name:" + name + "  onsite:" + onsite);
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

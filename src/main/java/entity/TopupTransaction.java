@@ -2,15 +2,15 @@ package entity;
 
 import java.sql.Timestamp;
 
-public class Transaction {
+public class TopupTransaction {
 	int id;
 	int account_id;
 	long amount;
 	Timestamp time;
 
-	public Transaction() {};
+	public TopupTransaction() {};
 	
-	public Transaction(int id, int account_id, long amount, Timestamp time) {
+	public TopupTransaction(int id, int account_id, long amount, Timestamp time) {
 		this.id = id;
 		this.account_id = account_id;
 		this.amount = amount;
@@ -49,9 +49,11 @@ public class Transaction {
 		this.time = time;
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	@Override
+	public String toString() {
+		String str;
+		str = "½»Ò×¼ÇÂ¼:" + id +"  "+ time +"  "+ account_id +"  "+ amount ;
+		return str;
 	}
-
+	
 }

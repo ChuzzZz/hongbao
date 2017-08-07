@@ -7,10 +7,10 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import entity.Transaction;
+import entity.TopupTransaction;
 import entity.User;
 
-public class TransactionDAO {
+public class TopupTransactionDAO {
 	
 	private static boolean preTransaction() {return false;} 
 	/**
@@ -38,11 +38,11 @@ public class TransactionDAO {
 	 * @param jdbcTemplate
 	 * @return List<Transaction>
 	 */
-	public static List<Transaction> getTransactionsById(int account_id, JdbcTemplate jdbcTemplate){
+	public static List<TopupTransaction> getTransactionsById(int account_id, JdbcTemplate jdbcTemplate){
 //		RowMapper<Transaction> transaction_mapper = new BeanPropertyRowMapper<Transaction>(Transaction.class);
-		List<Transaction> transactions = null;
+		List<TopupTransaction> transactions = null;
 		try {
-			transactions = jdbcTemplate.queryForList("select * from transaction where account_id = ?", Transaction.class, account_id);
+			transactions = jdbcTemplate.queryForList("select * from transaction where account_id = ?", TopupTransaction.class, account_id);
 		}catch (Exception e) {
 			System.out.println("getTransactionsById failed!");
 			e.printStackTrace();
@@ -55,11 +55,11 @@ public class TransactionDAO {
 	 * @param jdbcTemplate
 	 * @return List<Transaction>
 	 */
-	public static List<Transaction> getTransactionsByItcode(int itcode, JdbcTemplate jdbcTemplate){
+	public static List<TopupTransaction> getTransactionsByItcode(int itcode, JdbcTemplate jdbcTemplate){
 //		RowMapper<Transaction> transaction_mapper = new BeanPropertyRowMapper<Transaction>(Transaction.class);
-		List<Transaction> transactions = null;
+		List<TopupTransaction> transactions = null;
 		try {
-			transactions = jdbcTemplate.queryForList("select * from account natural join transaction where itcode = ?", Transaction.class, itcode);
+			transactions = jdbcTemplate.queryForList("select * from account natural join transaction where itcode = ?", TopupTransaction.class, itcode);
 		}catch (Exception e) {
 			System.out.println("getTransactionsByItcode failed!");
 			e.printStackTrace();
@@ -72,8 +72,8 @@ public class TransactionDAO {
 	 * @param jdbcTemplate
 	 * @return List<Transaction>
 	 */
-	public static List<Transaction> getTransactionsByUser(User user, JdbcTemplate jdbcTemplate){
-		List<Transaction> transactions = getTransactionsById(user.getId(), jdbcTemplate);
+	public static List<TopupTransaction> getTransactionsByUser(User user, JdbcTemplate jdbcTemplate){
+		List<TopupTransaction> transactions = getTransactionsById(user.getId(), jdbcTemplate);
 		return transactions;
 	}
 	

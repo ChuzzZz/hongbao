@@ -91,7 +91,7 @@ public class AccountDAO {
 			Account account = AccountDAO.getAccountByItcode(itcode, jdbcTemplate);
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
 			
-			TransactionDAO.addTransaction(account.getId(), amount, ts, jdbcTemplate);
+			TopupTransactionDAO.addTransaction(account.getId(), amount, ts, jdbcTemplate);
 //			addAccountBalance(account.getId(), amount, jdbcTemplate);
 		} catch (Exception e) {
 			e.printStackTrace();

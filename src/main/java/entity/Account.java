@@ -43,10 +43,5 @@ public class Account {
 		// TODO Auto-generated method stub
 		return ("ID:" + id + "  ITcode:" + itcode + "  balance:" + balance);
 	}
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
 
 }
