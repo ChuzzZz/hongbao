@@ -22,7 +22,7 @@ public class TopupTransactionDAO {
 	 * @return 添加交易记录成功返回true,失败返回false
 	 */
 	public static boolean addTransaction(int account_id, long amount, Timestamp ts, JdbcTemplate jdbcTemplate) {
-		String sql = "insert into transaction values(null, ?, ?, ?)";
+		String sql = "insert into topup_transaction values(null, ?, ?, ?)";
 		try {
 			jdbcTemplate.update(sql, new Object[] {account_id, amount, ts});
 		}catch (Exception e) {
@@ -39,10 +39,10 @@ public class TopupTransactionDAO {
 	 * @return List<Transaction>
 	 */
 	public static List<TopupTransaction> getTransactionsById(int account_id, JdbcTemplate jdbcTemplate){
-//		RowMapper<Transaction> transaction_mapper = new BeanPropertyRowMapper<Transaction>(Transaction.class);
+		String sql = "select * from topup_transaction where account_id = ?";
 		List<TopupTransaction> transactions = null;
 		try {
-			transactions = jdbcTemplate.queryForList("select * from transaction where account_id = ?", TopupTransaction.class, account_id);
+			transactions = jdbcTemplate.queryForList(sql, TopupTransaction.class, account_id);
 		}catch (Exception e) {
 			System.out.println("getTransactionsById failed!");
 			e.printStackTrace();
@@ -57,9 +57,10 @@ public class TopupTransactionDAO {
 	 */
 	public static List<TopupTransaction> getTransactionsByItcode(int itcode, JdbcTemplate jdbcTemplate){
 //		RowMapper<Transaction> transaction_mapper = new BeanPropertyRowMapper<Transaction>(Transaction.class);
+		String sql = "select * from account natural join topup_transaction where itcode = ?";
 		List<TopupTransaction> transactions = null;
 		try {
-			transactions = jdbcTemplate.queryForList("select * from account natural join transaction where itcode = ?", TopupTransaction.class, itcode);
+			transactions = jdbcTemplate.queryForList(sql, TopupTransaction.class, itcode);
 		}catch (Exception e) {
 			System.out.println("getTransactionsByItcode failed!");
 			e.printStackTrace();

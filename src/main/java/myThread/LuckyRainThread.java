@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import dao.AccountDAO;
 import entity.Account;
 
-public class LuckRainThread extends Thread {
+public class LuckyRainThread extends Thread {
 	boolean flag = false;
 	JdbcTemplate jdbcTemplate;
 	int round=0;
