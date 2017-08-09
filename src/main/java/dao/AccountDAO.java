@@ -40,13 +40,15 @@ public class AccountDAO {
 	public static List<Account> getAllAcounts(JdbcTemplate jdbcTemplate){
 		String sql = "select * from account;";
 		List<Account> accounts = null;
+		RowMapper<Account> wallet_mapper = new BeanPropertyRowMapper<Account>(Account.class);
 		try{
-			accounts = jdbcTemplate.queryForList(sql, Account.class);
+			accounts = jdbcTemplate.query(sql,wallet_mapper);
 		}catch (Exception e) {
 			System.out.println("getAllAcounts failed");
 			e.printStackTrace();
 		}
 		return accounts;
+
 	}
 	/**
 	 * get对应itcode的钱包账户

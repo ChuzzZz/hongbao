@@ -3,8 +3,11 @@ package dao;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
+import entity.Account;
 import entity.LuckyMoneyTransaction;
 import entity.TopupTransaction;
 
@@ -45,8 +48,10 @@ public class LuckyMoneyTransactionDAO {
 	public static List<LuckyMoneyTransaction> getAllTransactions(JdbcTemplate jdbcTemplate){
 		String sql = "select * from luckymoney_transaction;";
 		List<LuckyMoneyTransaction> transactions = null;
+		RowMapper<LuckyMoneyTransaction> LuckyMoneyTransaction_mapper = new BeanPropertyRowMapper<LuckyMoneyTransaction>(LuckyMoneyTransaction.class);
 		try {
-			jdbcTemplate.queryForList(sql, LuckyMoneyTransaction.class);
+			transactions=jdbcTemplate.query(sql, LuckyMoneyTransaction_mapper);
+			System.out.println(transactions);
 		}catch (Exception e) {
 			System.out.println("get all lucky money transactions failed!");
 			e.printStackTrace();

@@ -35,7 +35,7 @@
 		<input type="button" id="2" value="开启第二轮红包雨" onclick="startRain()"><br>
 		<input type="button" id="3" value="开启第三轮红包雨" onclick="startRain()"><br>
 	</form>
-	<a href="/html/getluckymoneytransaction">查看红包记录</a>
+	<a href="showresult">查看红包记录</a>
 	<hr>
 </body>
 
