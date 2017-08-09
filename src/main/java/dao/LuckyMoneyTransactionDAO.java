@@ -12,6 +12,15 @@ import entity.LuckyMoneyTransaction;
 import entity.TopupTransaction;
 
 public class LuckyMoneyTransactionDAO {
+	/**
+	 * 添加红包记录
+	 * @param account_id
+	 * @param amount
+	 * @param round
+	 * @param ts
+	 * @param jdbcTemplate
+	 * @return 成功返回true,失败返回false
+	 */
 	public static boolean addTransaction(int account_id, long amount, int round, Timestamp ts, JdbcTemplate jdbcTemplate) {
 		String sql = "insert into luckymoney_transaction values(0,?,?,?,?);";
 		try {
