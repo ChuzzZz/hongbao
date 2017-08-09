@@ -2,25 +2,23 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-	
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-     <property name="user" value="root"></property>
-     <property name="password" value="RESTAURANT"></property>
-     <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
-     <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/company?SSL=true"></property>
-     <property name="initialPoolSize" value="5"></property>
-     <property name="maxPoolSize" value="10"></property>
-    </bean>
-    
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-     <property name="dataSource" ref="dataSource"></property>
-    </bean>	
-    
-    <!--  <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
-        <property name="defaultEncoding" value="utf-8"></property>   
-        <property name="maxUploadSize" value="10485760000"></property>  
-        <property name="maxInMemorySize" value="4096000"></property>  
-   </bean>
-   -->
+		<property name="user" value="naive"></property>
+		<property name="password" value="123456"></property>
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/company?SSL=true"></property>
+		<property name="initialPoolSize" value="5"></property>
+		<property name="maxPoolSize" value="10"></property>
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+
+	<!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
+		<property name="defaultEncoding" value="utf-8"></property> <property name="maxUploadSize" 
+		value="10485760000"></property> <property name="maxInMemorySize" value="4096000"></property> -->
 </beans>
