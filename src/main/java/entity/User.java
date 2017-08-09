@@ -15,6 +15,14 @@ public class User {
 		this.name = name;
 		this.onsite = onsite;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", itcode=" + itcode + ", name=" + name + ", onsite=" + onsite + "]";
+	}
 
 	public int getId() {
 		return id;
@@ -46,12 +54,6 @@ public class User {
 
 	public void setOnsite(int onsite) {
 		this.onsite = onsite;
-	}
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return ("ID:"+ id +"  ITcode:" + itcode + "  name:" + name + "  onsite:" + onsite);
 	}
 
 }

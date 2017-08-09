@@ -6,13 +6,20 @@ public class Account {
 	long balance;
 	
 	public Account() {};
-	
 	public Account(int id, int itcode, long balance) {
 		this.id = id;
 		this.itcode = itcode;
 		this.balance = balance;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Account [id=" + id + ", itcode=" + itcode + ", balance=" + balance + "]";
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -37,11 +44,5 @@ public class Account {
 	public void setBalance(long balance) {
 		this.balance = balance;
 	}
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return ("ID:" + id + "  ITcode:" + itcode + "  balance:" + balance);
-	}
-
+	
 }

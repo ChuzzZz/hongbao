@@ -9,6 +9,25 @@ public class LuckyMoneyTransaction {
 	int round;
 	Timestamp time;
 	
+	public LuckyMoneyTransaction() {}
+	public LuckyMoneyTransaction(int id, int account_id, long amount, int round, Timestamp time) {
+		super();
+		this.id = id;
+		this.account_id = account_id;
+		this.amount = amount;
+		this.round = round;
+		this.time = time;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "LuckyMoneyTransaction [id=" + id + ", account_id=" + account_id + ", amount=" + amount + ", round="
+				+ round + ", time=" + time + "]";
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -47,13 +66,6 @@ public class LuckyMoneyTransaction {
 
 	public void setTime(Timestamp time) {
 		this.time = time;
-	}
-
-	@Override
-	public String toString() {
-		String str;
-		str = "½»Ò×¼ÇÂ¼:" + id +"  "+ round +"  "+ time +"  "+ account_id +"  "+ amount ;
-		return str;
 	}
 
 }

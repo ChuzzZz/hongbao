@@ -4,6 +4,13 @@ public class LuckyMoney {
 	int round;
 	long total;
 	
+	public LuckyMoney() {}
+	public LuckyMoney(int round, long total) {
+		super();
+		this.round = round;
+		this.total = total;
+	}
+
 	public int getRound() {
 		return round;
 	}
