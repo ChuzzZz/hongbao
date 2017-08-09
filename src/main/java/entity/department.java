@@ -1,12 +1,12 @@
 package entity;
 
-public class department {
+public class Department {
 	int id;
 	String dept_name;
 	
-	public department() {}
+	public Department() {}
 	
-	public department(int id, String dept_name) {
+	public Department(int id, String dept_name) {
 		super();
 		this.id = id;
 		this.dept_name = dept_name;

@@ -40,8 +40,9 @@ public class AccountDAO {
 	public static List<Account> getAllAcounts(JdbcTemplate jdbcTemplate){
 		String sql = "select * from account;";
 		List<Account> accounts = null;
+		RowMapper<Account> account_mapper = new BeanPropertyRowMapper<Account>(Account.class);
 		try{
-			accounts = jdbcTemplate.queryForList(sql, Account.class);
+			accounts = jdbcTemplate.query(sql,account_mapper);
 		}catch (Exception e) {
 			System.out.println("getAllAcounts failed");
 			e.printStackTrace();
