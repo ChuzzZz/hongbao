@@ -3,12 +3,24 @@ package dao;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
+import entity.Account;
 import entity.LuckyMoneyTransaction;
 import entity.TopupTransaction;
 
 public class LuckyMoneyTransactionDAO {
+	/**
+	 * 添加红包记录
+	 * @param account_id
+	 * @param amount
+	 * @param round
+	 * @param ts
+	 * @param jdbcTemplate
+	 * @return 成功返回true,失败返回false
+	 */
 	public static boolean addTransaction(int account_id, long amount, int round, Timestamp ts, JdbcTemplate jdbcTemplate) {
 		String sql = "insert into luckymoney_transaction values(0,?,?,?,?);";
 		try {
@@ -45,8 +57,10 @@ public class LuckyMoneyTransactionDAO {
 	public static List<LuckyMoneyTransaction> getAllTransactions(JdbcTemplate jdbcTemplate){
 		String sql = "select * from luckymoney_transaction;";
 		List<LuckyMoneyTransaction> transactions = null;
+		RowMapper<LuckyMoneyTransaction> LuckyMoneyTransaction_mapper = new BeanPropertyRowMapper<LuckyMoneyTransaction>(LuckyMoneyTransaction.class);
 		try {
-			jdbcTemplate.queryForList(sql, LuckyMoneyTransaction.class);
+			transactions=jdbcTemplate.query(sql, LuckyMoneyTransaction_mapper);
+			System.out.println(transactions);
 		}catch (Exception e) {
 			System.out.println("get all lucky money transactions failed!");
 			e.printStackTrace();
