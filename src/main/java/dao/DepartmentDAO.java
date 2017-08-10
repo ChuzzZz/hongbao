@@ -14,7 +14,7 @@ public class DepartmentDAO {
 	 * 添加部门
 	 * @param d
 	 * @param jdbcTemplate
-	 * @return true,success;false,failed
+	 * @return 成功返回true,失败返回false
 	 */
 	public static boolean addDepartment(Department d, JdbcTemplate jdbcTemplate) {
 		String sql = "insert into department values(0,?)";
@@ -39,7 +39,7 @@ public class DepartmentDAO {
 		try{
 			departments = jdbcTemplate.query(sql,department_mapper);
 		}catch (Exception e) {
-			System.out.println("getAllAcounts failed");
+			System.out.println("get all acounts failed");
 			e.printStackTrace();
 		}
 		return departments;
