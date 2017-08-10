@@ -48,7 +48,7 @@ function checkInfo(){
 <body>
 <h1>登陆才能充值</h1>
 <hr>
-<!-- <p>${serverTime}</p> -->
+<p>${serverTime}</p>
 <form name="form" action="login_verify">
 	<table>
 		<tr>

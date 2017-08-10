@@ -1,13 +1,12 @@
 package dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import entity.Department;
-import entity.LuckyMoneyTransaction;
 import entity.ShowInfo;
 
 public class ShowInfoDAO {
@@ -19,10 +18,10 @@ public class ShowInfoDAO {
 	 * @param jdbcTemplate
 	 * @return 成功返回true,失败返回false
 	 */
-	public static boolean addShowInfo(int order, String show_name, String department, JdbcTemplate jdbcTemplate) {
-		String sql = "insert into department values(0,?,?,?)";
+	public static boolean addShowInfo(int order, String show_name,String performer, String department, Timestamp time, JdbcTemplate jdbcTemplate) {
+		String sql = "insert into showinfo values(0,?,?,?,?,?)";
 		try {
-			jdbcTemplate.update(sql, new Object[] {order, show_name, department});
+			jdbcTemplate.update(sql, new Object[] {order, show_name, performer, department, time});
 		}catch (Exception e) {
 			System.out.println("add showinfo failed!");
 			e.printStackTrace();
@@ -37,7 +36,7 @@ public class ShowInfoDAO {
 	 * @return 成功返回true,失败返回false
 	 */
 	public static boolean addShowInfo(ShowInfo s, JdbcTemplate jdbcTemplate) {
-		return addShowInfo(s.getS_order(), s.getShow_name(), s.getDepartment(), jdbcTemplate);
+		return addShowInfo(s.getS_order(), s.getShow_name(), s.getPerformer(), s.getDepartment(), s.getStart_time(), jdbcTemplate);
 	}
 	/**
 	 * get所有节目信息
@@ -50,7 +49,6 @@ public class ShowInfoDAO {
 		RowMapper<ShowInfo> show_mapper = new BeanPropertyRowMapper<ShowInfo>(ShowInfo.class);
 		try {
 			shows = jdbcTemplate.query(sql, show_mapper);
-			System.out.println(shows);
 		}catch (Exception e) {
 			System.out.println("get all showinfo failed!");
 			e.printStackTrace();

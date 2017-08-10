@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import entity.LuckyMoneyTransaction;
 import entity.TopupTransaction;
 import entity.User;
 
@@ -26,11 +27,23 @@ public class TopupTransactionDAO {
 		try {
 			jdbcTemplate.update(sql, new Object[] {account_id, amount, ts});
 		}catch (Exception e) {
-			System.out.println("addTransaction failed!");
+			System.out.println("add topup transaction failed!");
 			e.printStackTrace();
 			return false;
 		}
 		return true;
+	}
+	public static List<TopupTransaction> getAllTransactions(JdbcTemplate jdbcTemplate){
+		String sql = "select * from topup_transaction;";
+		List<TopupTransaction> transactions = null;
+		RowMapper<TopupTransaction> TopupTransaction_mapper = new BeanPropertyRowMapper<TopupTransaction>(TopupTransaction.class);
+		try {
+			transactions=jdbcTemplate.query(sql, TopupTransaction_mapper);
+		}catch (Exception e) {
+			System.out.println("get all topup transactions failed!");
+			e.printStackTrace();
+		}
+		return transactions;
 	}
 	/**
 	 * get对应account_id的交易记录
@@ -62,7 +75,7 @@ public class TopupTransactionDAO {
 		try {
 			transactions = jdbcTemplate.queryForList(sql, TopupTransaction.class, itcode);
 		}catch (Exception e) {
-			System.out.println("getTransactionsByItcode failed!");
+			System.out.println("get topupTransactionsByItcode failed!");
 			e.printStackTrace();
 		}
 		return transactions;
