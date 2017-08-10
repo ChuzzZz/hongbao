@@ -7,9 +7,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import entity.Account;
 import entity.LuckyMoneyTransaction;
-import entity.TopupTransaction;
 
 public class LuckyMoneyTransactionDAO {
 	/**
