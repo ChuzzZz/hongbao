@@ -1,5 +1,6 @@
 package com.deeplab.topup;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import dao.LuckyMoneyDAO;
 import dao.LuckyMoneyTransactionDAO;
+import dao.ShowInfoDAO;
 import dao.TipTransactionDAO;
 import entity.LuckyMoneyTransaction;
 import entity.TipTransaction;
@@ -19,12 +21,6 @@ import myThread.LuckyRainThread;
 public class AdminController {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
-	
-	@RequestMapping(value = "/administrator")
-	public String admin() {
-		//用户是否是administrator
-		return "administrator";
-	}
 	
 	@RequestMapping(value = "/start_luckyrain")
 	public void startRain(String round) {
@@ -37,9 +33,21 @@ public class AdminController {
 		t.start();
 	}
 	
-	@RequestMapping(value = "/add_performance")
-	public String addPerformance() {
-		return "performance_adding";
+	@RequestMapping(value = "/addShow")
+	public String addShow() {
+		return "edit_showinfo";
+	}
+	
+	@RequestMapping(value = "/addShowInfo")
+	public String addShowInfo(String order, String show_name, String performer, String department, String start_time, Model model) {
+		int o = Integer.parseInt(order);
+		Timestamp ts = Timestamp.valueOf(start_time);
+		if(ShowInfoDAO.addShowInfo(o, show_name, performer, department, ts, jdbcTemplate)) {
+			return "show_menu";
+		}else {
+			model.addAttribute("result", "节目信息填写错误！");
+			return "edit_showinfo";
+		}
 	}
 	
 	@RequestMapping(value = "/showresult")

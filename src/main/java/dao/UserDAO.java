@@ -8,6 +8,19 @@ import entity.User;
 
 public class UserDAO {
 	/**
+	 * 判断用户是否是管理员
+	 * @param itcode
+	 * @param name
+	 * @return 是管理员返回true,不是返回false
+	 */
+	public static boolean isAdministrator(int itcode, String name) {
+		if(itcode == 666 && name == "管理员") {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	/**
 	 * get user by itcode
 	 * @param itcode
 	 * @param jdbcTemplate

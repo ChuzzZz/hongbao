@@ -37,6 +37,7 @@
 	</form>
 	<a href="showresult">查看红包记录</a>
 	<hr>
+	<a href="addShow">开始你的表演</a>
 </body>
 
 </html>
