@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import dao.LuckyMoneyDAO;
 import dao.LuckyMoneyTransactionDAO;
+import dao.TipTransactionDAO;
 import entity.LuckyMoneyTransaction;
+import entity.TipTransaction;
 import myThread.LuckyRainThread;
 
 @Controller

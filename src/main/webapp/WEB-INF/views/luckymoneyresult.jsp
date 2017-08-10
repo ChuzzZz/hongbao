@@ -11,7 +11,7 @@
 	<c:if test="${result!=null}">
 	红包雨已开启.以下为红包结果：
 	<table>
-	<tr><td>用户名</td><td>金额（元）</td>><td>获得时间</td></tr>
+	<tr><td>用户名</td><td>金额（元）</td><td>获得时间</td></tr>
 	<c:forEach items="${result}" var="result">
 		<tr><td>${result.account_id}</td><td>${result.amount}</td><td>${result.time}</td></tr>
 	</c:forEach>
