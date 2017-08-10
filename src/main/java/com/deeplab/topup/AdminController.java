@@ -22,10 +22,9 @@ public class AdminController {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	
-	@RequestMapping(value = "/start_luckyrain")
-	public void startRain(String round) {
+	@RequestMapping(value = "/startLuckyrain")
+	public void startLuckyRain(String round) {
 		int i = Integer.parseInt(round);
-		System.out.println(i);
 		LuckyRainThread t = new LuckyRainThread();
 		t.setJdbcTemplate(jdbcTemplate);
 		t.setRound(i);
@@ -43,24 +42,20 @@ public class AdminController {
 		int o = Integer.parseInt(order);
 		Timestamp ts = Timestamp.valueOf(start_time);
 		if(ShowInfoDAO.addShowInfo(o, show_name, performer, department, ts, jdbcTemplate)) {
-			return "show_menu";
+			model.addAttribute("result", "成功添加节目！");
+			return "edit_showinfo";
 		}else {
 			model.addAttribute("result", "节目信息填写错误！");
 			return "edit_showinfo";
 		}
 	}
 	
-	@RequestMapping(value = "/showresult")
-	public String show_result1(Model model) {
+	@RequestMapping(value = "/showLuckyRainResult")
+	public String showLuckyRainResult(Model model) {
 		List<LuckyMoneyTransaction> m = null;
 		m = LuckyMoneyTransactionDAO.getAllTransactions(jdbcTemplate);
 		model.addAttribute("result",m);
-		return "luckymoneyresult";
-	}
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
+		return "luckyrainresult";
 	}
 
 }

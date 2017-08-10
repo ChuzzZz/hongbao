@@ -12,7 +12,7 @@
 	充值才能变强
 </h1>
 <hr>
-<p>${message}</p>
+<div style="color;red">${message}</div>
 <form action="topup_page">
 	<table>
 		<tr><td>ITCode：</td><td><input name="itcode"></td></tr>

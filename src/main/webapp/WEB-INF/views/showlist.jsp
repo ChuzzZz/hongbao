@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>红包结果</title>
+<title>节目信息</title>
 </head>
 <body>
 	<c:if test="${showlist!=null}">

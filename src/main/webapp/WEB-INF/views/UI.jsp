@@ -9,8 +9,10 @@
 </script>
 </head>
 <body>
-<input type="button" name="show" value="查看节目" onclick="">
+<a href="getshowlist">查看节目信息</a>
+<hr>
 <input type="button" name="luckyrain" value="抢红包" onclick="">
-<input type="button" name="luckyrain" value="我的钱包" onclick="">
+<hr>
+<a href="myAccount">我的钱包</a>
 </body>
 </html>

@@ -19,16 +19,19 @@ import dao.AccountDAO;
 import form.AccountForm;
 
 @Controller
-public class TopupController {
+public class AccountController {
 
 	@Autowired
 	JdbcTemplate jdbcTemplate;
-	private static final Logger logger = LoggerFactory.getLogger(TopupController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
+	
+	@RequestMapping(value="/topup")
+	public String goTopup() {
+		return "topup";
+	}
 	
 	@RequestMapping(value="/topup_page")
 	public String topUp(@Valid AccountForm accountForm,BindingResult bindingResult, Locale locale, Model model) {
-		
-//		logger.info("ITcode:" +itcode +"	username:"+username + "	≥‰÷µ"+ amount);
 		
 		if(bindingResult.hasErrors()) {
 			String message = "";
@@ -39,9 +42,6 @@ public class TopupController {
 			model.addAttribute("message", message);
 			return "topup";
 		}else {
-//			int ic = Integer.parseInt(itcode);
-//			long am = Long.parseLong(amount);
-			
 			int itcode = accountForm.getItcode();
 			String name = accountForm.getName();
 			long amount = accountForm.getAmount();
@@ -55,6 +55,5 @@ public class TopupController {
 			model.addAttribute("result", result);
 			return "topup_result";
 		}
-		
 	}
 }

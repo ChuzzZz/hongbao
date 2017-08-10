@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-Manifest-Version: 1.0
-Built-By: ￥ﾮﾋ￥ﾅﾈ￧ﾔﾟ
-Build-Jdk: 1.8.0_101
-Created-By: Maven Integration for Eclipse
-
-=======
 Manifest-Version: 1.0
 Built-By: Dell
 Build-Jdk: 1.8.0_102
 Created-By: Maven Integration for Eclipse
 
->>>>>>> 618d619f2890eb9c8ccee445c1e08320232c591e

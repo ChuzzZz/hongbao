@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>打赏结果</title>
 </head>
 <body>
 充值的节目：${sid}<br>充值的金额：${amount}
