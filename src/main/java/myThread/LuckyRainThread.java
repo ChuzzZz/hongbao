@@ -62,7 +62,7 @@ public class LuckyRainThread extends Thread {
 				try {
 					if(LuckyMoneyDAO.subTotal(round, amount, jdbcTemplate)) {
 						Timestamp ts = new Timestamp(System.currentTimeMillis());
-						LuckyMoneyTransactionDAO.addTransaction(a.getId(), amount, round, ts, jdbcTemplate);
+						LuckyMoneyTransactionDAO.addTransaction(a.getId(), amount, round, jdbcTemplate);
 						AccountDAO.addAccountBalance(a.getId(), amount, jdbcTemplate);
 						Thread.sleep(1000);
 					}

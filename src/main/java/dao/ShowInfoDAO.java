@@ -43,8 +43,8 @@ public class ShowInfoDAO {
 	 * @param jdbcTemplate
 	 * @return List<ShowInfo>
 	 */
-	public static List<ShowInfo> getAllShowInfo(JdbcTemplate jdbcTemplate){
-		String sql = "select * from showinfo;";
+	public static List<ShowInfo> getAllShowInfo(JdbcTemplate jdbcTemplate,String orderby){
+		String sql = "select * from showinfo ORDER BY "+orderby;
 		List<ShowInfo> shows = null;
 		RowMapper<ShowInfo> show_mapper = new BeanPropertyRowMapper<ShowInfo>(ShowInfo.class);
 		try {

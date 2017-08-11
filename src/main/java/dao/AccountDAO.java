@@ -58,6 +58,7 @@ public class AccountDAO {
 	 */
 	public static Account getAccountByItcode(int itcode, JdbcTemplate jdbcTemplate) {
 		RowMapper<Account> account_mapper = new BeanPropertyRowMapper<Account>(Account.class);
+		System.out.println(itcode);
 		Account account = jdbcTemplate.queryForObject("select * from account where itcode = ?", account_mapper, itcode);
 		return account;
 	}

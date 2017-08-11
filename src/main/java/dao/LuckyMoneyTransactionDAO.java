@@ -19,10 +19,10 @@ public class LuckyMoneyTransactionDAO {
 	 * @param jdbcTemplate
 	 * @return 成功返回true,失败返回false
 	 */
-	public static boolean addTransaction(int account_id, long amount, int round, Timestamp ts, JdbcTemplate jdbcTemplate) {
-		String sql = "insert into luckymoney_transaction values(0,?,?,?,?);";
+	public static boolean addTransaction(int account_id, long amount, int round,  JdbcTemplate jdbcTemplate) {
+		String sql = "insert into luckymoney_transaction values(0,?,?,?,now());";
 		try {
-			jdbcTemplate.update(sql,new Object[] {account_id, amount, round, ts});
+			jdbcTemplate.update(sql,new Object[] {account_id, amount, round});
 		}catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("add Transaction failed!");

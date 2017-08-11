@@ -18,6 +18,6 @@
 	</table>
 	</c:if>
 	<c:if test="${rainoff!=null}">红包雨已停止</c:if>
-	<a href="rain_refresh">红包雨可能尚未结束，点此刷新</a>
+	<a href="showLuckyRainResult">红包雨可能尚未结束，点此刷新</a>
 </body>
 </html>

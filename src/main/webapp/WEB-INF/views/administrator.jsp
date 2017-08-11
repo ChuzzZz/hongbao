@@ -37,5 +37,6 @@
 	<a href="showLuckyRainResult">查看红包记录</a>
 	<hr>
 	<a href="addShow">开始你的表演</a>
+	<a href="admingetshowlist">查看节目单</a>
 </body>
 </html>

@@ -7,6 +7,6 @@
 <title>打赏结果</title>
 </head>
 <body>
-充值的节目：${sid}<br>充值的金额：${amount}
+打赏的节目：${sid}<br>打赏的金额：${amount}<br>打赏结果：成功
 </body>
 </html>

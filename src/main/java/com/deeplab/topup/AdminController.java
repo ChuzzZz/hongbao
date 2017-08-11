@@ -14,6 +14,7 @@ import dao.LuckyMoneyTransactionDAO;
 import dao.ShowInfoDAO;
 import dao.TipTransactionDAO;
 import entity.LuckyMoneyTransaction;
+import entity.ShowInfo;
 import entity.TipTransaction;
 import myThread.LuckyRainThread;
 
@@ -48,6 +49,13 @@ public class AdminController {
 			model.addAttribute("result", "节目信息填写错误！");
 			return "edit_showinfo";
 		}
+	}
+	
+	@RequestMapping(value = "/admingetshowlist")
+	public String getshowlist(Model model) {
+		List<ShowInfo> l = ShowInfoDAO.getAllShowInfo(jdbcTemplate,"id");
+		model.addAttribute("showlist", l);
+		return "admin_showlist";
 	}
 	
 	@RequestMapping(value = "/showLuckyRainResult")

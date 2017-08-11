@@ -19,10 +19,10 @@ public class TipTransactionDAO {
 	 * @param jdbcTemplate
 	 * @return 成功返回true,失败返回false
 	 */
-	public static boolean addTipTransaction(int account_id, int show_id, long amount, Timestamp time,JdbcTemplate jdbcTemplate) {
-		String sql = "insert into tip_transaction values(null, ?, ?, ?, ?);";
+	public static boolean addTipTransaction(int account_id, int show_id, long amount, JdbcTemplate jdbcTemplate) {
+		String sql = "insert into tip_transaction values(null, ?, ?,?);";
 		try {
-			jdbcTemplate.update(sql, new Object[] {account_id, show_id, amount, time});
+			jdbcTemplate.update(sql, new Object[] {account_id, show_id, amount});
 		}catch (Exception e) {
 			System.out.println("add tip transaction failed!");
 			e.printStackTrace();
@@ -37,7 +37,7 @@ public class TipTransactionDAO {
 	 * @return 成功返回true,失败返回false
 	 */
 	public static boolean addTipTransaction(TipTransaction t, JdbcTemplate jdbcTemplate) {
-		return addTipTransaction(t.getAccount_id(), t.getShow_id(), t.getAmount(), t.getTime(), jdbcTemplate);
+		return addTipTransaction(t.getAccount_id(), t.getShow_id(), t.getAmount(),  jdbcTemplate);
 	}
 	/**
 	 * get所有打赏记录
