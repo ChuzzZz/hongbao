@@ -56,4 +56,16 @@ public class ShowInfoDAO {
 		return shows;
 	}
 
+	public static List<ShowInfo> getAllShowInfoByOrder(JdbcTemplate jdbcTemplate){
+		String sql = "select * from showinfo order by s_order;";
+		List<ShowInfo> shows = null;
+		RowMapper<ShowInfo> show_mapper = new BeanPropertyRowMapper<ShowInfo>(ShowInfo.class);
+		try {
+			shows = jdbcTemplate.query(sql, show_mapper);
+		}catch (Exception e) {
+			System.out.println("get all showinfo by order failed!");
+			e.printStackTrace();
+		}
+		return shows;
+	}
 }
