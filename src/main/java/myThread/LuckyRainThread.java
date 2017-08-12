@@ -43,35 +43,19 @@ public class LuckyRainThread extends Thread {
 
 	@Override
 	public void run() {
+		long money=LuckyMoneyDAO.getTotalByRound(round, jdbcTemplate);
 		List<Account> accounts = AccountDAO.getAllAcounts(jdbcTemplate);
-		for(Account a : accounts) {
-			if(flag) {
-				long total = LuckyMoneyDAO.getTotalByRound(round, jdbcTemplate);
+		for (int i=0;i<accounts.size();i++){
+			long lmoney;
+			if (i==accounts.size()-1){lmoney=money;}
+			else {
 				Random r = new Random();
-				long amount;
-				if(total > 0) {
-					if(total > 5000) {
-						amount = r.nextInt(5000);
-					}else {
-						amount = total;
-					}
-				}else {
-					break;
-				}
-				
-				try {
-					if(LuckyMoneyDAO.subTotal(round, amount, jdbcTemplate)) {
-						Timestamp ts = new Timestamp(System.currentTimeMillis());
-						LuckyMoneyTransactionDAO.addTransaction(a.getId(), amount, round, jdbcTemplate);
-						AccountDAO.addAccountBalance(a.getId(), amount, jdbcTemplate);
-						Thread.sleep(1000);
-					}
-				}catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				lmoney=money/accounts.size()*r.nextInt(100)/50;
 			}
+			money-=lmoney;
+			LuckyMoneyTransactionDAO.addTransaction(accounts.get(i).getId(), lmoney, round, jdbcTemplate);
+			AccountDAO.addAccountBalance(accounts.get(i).getId(), lmoney, jdbcTemplate);
 		}
-		
 	}
 
 	public static void main(String[] args) {

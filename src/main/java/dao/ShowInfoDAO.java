@@ -36,7 +36,7 @@ public class ShowInfoDAO {
 	 * @return 成功返回true,失败返回false
 	 */
 	public static boolean addShowInfo(ShowInfo s, JdbcTemplate jdbcTemplate) {
-		return addShowInfo(s.getS_order(), s.getShow_name(), s.getPerformer(), s.getDepartment(), s.getStart_time(), jdbcTemplate);
+		return addShowInfo(s.getS_order(), s.getShow_name(), s.getPerformer(), s.getDepartment(), s.gettime(), jdbcTemplate);
 	}
 	/**
 	 * get所有节目信息
