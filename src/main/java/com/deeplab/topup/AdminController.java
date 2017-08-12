@@ -57,7 +57,7 @@ public class AdminController {
 	
 	@RequestMapping(value = {"/admingetshowlist","/adminGetShowlist"})
 	public String adminGetShowlist(Model model) {
-		List<ShowInfo> l = ShowInfoDAO.getAllShowInfo(jdbcTemplate,"id");
+		List<ShowInfo> l = ShowInfoDAO.getAllShowInfoByOrder(jdbcTemplate);
 		model.addAttribute("showlist", l);
 		return "admin_showlist";
 	}

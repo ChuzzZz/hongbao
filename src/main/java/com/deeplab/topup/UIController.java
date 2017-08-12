@@ -32,7 +32,7 @@ public class UIController {
 	
 	@RequestMapping(value = {"/getshowlist","getShowlist"})
 	public String getShowlist(Model model) {
-		List<ShowInfo> l = ShowInfoDAO.getAllShowInfo(jdbcTemplate,"s_order");
+		List<ShowInfo> l = ShowInfoDAO.getAllShowInfoByOrder(jdbcTemplate);
 		model.addAttribute("showlist", l);
 		return "showlist";
 	}

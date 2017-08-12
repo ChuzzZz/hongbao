@@ -36,15 +36,15 @@ public class ShowInfoDAO {
 	 * @return 成功返回true,失败返回false
 	 */
 	public static boolean addShowInfo(ShowInfo s, JdbcTemplate jdbcTemplate) {
-		return addShowInfo(s.getS_order(), s.getShow_name(), s.getPerformer(), s.getDepartment(), s.gettime(), jdbcTemplate);
+		return addShowInfo(s.getS_order(), s.getShow_name(), s.getPerformer(), s.getDepartment(), s.getStart_time(), jdbcTemplate);
 	}
 	/**
 	 * get所有节目信息
 	 * @param jdbcTemplate
 	 * @return List<ShowInfo>
 	 */
-	public static List<ShowInfo> getAllShowInfo(JdbcTemplate jdbcTemplate,String orderby){
-		String sql = "select * from showinfo ORDER BY "+orderby;
+	public static List<ShowInfo> getAllShowInfo(JdbcTemplate jdbcTemplate){
+		String sql = "select * from showinfo;";
 		List<ShowInfo> shows = null;
 		RowMapper<ShowInfo> show_mapper = new BeanPropertyRowMapper<ShowInfo>(ShowInfo.class);
 		try {
