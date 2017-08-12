@@ -89,8 +89,11 @@ function check(){
 </script>
 </head>
 <body>
-<form name="form"  method="get" action="addShowInfo">
+<form name="form"  method="get" action="addshowinfo">
 		<table cellpadding="2">
+			<tr>
+				<td><td><a href="admin">返回主页</a></td></td>
+			</tr>
 			<tr>
 				<td>节目名称：</td>
 				<td><input name="show_name" id="1" onfocus="checkShowName()" onblur="checkShowName()"></td>
@@ -122,7 +125,7 @@ function check(){
 				</td>
 			</tr>
 			<tr>
-				<td><input type="button" value="添加" onclick="check()" ></td>
+				<td><input type="button" value="添加" onclick="check()"></td>
 				<td><div style="color:red">${result}</div></td>
 			</tr>
 		</table>

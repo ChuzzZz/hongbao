@@ -25,9 +25,9 @@ public class UIController {
 	JdbcTemplate jdbcTemplate;
 	private static final Logger logger = LoggerFactory.getLogger(UIController.class);
 	
-	@RequestMapping(value = "/myAccount")
+	@RequestMapping(value = "/myaccount")
 	public String myAccount(){
-		return "MyAccount";
+		return "myAccount";
 	}
 	
 	@RequestMapping(value = "/getshowlist")
@@ -53,7 +53,7 @@ public class UIController {
 		System.out.println(cookies.length);
 		TipTransactionDAO.addTipTransaction(AccountDAO.getAccountByItcode(itcode, jdbcTemplate).getId(), sid, amount, jdbcTemplate);
 		
-		return "tipresult";
+		return "tip_result";
 	}
 	
 }

@@ -19,7 +19,7 @@
 	function startRain() {
 		var httprequest = initAJAX();
 		var i = document.activeElement.id;
-		var url = encodeURI("startLuckyrain?round=" + i);
+		var url = encodeURI("startluckyrain?round=" + i);
 		if (confirm("确定开启红包雨吗？")) {
 			httprequest.open("get", url, true);
 			httprequest.send();
@@ -34,9 +34,11 @@
 		<input type="button" id="2" value="开启第二轮红包雨" onclick="startRain()"><br>
 		<input type="button" id="3" value="开启第三轮红包雨" onclick="startRain()"><br>
 	</form>
-	<a href="showLuckyRainResult">查看红包记录</a>
+	<a href="showluckyrainresult">查看红包雨记录</a>
 	<hr>
-	<a href="addShow">开始你的表演</a>
+	<input type="button" value="添加节目" onclick="window.location.href='addshow'"><br>
 	<a href="admingetshowlist">查看节目单</a>
+	<hr>
+	<input type="button" value="抢红包开启">
 </body>
 </html>

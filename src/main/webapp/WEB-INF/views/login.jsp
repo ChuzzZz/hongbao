@@ -46,7 +46,7 @@ function checkInfo(){
 </head>
 
 <body>
-<h1>登陆才能充值</h1>
+<h1>登陆才能变强</h1>
 <hr>
 <p>${serverTime}</p>
 <form name="form" action="login_verify">

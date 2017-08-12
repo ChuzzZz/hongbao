@@ -25,7 +25,7 @@ public class AccountController {
 	JdbcTemplate jdbcTemplate;
 	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 	
-	@RequestMapping(value="/topup")
+	@RequestMapping(value="/gotopup")
 	public String goTopup() {
 		return "topup";
 	}

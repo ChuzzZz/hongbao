@@ -8,6 +8,7 @@
 <title>红包结果</title>
 </head>
 <body>
+	<a href="admin">返回主页</a><br>
 	<c:if test="${result!=null}">
 	红包雨已开启.以下为红包结果：
 	<table>
@@ -18,6 +19,6 @@
 	</table>
 	</c:if>
 	<c:if test="${rainoff!=null}">红包雨已停止</c:if>
-	<a href="showLuckyRainResult">红包雨可能尚未结束，点此刷新</a>
+	<a href="showluckyrainresult">红包雨可能尚未结束，点此刷新</a>
 </body>
 </html>

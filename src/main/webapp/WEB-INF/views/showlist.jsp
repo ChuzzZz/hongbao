@@ -13,7 +13,7 @@
 	<table>
 	<tr><td>序号</td><td>节目名</td><td>表演者</td><td>部门</td><td>开始时间</td><td></td></tr>
 	<c:forEach items="${showlist}" var="showlist">
-		<tr><td>${showlist.s_order}</td><td>${showlist.show_name}</td><td>${showlist.performer}</td><td>${showlist.department}</td><td>${showlist.time}</td><td><form action="tip"><input type="submit" value="打赏"><input name="amount">元<input type="hidden" name="sid" value=${showlist.s_order} ></form></td></tr>
+		<tr><td>${showlist.s_order}</td><td>${showlist.show_name}</td><td>${showlist.performer}</td><td>${showlist.department}</td><td>${showlist.start_time}</td><td><form action="tip"><input type="submit" value="打赏"><input name="amount">元<input type="hidden" name="sid" value=${showlist.s_order} ></form></td></tr>
 	</c:forEach>
 	</table>
 	</c:if>

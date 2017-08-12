@@ -23,7 +23,12 @@ public class AdminController {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	
-	@RequestMapping(value = "/startLuckyrain")
+	@RequestMapping(value = "/admin")
+	public String administrator() {
+		return "administrator";
+	}
+	
+	@RequestMapping(value = "/startluckyrain")
 	public void startLuckyRain(String round) {
 		int i = Integer.parseInt(round);
 		LuckyRainThread t = new LuckyRainThread();
@@ -33,18 +38,17 @@ public class AdminController {
 		t.start();
 	}
 	
-	@RequestMapping(value = "/addShow")
+	@RequestMapping(value = "/addshow")
 	public String addShow() {
 		return "edit_showinfo";
 	}
 	
-	@RequestMapping(value = "/addShowInfo")
+	@RequestMapping(value = "/addshowinfo")
 	public String addShowInfo(String order, String show_name, String performer, String department, String start_time, Model model) {
 		int o = Integer.parseInt(order);
 		Timestamp ts = Timestamp.valueOf(start_time);
 		if(ShowInfoDAO.addShowInfo(o, show_name, performer, department, ts, jdbcTemplate)) {
-			model.addAttribute("result", "成功添加节目！");
-			return "edit_showinfo";
+			return "addshow_result";
 		}else {
 			model.addAttribute("result", "节目信息填写错误！");
 			return "edit_showinfo";
@@ -52,18 +56,18 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/admingetshowlist")
-	public String getshowlist(Model model) {
+	public String getShowList(Model model) {
 		List<ShowInfo> l = ShowInfoDAO.getAllShowInfo(jdbcTemplate,"id");
 		model.addAttribute("showlist", l);
 		return "admin_showlist";
 	}
 	
-	@RequestMapping(value = "/showLuckyRainResult")
+	@RequestMapping(value = "/showluckyrainresult")
 	public String showLuckyRainResult(Model model) {
 		List<LuckyMoneyTransaction> m = null;
 		m = LuckyMoneyTransactionDAO.getAllTransactions(jdbcTemplate);
 		model.addAttribute("result",m);
-		return "luckyrainresult";
+		return "luckyrain_result";
 	}
 
 }

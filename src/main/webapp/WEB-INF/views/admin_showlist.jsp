@@ -6,16 +6,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>节目信息</title>
+<script>
+function adjustOrder(){
+	
+}
+</script>
 </head>
 <body>
+	<a href="admin">返回主页</a><br>
 	<c:if test="${showlist!=null}">
 	节目列表：
 	<table>
 	<tr><td>编号</td><td>节目名</td><td>表演者</td><td>部门</td><td>开始时间</td><td></td></tr>
 	<c:forEach items="${showlist}" var="showlist">
-		<tr><td>${showlist.s_order}</td><td>${showlist.show_name}</td><td>${showlist.performer}</td><td>${showlist.department}</td><td>${showlist.time}</td></tr>
+		<tr><td>${showlist.s_order}</td><td>${showlist.show_name}</td><td>${showlist.performer}</td><td>${showlist.department}</td><td>${showlist.start_time}</td></tr>
 	</c:forEach>
 	</table>
 	</c:if>
+	<form name="form">
+	调整节目顺序：
+	<input name="before">To<input name="after"><input type="button" value="确认" onclick="adjustOrder()">
+	</form>
 </body>
 </html>

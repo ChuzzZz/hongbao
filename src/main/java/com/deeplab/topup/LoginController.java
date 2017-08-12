@@ -30,7 +30,7 @@ public class LoginController {
 		} else {
 			if (UserDAO.userExists(ic, username, jdbcTemplate)) {
 				Cookie cookie = new Cookie("itcode", itcode.trim());  
-	            cookie.setMaxAge(30 * 60);// 设置为30min  
+	            cookie.setMaxAge(30 * 60);// 设置为30min
 	            cookie.setPath("/");  
 	            System.out.println("已添加===============");  
 	            response.addCookie(cookie);  
