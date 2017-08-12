@@ -25,13 +25,13 @@ public class AccountController {
 	JdbcTemplate jdbcTemplate;
 	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 	
-	@RequestMapping(value="/gotopup")
+	@RequestMapping(value= {"/topupPage","/topuppage"})
 	public String goTopup() {
-		return "topup";
+		return "topup_page";
 	}
 	
-	@RequestMapping(value="/topup_page")
-	public String topUp(@Valid AccountForm accountForm,BindingResult bindingResult, Locale locale, Model model) {
+	@RequestMapping(value= {"/topupResult","topupresult"})
+	public String topupResult(@Valid AccountForm accountForm,BindingResult bindingResult, Locale locale, Model model) {
 		
 		if(bindingResult.hasErrors()) {
 			String message = "";

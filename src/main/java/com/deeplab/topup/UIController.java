@@ -30,8 +30,8 @@ public class UIController {
 		return "myAccount";
 	}
 	
-	@RequestMapping(value = "/getshowlist")
-	public String getshowlist(Model model) {
+	@RequestMapping(value = {"/getshowlist","getShowlist"})
+	public String getShowlist(Model model) {
 		List<ShowInfo> l = ShowInfoDAO.getAllShowInfo(jdbcTemplate,"s_order");
 		model.addAttribute("showlist", l);
 		return "showlist";

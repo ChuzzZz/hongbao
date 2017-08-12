@@ -7,7 +7,7 @@
 <title>我的钱包</title>
 </head>
 <body>
-<a href="gotopup">充值</a>
+<a href="topupPage">充值</a>
 <a href="withdraw">提现</a>
 <a href="transactionhistory">查看交易记录</a>
 </body>

@@ -13,7 +13,7 @@
 </h1>
 <hr>
 <div style="color;red">${message}</div>
-<form action="topup_page">
+<form action="topupResult">
 	<table>
 		<tr><td>ITCode：</td><td><input name="itcode"></td></tr>
 		<tr><td>姓名：</td><td><input name="name"></td></tr>

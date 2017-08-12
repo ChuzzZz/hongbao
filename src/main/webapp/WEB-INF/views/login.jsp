@@ -49,7 +49,7 @@ function checkInfo(){
 <h1>登陆才能变强</h1>
 <hr>
 <p>${serverTime}</p>
-<form name="form" action="login_verify">
+<form name="form" action="verify">
 	<table>
 		<tr>
 			<td>ITCode：</td><td><input name="itcode" id="1" onblur="checkItcode()" onfocus="checkItcode()"></td>

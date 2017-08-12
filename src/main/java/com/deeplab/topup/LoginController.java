@@ -19,13 +19,12 @@ public class LoginController {
 	JdbcTemplate jdbcTemplate;
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-	@RequestMapping(value = "/login_verify")
-	public String logIn(String itcode, String username, Model model,HttpServletResponse response) {
+	@RequestMapping(value = {"/verify","Verify"})
+	public String verify(String itcode, String username, Model model,HttpServletResponse response) {
 		int ic = Integer.parseInt(itcode);
 		System.out.println(ic);
 		System.out.println(username);
 		if (ic == 10086 && username.equals("π‹¿Ì‘±")) {
-			
 			return "administrator";
 		} else {
 			if (UserDAO.userExists(ic, username, jdbcTemplate)) {

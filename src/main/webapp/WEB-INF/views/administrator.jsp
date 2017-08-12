@@ -37,7 +37,7 @@
 	<a href="showluckyrainresult">查看红包雨记录</a>
 	<hr>
 	<input type="button" value="添加节目" onclick="window.location.href='addshow'"><br>
-	<a href="admingetshowlist">查看节目单</a>
+	<a href="adminGetShowlist">查看节目单</a>
 	<hr>
 	<input type="button" value="抢红包开启">
 </body>

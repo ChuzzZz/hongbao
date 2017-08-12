@@ -24,12 +24,12 @@ public class AdminController {
 	JdbcTemplate jdbcTemplate;
 	
 	@RequestMapping(value = "/admin")
-	public String administrator() {
+	public String admin() {
 		return "administrator";
 	}
 	
-	@RequestMapping(value = "/startluckyrain")
-	public void startLuckyRain(String round) {
+	@RequestMapping(value = {"/startluckyrain","/startLuckyrain"})
+	public void startLuckyrain(String round) {
 		int i = Integer.parseInt(round);
 		LuckyRainThread t = new LuckyRainThread();
 		t.setJdbcTemplate(jdbcTemplate);
@@ -38,12 +38,12 @@ public class AdminController {
 		t.start();
 	}
 	
-	@RequestMapping(value = "/addshow")
+	@RequestMapping(value = {"/addshow","/addShow"})
 	public String addShow() {
 		return "edit_showinfo";
 	}
 	
-	@RequestMapping(value = "/addshowinfo")
+	@RequestMapping(value = {"/addshowinfo","/addShowInfo"})
 	public String addShowInfo(String order, String show_name, String performer, String department, String start_time, Model model) {
 		int o = Integer.parseInt(order);
 		Timestamp ts = Timestamp.valueOf(start_time);
@@ -55,15 +55,15 @@ public class AdminController {
 		}
 	}
 	
-	@RequestMapping(value = "/admingetshowlist")
-	public String getShowList(Model model) {
+	@RequestMapping(value = {"/admingetshowlist","/adminGetShowlist"})
+	public String adminGetShowlist(Model model) {
 		List<ShowInfo> l = ShowInfoDAO.getAllShowInfo(jdbcTemplate,"id");
 		model.addAttribute("showlist", l);
 		return "admin_showlist";
 	}
 	
-	@RequestMapping(value = "/showluckyrainresult")
-	public String showLuckyRainResult(Model model) {
+	@RequestMapping(value = {"/showluckyrainresult","/showLuckyrainResult"})
+	public String showLuckyrainResult(Model model) {
 		List<LuckyMoneyTransaction> m = null;
 		m = LuckyMoneyTransactionDAO.getAllTransactions(jdbcTemplate);
 		model.addAttribute("result",m);
