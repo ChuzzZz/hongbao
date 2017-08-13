@@ -12,7 +12,9 @@
 <body>
 	<h1>卢本伟牛逼！</h1>
 	<hr>
-	${result}
+	${result}<br>
+	<a href="topup">继续充值</a>
+	<a href="myaccount">我的钱包</a>
 </body>
 
 </html>

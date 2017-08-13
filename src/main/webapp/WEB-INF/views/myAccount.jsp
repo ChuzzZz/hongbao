@@ -7,7 +7,9 @@
 <title>我的钱包</title>
 </head>
 <body>
-<a href="topupPage">充值</a>
+<input type="button" value="返回" onclick="window.location.href='home'">
+<hr>
+<a href="topup">充值</a>
 <a href="withdraw">提现</a>
 <a href="transactionhistory">查看交易记录</a>
 </body>

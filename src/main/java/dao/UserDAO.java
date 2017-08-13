@@ -24,6 +24,16 @@ public class UserDAO {
 		return user;
 	}
 	/**
+	 * 根据Itcode获取用户姓名
+	 * @param itcode
+	 * @param jdbcTemplate
+	 * @return User.name
+	 */
+	public static String getUserNameByItcode(int itcode, JdbcTemplate jdbcTemplate) {
+		User u = getUserByItcode(itcode, jdbcTemplate);
+		return u.getName();
+	}
+	/**
 	 * check if user exists
 	 * @param itcode
 	 * @param name

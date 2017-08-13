@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import dao.AccountDAO;
 import dao.ShowInfoDAO;
-import dao.TipTransactionDAO;
 import entity.ShowInfo;
 
 @Controller
@@ -24,36 +23,37 @@ public class UIController {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	private static final Logger logger = LoggerFactory.getLogger(UIController.class);
-	
-	@RequestMapping(value = "/myaccount")
-	public String myAccount(){
-		return "myAccount";
+
+	@RequestMapping(value = "/home")
+	public String Home() {
+		return "UI";
+	}
+
+	@RequestMapping(value = {"/myaccount", "/myAccount"})
+	public String myAccount(HttpServletRequest request) {
+		Cookie[] cookies = request.getCookies();
+		if (cookies == null) {
+			return "login";
+		}
+		int itcode = -1;
+		for(Cookie c : cookies) {
+			if(c.getName().equals("itcode")) {
+				itcode = Integer.parseInt(c.getValue());
+				break;
+			}
+		}
+		if(AccountDAO.hasAccount(itcode, jdbcTemplate)) {
+			return "myAccount";
+		}else {
+			return "register_account";
+		}
 	}
 	
-	@RequestMapping(value = {"/getshowlist","getShowlist"})
+	@RequestMapping(value = { "/getshowlist", "getShowlist" })
 	public String getShowlist(Model model) {
-		List<ShowInfo> l = ShowInfoDAO.getAllShowInfoByOrder(jdbcTemplate);
-		model.addAttribute("showlist", l);
+		List<ShowInfo> showlist = ShowInfoDAO.getAllShowInfoByOrder(jdbcTemplate);
+		model.addAttribute("showlist", showlist);
 		return "showlist";
 	}
 
-	@RequestMapping(value = "/tip")
-	public String tip(int amount, int sid, Model model,HttpServletRequest request) {
-		 Cookie[] cookies = request.getCookies();//这样便可以获取一个cookie数组  
-		 int itcode=0;
-		 if (cookies==null) return "login";
-		 else {
-			 for (int i=0;i<cookies.length;i++){
-				 System.out.println(cookies[i].getName());
-				 if (cookies[i].getName().equals("itcode")) {itcode=Integer.parseInt(cookies[i].getValue());System.out.println(cookies[i].getValue());break;}
-			 }
-		 }
-		model.addAttribute("sid", sid);
-		model.addAttribute("amount", amount);
-		System.out.println(cookies.length);
-		TipTransactionDAO.addTipTransaction(AccountDAO.getAccountByItcode(itcode, jdbcTemplate).getId(), sid, amount, jdbcTemplate);
-		
-		return "tip_result";
-	}
-	
 }

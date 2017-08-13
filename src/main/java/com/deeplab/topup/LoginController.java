@@ -28,11 +28,11 @@ public class LoginController {
 			return "administrator";
 		} else {
 			if (UserDAO.userExists(ic, username, jdbcTemplate)) {
-				Cookie cookie = new Cookie("itcode", itcode.trim());  
-	            cookie.setMaxAge(30 * 60);// 设置为30min
-	            cookie.setPath("/");  
-	            System.out.println("已添加===============");  
-	            response.addCookie(cookie);  
+				Cookie cookie = new Cookie("itcode", itcode.trim());
+//				cookie.setMaxAge(30 * 60);
+//				cookie.setPath("/");
+	            System.out.println("已添加===============");
+	            response.addCookie(cookie);
 				return "UI";
 			} else {
 				model.addAttribute("login_result", "用户不存在！");

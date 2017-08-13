@@ -16,15 +16,35 @@ import entity.Account;
 
 public class AccountDAO {
 	/**
+	 * 该用户是否有钱包账户
+	 * @param itcode
+	 * @param jdbcTemplate
+	 * @return 有返回true,没有返回false
+	 */
+	public static boolean hasAccount(int itcode, JdbcTemplate jdbcTemplate) {
+		String sql = "select count(*) from account where itcode = ?";
+		int i = -1;
+		try {
+			i = jdbcTemplate.queryForInt(sql, itcode);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(i == 1) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	/**
 	 * 注册钱包账户
 	 * @param itcode
 	 * @param jdbcTemplate
 	 * @return true,init succeed;false,init failed
 	 */
-	public static boolean initAccount(int itcode, JdbcTemplate jdbcTemplate) {
-		String sql = "insert into account values(0, ?, 0)";
+	public static boolean initAccount(int itcode, String password, String paycode, JdbcTemplate jdbcTemplate) {
+		String sql = "insert into account values(0, ?, ?, ?, 0)";
 		try{
-			jdbcTemplate.update(sql, itcode);
+			jdbcTemplate.update(sql, new Object[] {itcode, password, paycode});
 		}catch (Exception e) {
 			System.out.println("account already exists!");
 			e.printStackTrace();
@@ -51,6 +71,30 @@ public class AccountDAO {
 
 	}
 	/**
+	 * 获取对应itcode的钱包账户id
+	 * @param itcode
+	 * @param jdbcTemplate
+	 * @return 成功返回account_id,失败返回-1
+	 */
+	public static int getAccountIdByItcode(int itcode, JdbcTemplate jdbcTemplate) {
+		Account account = getAccountByItcode(itcode, jdbcTemplate);
+		if (account != null) {
+			return account.getId();
+		}else {
+			return -1;
+		}
+	}
+	public static Account getAccountById(int id, JdbcTemplate jdbcTemplate) {
+		RowMapper<Account> account_mapper = new BeanPropertyRowMapper<Account>(Account.class);
+		Account account = null;
+		try{
+			account = jdbcTemplate.queryForObject("select * from account where id = ?", account_mapper, id);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return account;
+	}
+	/**
 	 * get对应itcode的钱包账户
 	 * @param itcode
 	 * @param jdbcTemplate
@@ -58,8 +102,12 @@ public class AccountDAO {
 	 */
 	public static Account getAccountByItcode(int itcode, JdbcTemplate jdbcTemplate) {
 		RowMapper<Account> account_mapper = new BeanPropertyRowMapper<Account>(Account.class);
-		System.out.println(itcode);
-		Account account = jdbcTemplate.queryForObject("select * from account where itcode = ?", account_mapper, itcode);
+		Account account = null;
+		try{
+			account = jdbcTemplate.queryForObject("select * from account where itcode = ?", account_mapper, itcode);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		return account;
 	}
 	/**
@@ -81,30 +129,36 @@ public class AccountDAO {
 		return true;
 	}
 	/**
-	 * 充值
-	 * @param itcode
-	 * @param username
-	 * @param amount
-	 * @param locale
+	 * 验证支付密码
+	 * @param account_id
+	 * @param paycode
 	 * @param jdbcTemplate
-	 * @return true,topup success;false,topup failed
+	 * @return 正确返回true,错误返回false
 	 */
-	public static boolean topUp(int itcode, String username, long amount, Locale locale, JdbcTemplate jdbcTemplate) {
+	public static boolean verifyPaycode(int account_id, String paycode, JdbcTemplate jdbcTemplate) {
+		Account account = getAccountById(account_id, jdbcTemplate);
+		if(account.getPaycode().equals(paycode)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	/**
+	 * 给钱包账户充值
+	 * @param account_id
+	 * @param amount
+	 * @param jdbcTemplate
+	 * @return 充值成功true,失败false
+	 */
+	public static boolean topUp(int account_id, long amount, JdbcTemplate jdbcTemplate) {
 		try {
-			Account account = AccountDAO.getAccountByItcode(itcode, jdbcTemplate);
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
-			
-			TopupTransactionDAO.addTransaction(account.getId(), amount, ts, jdbcTemplate);
-//			addAccountBalance(account.getId(), amount, jdbcTemplate);
+			TopupTransactionDAO.addTransaction(account_id, amount, ts, jdbcTemplate);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
 		return true;
 	}
-
-	public static void main(String[] args) {
-		// Timestamp ts = new Timestamp(System.currentTimeMillis());
-		// System.out.println(ts);
-	}
+	
 }

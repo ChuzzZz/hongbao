@@ -57,7 +57,7 @@ public class ShowInfoDAO {
 	}
 
 	public static List<ShowInfo> getAllShowInfoByOrder(JdbcTemplate jdbcTemplate){
-		String sql = "select * from showinfo order by s_order;";
+		String sql = "select * from showinfo order by s_order desc;";
 		List<ShowInfo> shows = null;
 		RowMapper<ShowInfo> show_mapper = new BeanPropertyRowMapper<ShowInfo>(ShowInfo.class);
 		try {
