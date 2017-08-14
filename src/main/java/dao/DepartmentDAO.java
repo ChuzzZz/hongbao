@@ -16,10 +16,10 @@ public class DepartmentDAO {
 	 * @param jdbcTemplate
 	 * @return 成功返回true,失败返回false
 	 */
-	public static boolean addDepartment(Department d, JdbcTemplate jdbcTemplate) {
-		String sql = "insert into department values(0,?)";
+	public static boolean addDepartment(String dept_name, JdbcTemplate jdbcTemplate) {
+		String sql = "insert into department values(?);";
 		try {
-			jdbcTemplate.update(sql, d.getDept_name());
+			jdbcTemplate.update(sql, dept_name);
 		}catch (Exception e) {
 			System.out.println("add department failed!");
 			e.printStackTrace();
@@ -28,7 +28,7 @@ public class DepartmentDAO {
 		return true;
 	}
 	/**
-	 * get所有部门
+	 * 获取所有部门
 	 * @param jdbcTemplate
 	 * @return List<Department>
 	 */

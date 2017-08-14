@@ -11,7 +11,7 @@
 <body>
 <a href="getshowlist">查看节目信息</a>
 <hr>
-<input type="button" name="luckyrain" value="抢红包" onclick="">
+<input type="button" name="luckyrain" value="抢红包">
 <hr>
 <a href="myaccount">我的钱包</a>
 </body>

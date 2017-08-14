@@ -38,6 +38,10 @@ public class AccountController {
 		return "withdraw_page";
 	}
 	
+	@RequestMapping(value = { "getaccounttransactions" })
+	public String getAccountTransactins() {
+		return "account_transaction";
+	}
 
 	@RequestMapping(value = "/register.do")
 	public String register(@Valid AccountForm accountForm, BindingResult bindingResult, HttpServletRequest request, Model model) {
@@ -62,9 +66,12 @@ public class AccountController {
 				}
 			}
 
-			String password = accountForm.getPassword();
 			String paycode = accountForm.getPaycode();
-			AccountDAO.initAccount(itcode, password, paycode, jdbcTemplate);
+			if(AccountDAO.initAccount(itcode, paycode, jdbcTemplate)){
+				
+				model.addAttribute("account_id", AccountDAO.getAccountByItcode(itcode, jdbcTemplate).getId());
+				model.addAttribute("balance", 0);
+			}
 			return "myAccount";
 		}
 	}
@@ -154,7 +161,5 @@ public class AccountController {
 		model.addAttribute("result", result);
 		return "withdraw_result";
 	}
-	
-	
 	
 }

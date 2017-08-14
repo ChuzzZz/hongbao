@@ -68,10 +68,10 @@ public class AccountDAO {
 	 * @param jdbcTemplate
 	 * @return true,init succeed;false,init failed
 	 */
-	public static boolean initAccount(int itcode, String password, String paycode, JdbcTemplate jdbcTemplate) {
-		String sql = "insert into account values(0, ?, ?, ?, 0)";
+	public static boolean initAccount(int itcode, String paycode, JdbcTemplate jdbcTemplate) {
+		String sql = "insert into account values(null, ?, ?, 0)";
 		try {
-			jdbcTemplate.update(sql, new Object[] { itcode, password, paycode });
+			jdbcTemplate.update(sql, new Object[] { itcode, paycode });
 		} catch (Exception e) {
 			System.out.println("account already exists!");
 			e.printStackTrace();
@@ -162,6 +162,7 @@ public class AccountDAO {
 	 */
 	public static boolean addAccountBalance(int account_id, long amount, JdbcTemplate jdbcTemplate) {
 		String sql = "update account set balance = balance + ? where id = ?";
+		amount *= 100;
 		try {
 			jdbcTemplate.update(sql, new Object[] { amount, account_id });
 		} catch (Exception e) {
@@ -200,6 +201,7 @@ public class AccountDAO {
 	public static boolean topUp(int account_id, long amount, JdbcTemplate jdbcTemplate) {
 		try {
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
+			amount *= 100;
 			TradeTransactionDAO.addTopupTransaction(account_id, amount, ts, jdbcTemplate);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -219,6 +221,7 @@ public class AccountDAO {
 	public static boolean withdraw(int account_id, long amount, JdbcTemplate jdbcTemplate) {
 		try {
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
+			amount *= 100;
 			if (preTransaction(account_id, amount, jdbcTemplate)) {
 				TradeTransactionDAO.addWithdrawTransaction(account_id, amount, ts, jdbcTemplate);
 			}
@@ -232,6 +235,7 @@ public class AccountDAO {
 	public static boolean tip(int account_id, int show_id, long amount, JdbcTemplate jdbcTemplate) {
 		try {
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
+			amount *= 100;
 			if (preTransaction(account_id, amount, jdbcTemplate)) {
 				TipTransactionDAO.addTipTransaction(account_id, show_id, amount, ts, jdbcTemplate);
 			}

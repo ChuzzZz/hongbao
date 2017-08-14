@@ -7,9 +7,6 @@ public class AccountForm {
 	@NotNull
 	int itcode;
 	@NotNull
-	@Size(min=6,max=32)
-	String password;
-	@NotNull
 	@Size(min=6,max=16)
 	String paycode;
 	
@@ -23,12 +20,6 @@ public class AccountForm {
 	}
 	public void setItcode(int itcode) {
 		this.itcode = itcode;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 	public String getPaycode() {
 		return paycode;

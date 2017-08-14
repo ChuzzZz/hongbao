@@ -24,7 +24,7 @@
 	<table>
 		<tr>
 			<td><input type="button" value="上一步"
-				onclick="window.location.href='withdraw'"></td>
+				onclick="window.history.go(-1)"></td>
 			<td><div style="color: red">${erro}</div></td>
 		</tr>
 	</table>

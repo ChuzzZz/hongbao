@@ -3,24 +3,22 @@ package entity;
 public class Account {
 	int id;
 	int itcode;
-	String password;
 	String paycode;
 	long balance;
 	
 	public Account() {};
 
-	public Account(int id, int itcode, String password, String paycode, long balance) {
+	public Account(int id, int itcode, String paycode, long balance) {
 		super();
 		this.id = id;
 		this.itcode = itcode;
-		this.password = password;
 		this.paycode = paycode;
 		this.balance = balance;
 	}
 	
 	@Override
 	public String toString() {
-		return "Account [id=" + id + ", itcode=" + itcode + ", password=" + password + ", paycode=" + paycode
+		return "Account [id=" + id + ", itcode=" + itcode + ", paycode=" + paycode
 				+ ", balance=" + balance + "]";
 	}
 
@@ -40,14 +38,6 @@ public class Account {
 		this.itcode = itcode;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
 	public String getPaycode() {
 		return paycode;
 	}

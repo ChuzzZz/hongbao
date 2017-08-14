@@ -6,26 +6,29 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Withdraw</title>
-<script type="text/javascript">
-function checkAmount(){
-	var amount = document.form.amount.value;
-	if(amount.length == 0){
-		document.getElementById("d1").innerHTML = "金额不能为0！";
-	}else{
-		document.form.submit();
-	}
-}
+<script src="js/jquery-3.2.1.min.js"></script>
+<script type="application/javascript">
+$(document).ready(function(){
+	$("#b1").click(function(){
+		var amount = document.form.amount.value;
+	 	if(amount.length == 0){
+	 		document.getElementById("d1").innerHTML = "金额不能为0！";
+	 	}else{
+	 		document.form.submit();
+	 	}
+	});
+});
 </script>
 </head>
 <body>
-	<form  name="form" action="withdraw.do">
+	<form name="form" action="withdraw.do">
 		<table>
 			<tr>
 				<td>提现金额：</td>
 				<td><input name="amount"> 元</td>
 			</tr>
 			<tr>
-				<td><input type="button" value="下一步" onclick="checkAmount()"></td>
+				<td><input type="button" id="b1" value="下一步"></td>
 				<td><div id="d1" style="color:red"></div></td>
 			</tr>
 		</table>

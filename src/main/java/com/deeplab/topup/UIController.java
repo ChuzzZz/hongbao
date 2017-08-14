@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import dao.AccountDAO;
 import dao.ShowInfoDAO;
+import entity.Account;
 import entity.ShowInfo;
 
 @Controller
@@ -30,7 +31,7 @@ public class UIController {
 	}
 
 	@RequestMapping(value = {"/myaccount", "/myAccount"})
-	public String myAccount(HttpServletRequest request) {
+	public String myAccount(HttpServletRequest request, Model model) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
 			return "login";
@@ -43,6 +44,9 @@ public class UIController {
 			}
 		}
 		if(AccountDAO.hasAccount(itcode, jdbcTemplate)) {
+			Account account = AccountDAO.getAccountByItcode(itcode, jdbcTemplate);
+			model.addAttribute("account_id", account.getId());
+			model.addAttribute("balance", account.getBalance()/100);
 			return "myAccount";
 		}else {
 			return "register_account";
