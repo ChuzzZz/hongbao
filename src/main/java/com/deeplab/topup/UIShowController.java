@@ -24,8 +24,6 @@ public class UIShowController {
 	JdbcTemplate jdbcTemplate;
 	private static final Logger logger = LoggerFactory.getLogger(UIShowController.class);
 	
-	
-	
 	@RequestMapping(value = "/tip.do")
 	public String tip(int amount, int sid, Model model, HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();// 这样便可以获取一个cookie数组

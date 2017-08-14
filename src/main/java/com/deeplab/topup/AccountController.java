@@ -32,6 +32,12 @@ public class AccountController {
 	public String topup() {
 		return "topup_page";
 	}
+	
+	@RequestMapping(value = { "withdraw" })
+	public String withdraw() {
+		return "withdraw_page";
+	}
+	
 
 	@RequestMapping(value = "/register.do")
 	public String register(@Valid AccountForm accountForm, BindingResult bindingResult, HttpServletRequest request, Model model) {
@@ -105,4 +111,50 @@ public class AccountController {
 		model.addAttribute("result", result);
 		return "topup_result";
 	}
+	
+	@RequestMapping(value = "/withdraw.do")
+	public String withdrawDo(String amount, Locale locale, HttpServletRequest request, Model model) {
+		Cookie[] cookies = request.getCookies();
+		if (cookies == null) {
+			return "login";
+		}
+		int itcode = -1;
+		for (Cookie c : cookies) {
+			if (c.getName().equals("itcode")) {
+				itcode = Integer.parseInt(c.getValue());
+				break;
+			}
+		}
+		int account_id = AccountDAO.getAccountIdByItcode(itcode, jdbcTemplate);
+		model.addAttribute("amount", amount);
+		model.addAttribute("account_id", account_id);
+		return "withdraw_confirm";
+	}
+	
+	@RequestMapping(value = {"/withdrawresult", "/withdrawResult"})
+	public String withdrawResult(String paycode, String account_id, String amount, Locale locale, Model model) {
+		int id = Integer.parseInt(account_id);
+		long am = Long.parseLong(amount);
+		String result = "";
+		
+		if(AccountDAO.verifyPaycode(id, paycode, jdbcTemplate)) {
+			if(AccountDAO.withdraw(id, am, jdbcTemplate)){
+				result = "ƒ„±‰»ı¡À£°";
+			}else {
+				result = "Ã·œ÷ ß∞‹£°«Î…‘∫Û‘Ÿ ‘";
+			}
+		}else {
+			result = "÷ß∏∂√‹¬Î¥ÌŒÛ£°";
+			model.addAttribute("account_id", account_id);
+			model.addAttribute("amount", amount);
+			model.addAttribute("erro", result);
+			return "withdraw_confirm";
+		}
+		
+		model.addAttribute("result", result);
+		return "withdraw_result";
+	}
+	
+	
+	
 }

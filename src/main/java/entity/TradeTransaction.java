@@ -2,14 +2,14 @@ package entity;
 
 import java.sql.Timestamp;
 
-public class TopupTransaction {
+public class TradeTransaction {
 	int id;
 	int account_id;
 	long amount;
 	Timestamp time;
 
-	public TopupTransaction() {};
-	public TopupTransaction(int id, int account_id, long amount, Timestamp time) {
+	public TradeTransaction() {};
+	public TradeTransaction(int id, int account_id, long amount, Timestamp time) {
 		this.id = id;
 		this.account_id = account_id;
 		this.amount = amount;
