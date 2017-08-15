@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import dao.AccountDAO;
 import dao.UserDAO;
+import entity.AccountTransaction;
 import form.AccountForm;
 
 @Controller
@@ -39,7 +41,21 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = { "getaccounttransactions" })
-	public String getAccountTransactins() {
+	public String getAccountTransactins(String od,HttpServletRequest request,Model model,HttpServletResponse response) {
+		if (od==null) od="time";
+		Cookie[] cookies = request.getCookies();
+		if (cookies == null) {
+			return "login";
+		}
+		int itcode = -1;
+		for (Cookie c : cookies) {
+			if (c.getName().equals("itcode")) {
+				itcode = Integer.parseInt(c.getValue());
+				break;
+			}
+		}
+		List<AccountTransaction> t = AccountDAO.GetAccountTransactions(od,itcode, jdbcTemplate, response,request);
+		model.addAttribute("AccountTransaction", t);
 		return "account_transaction";
 	}
 

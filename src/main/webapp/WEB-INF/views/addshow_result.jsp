@@ -13,5 +13,6 @@
 	<a href="addshow">继续添加节目</a>
 	<a href="admingetshowlist">查看节目单</a>
 	<a href="admin">返回主页</a>
+	
 </body>
 </html>

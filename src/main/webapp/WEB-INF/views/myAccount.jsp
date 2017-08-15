@@ -17,6 +17,6 @@
 	</p>
 	<a href="topup">充值</a>
 	<a href="withdraw">提现</a>
-	<a href="getaccounttransactions">查看交易记录</a>
+	<a href="getaccounttransactions?od=time">查看交易记录</a>
 </body>
 </html>

@@ -5,7 +5,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>节目信息</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script>
 function adjustOrder(){
 	var beforeget = document.getElementById("before").value;
@@ -19,27 +24,75 @@ function adjustOrder(){
 </script>
 </head>
 <body>
-	<a href="admin">返回主页</a><br><br>
+	<!--  <a href="admin">返回主页</a><br><br>-->
 	
-	<form action="ima" method="post" enctype="multipart/form-data">
-	<input type="file" name="uploadFile" value="选择节目单" accept="application/vnd.ms-excel">
-	<input type="submit"  name="upload" value="上传节目单" >
-	</form>
-	<br>
-	<form action="export"><input type="submit" value="导出节目单" ></form>
-	<br>
+	
+	<input class="btn" type="button" value="回退"
+		onclick="window.history.go(-1)">
+	<input class="btn" type="button" value="管理界面"
+	onclick="window.location.href='admin'">
 	<c:if test="${showlist!=null}">
-	节目列表：
-	<table>
-	<tr><td>顺序</td><td>节目名</td><td>表演者</td><td>部门</td><td>开始时间</td><td></td></tr>
-	<c:forEach items="${showlist}" var="showlist" varStatus="status">
-		<tr><td>${status.index+1}</td><td>${showlist.show_name}</td><td>${showlist.performer}</td><td>${showlist.department}</td><td>${showlist.start_time}</td><td id="${status.index+1}" style="display:none;">${showlist.id}</td></tr>
-	</c:forEach>
-	</table>
-	</c:if>
-	<form name="form" action="adjustOrder">
-	交换节目顺序：
-	<input id = "before" name="before">And<input id = "after" name="after"><input type="submit" value="确认" onclick="adjustOrder()">
+		<div class="container">
+			<h2>节目列表</h2>
+			<br>
+			<form action="searchbyrule">节目名：<input name="actor"> &nbsp;&nbsp;表演者：<input name="department"> &nbsp;&nbsp;部门：<input name="name">&nbsp;&nbsp; <input type="submit" value="查询"></form>
+			<br>
+			<table>
+			<tr>
+				<th>
+					<form action="ima" method="post" enctype="multipart/form-data">
+					<table>
+						<tr>
+							<th><input type="file" name="uploadFile" value="选择节目单" accept="application/vnd.ms-excel"></th>
+							<th><input type="submit"  name="upload" value="上传节目单" ></th>
+						</tr>
+					</table>
+					</form>
+				</th>
+				<th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+				<th>
+					<form action="export">
+						<input type="submit" value="导出节目单" >
+					</form>
+				</th>
+			</tr>
+			</table>
+	<br>
+	
+	<br>
+			<div class="table-responsive">
+				<table class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>节目名</th>
+							<th>表演者</th>
+							<th>部门</th>
+							<th>开始时间</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${showlist}" var="showinfo" varStatus="order">
+							<tr>
+								<td>${order.index + 1}</td>
+								<td>${showinfo.show_name}</td>
+								<td>${showinfo.performer}</td>
+								<td>${showinfo.department}</td>
+								<td>${showinfo.start_time}</td>
+								<td id="${order.index+1}" style="display:none;">${showinfo.id}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				<form name="form" action="adjustOrder">
+				交换节目顺序：
+				<input id = "before" name="before">And<input id = "after" name="after"><input type="submit" value="确认" onclick="adjustOrder()">
 	</form>
+			</div>
+		</div>
+	</c:if>
+	
 </body>
+
 </html>

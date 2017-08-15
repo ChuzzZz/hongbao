@@ -15,11 +15,16 @@
 <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-	<input class="btn" type="button" value="Back"
+	<input class="btn" type="button" value="回退"
 		onclick="window.history.go(-1)">
+	<input class="btn" type="button" value="个人主页"
+		onclick="window.location.href='MyPage'">
 	<c:if test="${showlist!=null}">
 		<div class="container">
 			<h2>节目列表</h2>
+			<br>
+			<form action="searchbyrule">节目名：<input name="actor"> &nbsp;&nbsp;表演者：<input name="department"> &nbsp;&nbsp;部门：<input name="name">&nbsp;&nbsp; <input type="submit" value="查询"></form>
+			<br>
 			<div class="table-responsive">
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
@@ -29,6 +34,7 @@
 							<th>表演者</th>
 							<th>部门</th>
 							<th>开始时间</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
