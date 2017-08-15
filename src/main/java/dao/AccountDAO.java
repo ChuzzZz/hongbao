@@ -24,7 +24,7 @@ public class AccountDAO {
 	 * @param jdbcTemplate
 	 * @return 能提现返回true,不能返回false
 	 */
-	private static boolean preTransaction(int account_id, long amount, JdbcTemplate jdbcTemplate) {
+	public static boolean preTransaction(int account_id, long amount, JdbcTemplate jdbcTemplate) {
 		String sql = "select balance from account where id = ?;";
 		long balance = 0;
 		try {

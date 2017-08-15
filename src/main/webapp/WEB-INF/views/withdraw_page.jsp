@@ -9,29 +9,35 @@
 <script src="js/jquery-3.2.1.min.js"></script>
 <script type="application/javascript">
 $(document).ready(function(){
-	$("#b1").click(function(){
-		var amount = document.form.amount.value;
-	 	if(amount.length == 0){
-	 		document.getElementById("d1").innerHTML = "金额不能为0！";
-	 	}else{
-	 		document.form.submit();
-	 	}
+	$("#b1").click(function() {
+		amount = $("#amount").val();
+		if (amount.length == 0 || amount == 0) {
+			$("#d1").html("提现金额不能为空");
+		} else {
+			$.get("checkbalance?amount=" + amount, function(data) {
+				if (data.msg == "yes") {
+					$("#form").submit();
+				} else {
+					$("#d1").html("余额不足");
+				}
+			},"json");
+		}
 	});
 });
 </script>
 </head>
 <body>
-	<form name="form" action="withdraw.do">
+	<form id="form" action="withdraw.do">
 		<table>
 			<tr>
 				<td>提现金额：</td>
-				<td><input name="amount"> 元</td>
+				<td><input name="amount" id="amount"> 元</td>
 			</tr>
 			<tr>
 				<td><input type="button" id="b1" value="下一步"></td>
-				<td><div id="d1" style="color:red"></div></td>
+				<td><div id="d1" style="color: red"></div></td>
 			</tr>
 		</table>
-	</form>
+	</form> 
 </body>
 </html>
