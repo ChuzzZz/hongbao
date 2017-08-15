@@ -1,6 +1,7 @@
 package com.deeplab.topup;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -46,5 +47,18 @@ public class LoginController {
 			}
 		}
 	}
+		@RequestMapping(value = "/MyPage")
+		public String MyPage(Model model,HttpServletRequest request) {
+			Cookie[] cookies = request.getCookies();
+			if (cookies == null) {
+				return "login";
+			}
+			for (Cookie c : cookies) {
+				if (c.getName().equals("itcode")) {
+					return "UI";
+				}
+			}
+			return "login";
+		}
 	
-}
+	}

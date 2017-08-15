@@ -6,6 +6,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.junit.experimental.theories.Theories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -13,6 +17,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import entity.Account;
+import entity.AccountTransaction;
 
 public class AccountDAO {
 
@@ -249,4 +254,46 @@ public class AccountDAO {
 		}
 		return true;
 	}
+	
+	public static List<AccountTransaction> GetAccountTransactions(String od,int account_id, JdbcTemplate jdbcTemplate,HttpServletResponse response,HttpServletRequest request) {
+			String order = "";
+			Cookie[] cookies = request.getCookies();
+			if (cookies == null) {
+				order="";
+			}
+			for (Cookie c : cookies) {
+				if (c.getName().equals("order")) {
+					if (c.getValue().equals("desc")){order="";}
+					else {order="desc";}
+					break;
+				}
+			}
+			
+		Cookie cookie = new Cookie("order", order);
+//		cookie.setMaxAge(30 * 60);
+//		cookie.setPath("/");
+        response.addCookie(cookie);
+       
+        
+		String sql = "select * from ";
+		sql+="((SELECT id, amount, time, '节目打赏支出' AS type ";
+		sql+="FROM tip_transaction AS t) ";
+		sql+="UNION ALL ";
+		sql+="(SELECT id, amount, time, '账户充值' AS type ";
+		sql+="FROM topup_transaction AS a) ";
+		sql+="UNION ALL ";
+		sql+="(SELECT id, amount, time, '获得红包' AS type " ;
+		sql+="FROM luckymoney_transaction AS a)) AS m ";
+		sql+="ORDER BY "+od+" "+order;
+		List<AccountTransaction> t = null;
+		RowMapper<AccountTransaction> AccountTransaction_mapper = new BeanPropertyRowMapper<AccountTransaction>(AccountTransaction.class);
+		try {
+			t = jdbcTemplate.query(sql, AccountTransaction_mapper);
+		} catch (Exception e) {
+			System.out.println("getAccountTransaction failed");
+			e.printStackTrace();
+		}
+		return t;
+	}
+	
 }

@@ -104,4 +104,20 @@ public class ShowInfoDAO {
 		}
 		return true;
 	}
+	
+	public static List<ShowInfo> getShowInfoByRule(String name,String actor,String department,JdbcTemplate jdbcTemplate){
+//		String sql = "select * from showinfo order by s_order desc;";
+		String sql = "select * from showinfo where show_name like '%"+name+"%' and performer like '%"+actor+"%' and department like '%"+department+"%'order by start_time;";
+		
+		List<ShowInfo> shows = null;
+		RowMapper<ShowInfo> show_mapper = new BeanPropertyRowMapper<ShowInfo>(ShowInfo.class);
+		try {
+			shows = jdbcTemplate.query(sql, show_mapper);
+		}catch (Exception e) {
+			System.out.println("get all showinfo by order failed!");
+			e.printStackTrace();
+		}
+		return shows;
+	}
+	
 }
