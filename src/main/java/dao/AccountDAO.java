@@ -224,6 +224,8 @@ public class AccountDAO {
 			amount *= 100;
 			if (preTransaction(account_id, amount, jdbcTemplate)) {
 				TradeTransactionDAO.addWithdrawTransaction(account_id, amount, ts, jdbcTemplate);
+			}else {
+				return false;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -238,6 +240,8 @@ public class AccountDAO {
 			amount *= 100;
 			if (preTransaction(account_id, amount, jdbcTemplate)) {
 				TipTransactionDAO.addTipTransaction(account_id, show_id, amount, ts, jdbcTemplate);
+			}else {
+				return false;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

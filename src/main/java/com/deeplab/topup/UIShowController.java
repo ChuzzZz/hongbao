@@ -23,7 +23,7 @@ public class UIShowController {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	private static final Logger logger = LoggerFactory.getLogger(UIShowController.class);
-	
+
 	@RequestMapping(value = "/tip.do")
 	public String tip(int amount, int show_id, Model model, HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();// 这样便可以获取一个cookie数组
@@ -31,29 +31,27 @@ public class UIShowController {
 		if (cookies == null)
 			return "login";
 		else {
-			for (int i = 0; i < cookies.length; i++) {
-				System.out.println(cookies[i].getName());
-				if (cookies[i].getName().equals("itcode")) {
-					itcode = Integer.parseInt(cookies[i].getValue());
+			for (Cookie c : cookies) {
+				if (c.getName().equals("itcode")) {
+					itcode = Integer.parseInt(c.getValue());
 					break;
 				}
 			}
 		}
-		
-		if(AccountDAO.hasAccount(itcode, jdbcTemplate)) {
-			//有钱包账户
+
+		if (AccountDAO.hasAccount(itcode, jdbcTemplate)) {
+			// 有钱包账户
 			int account_id = AccountDAO.getAccountByItcode(itcode, jdbcTemplate).getId();
-			if(AccountDAO.tip(account_id, show_id, amount, jdbcTemplate)) {
-				//余额足够打赏
-				
-			}else {
-				//余额不勾打赏
+			if (AccountDAO.tip(account_id, show_id, amount, jdbcTemplate)) {
+				// 余额足够打赏
+
+			} else {
+				// 余额不勾打赏
 			}
-		}else {
-			//没有钱包账户
+		} else {
+			// 没有钱包账户
 		}
-		
-		
+
 		model.addAttribute("show_id", show_id);
 		model.addAttribute("amount", amount);
 		return "tip_result";

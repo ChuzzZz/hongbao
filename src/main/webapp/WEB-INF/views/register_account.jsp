@@ -34,7 +34,7 @@
 			focusInvalid : false, //当为false时，验证无效时，没有焦点响应  
 			//onkeyup : false,
 			//onfocusout: false,
-			submitHandler : function(form) { 
+			submitHandler : function(form) {
 				form.submit();
 			},
 
@@ -79,7 +79,8 @@
 			</tr>
 			<tr>
 				<td>设置支付密码：</td>
-				<td><input type="button" id="b1" value="显示"><input type="password" id="paycode" name="paycode"></td>
+				<td><input type="button" id="b1" value="显示"><input
+					type="password" id="paycode" name="paycode"></td>
 			</tr>
 			<tr>
 				<td>确认支付密码：</td>

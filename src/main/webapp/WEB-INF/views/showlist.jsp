@@ -42,7 +42,8 @@
 								<td><form action="tip.do">
 										<input type="submit" value="打赏"><input class="span2" name="amount"> 元 
 										<input type="hidden" name="show_id" value="${showinfo.id}">
-									</form></td>
+									</form>
+								</td>
 							</tr>
 						</c:forEach>
 					</tbody>
