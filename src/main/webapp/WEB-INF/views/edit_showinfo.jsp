@@ -36,21 +36,7 @@ function checkPerformer(){
 		}
 	}
 }
-function checkOrder(){
-	var order = document.form.order.value;
-	if(document.activeElement.id == "4"){
-		document.getElementById("w4").innerHTML="";
-		return true;
-	}else{
-		if(order.length == 0){
-			document.getElementById("w4").innerHTML="表演顺序不能为空！";
-			return false;
-		}else{
-			document.getElementById("w4").innerHTML="";
-			return true;
-		}
-	}
-}
+
 function checkStartTime(){
 	var time = document.form.start_time.value;
 	var patern = new RegExp(/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/);
@@ -81,8 +67,7 @@ function check(){
 	var a = checkShowName();
 	var b = checkPerformer();
 	var c = checkStartTime();
-	var d = checkOrder();
-	if(a&&b&&c&&d){
+	if(a&&b&&c){
 		document.form.submit();
 	}
 }
@@ -99,11 +84,7 @@ function check(){
 				<td><input name="show_name" id="1" onfocus="checkShowName()" onblur="checkShowName()"></td>
 				<td><div style="color:#FF0000" id="w1"></div></td>
 			</tr>
-			<tr>
-				<td>表演顺序:</td>
-				<td><input name="order" id="4" onfocus="checkOrder()" onblur="checkOrder()"></td>
-				<td><div style="color:#FF0000" id="w4"></div></td>
-			</tr>
+			
 			<tr>
 				<td>表演者:</td>
 				<td><input name="performer" id="2" onfocus="checkPerformer()" onblur="checkPerformer()"></td>

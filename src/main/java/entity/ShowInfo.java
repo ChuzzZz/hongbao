@@ -14,7 +14,6 @@ public class ShowInfo {
 	public ShowInfo(int id, int s_order, String show_name, String performer, String department, Timestamp start_time) {
 		super();
 		this.id = id;
-		this.s_order = s_order;
 		this.show_name = show_name;
 		this.performer = performer;
 		this.department = department;
@@ -23,7 +22,7 @@ public class ShowInfo {
 	
 	@Override
 	public String toString() {
-		return "ShowInfo [id=" + id + ", s_order=" + s_order + ", show_name=" + show_name + ", performer=" + performer
+		return "ShowInfo [id=" + id + ", show_name=" + show_name + ", performer=" + performer
 				+ ", department=" + department + ", start_time=" + start_time + "]";
 	}
 	
@@ -32,12 +31,6 @@ public class ShowInfo {
 	}
 	public void setId(int id) {
 		this.id = id;
-	}
-	public int getS_order() {
-		return s_order;
-	}
-	public void setS_order(int s_order) {
-		this.s_order = s_order;
 	}
 	public String getShow_name() {
 		return show_name;

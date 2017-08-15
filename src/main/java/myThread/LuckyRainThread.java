@@ -44,17 +44,24 @@ public class LuckyRainThread extends Thread {
 	@Override
 	public void run() {
 		long money=LuckyMoneyDAO.getTotalByRound(round, jdbcTemplate);
+		long lmoney = money;
 		List<Account> accounts = AccountDAO.getAllAcounts(jdbcTemplate);
+		System.out.println("剩余金额为："+money+"account.size:"+accounts.size());
 		for (int i=0;i<accounts.size();i++){
-			long lmoney;
-			if (i==accounts.size()-1){lmoney=money;}
+			long nowmoney = 0;
+			if (i==accounts.size()-1){nowmoney=lmoney;}
+			else if (lmoney==0) break;
+			else if (lmoney<money/accounts.size()*2) {nowmoney=lmoney;}
 			else {
 				Random r = new Random();
-				lmoney=money/accounts.size()*r.nextInt(100)/50;
+				nowmoney=money/accounts.size()*r.nextInt(100)/50;
 			}
-			money-=lmoney;
-			LuckyMoneyTransactionDAO.addTransaction(accounts.get(i).getId(), lmoney, round, jdbcTemplate);
-			AccountDAO.addAccountBalance(accounts.get(i).getId(), lmoney, jdbcTemplate);
+			lmoney-=nowmoney;
+			System.out.println("发出了"+nowmoney+"元");
+			LuckyMoneyDAO.subTotal(round, nowmoney, jdbcTemplate);
+			LuckyMoneyTransactionDAO.addTransaction(accounts.get(i).getId(), nowmoney, round, jdbcTemplate);
+			AccountDAO.addAccountBalance(accounts.get(i).getId(), nowmoney, jdbcTemplate);
+			
 		}
 	}
 

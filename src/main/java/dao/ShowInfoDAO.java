@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import entity.Account;
 import entity.ShowInfo;
 
 public class ShowInfoDAO {
@@ -18,10 +19,10 @@ public class ShowInfoDAO {
 	 * @param jdbcTemplate
 	 * @return 成功返回true,失败返回false
 	 */
-	public static boolean addShowInfo(int order, String show_name,String performer, String department, Timestamp time, JdbcTemplate jdbcTemplate) {
-		String sql = "insert into showinfo values(0,?,?,?,?,?)";
+	public static boolean addShowInfo(String show_name,String performer, String department, Timestamp time, JdbcTemplate jdbcTemplate) {
+		String sql = "insert into showinfo values(0,?,?,?,?)";
 		try {
-			jdbcTemplate.update(sql, new Object[] {order, show_name, performer, department, time});
+			jdbcTemplate.update(sql, new Object[] { show_name, performer, department, time});
 		}catch (Exception e) {
 			System.out.println("add showinfo failed!");
 			e.printStackTrace();
@@ -36,7 +37,7 @@ public class ShowInfoDAO {
 	 * @return 成功返回true,失败返回false
 	 */
 	public static boolean addShowInfo(ShowInfo s, JdbcTemplate jdbcTemplate) {
-		return addShowInfo(s.getS_order(), s.getShow_name(), s.getPerformer(), s.getDepartment(), s.getStart_time(), jdbcTemplate);
+		return addShowInfo( s.getShow_name(), s.getPerformer(), s.getDepartment(), s.getStart_time(), jdbcTemplate);
 	}
 	/**
 	 * get所有节目信息
@@ -57,7 +58,8 @@ public class ShowInfoDAO {
 	}
 
 	public static List<ShowInfo> getAllShowInfoByOrder(JdbcTemplate jdbcTemplate){
-		String sql = "select * from showinfo order by s_order desc;";
+//		String sql = "select * from showinfo order by s_order desc;";
+		String sql = "select * from showinfo order by start_time;";
 		List<ShowInfo> shows = null;
 		RowMapper<ShowInfo> show_mapper = new BeanPropertyRowMapper<ShowInfo>(ShowInfo.class);
 		try {
@@ -67,5 +69,39 @@ public class ShowInfoDAO {
 			e.printStackTrace();
 		}
 		return shows;
+	}
+	
+	
+	public static ShowInfo getShowInfoByid(int id, JdbcTemplate jdbcTemplate) {
+		RowMapper<ShowInfo> ShowInfo_mapper = new BeanPropertyRowMapper<ShowInfo>(ShowInfo.class);
+		ShowInfo showinfo = jdbcTemplate.queryForObject("select * from showinfo where id = ?", ShowInfo_mapper, id);
+		return showinfo;
+	}
+	
+	public static boolean swapShowTime(int idA, int idB, JdbcTemplate jdbcTemplate) {
+		Timestamp timeA = getShowInfoByid(idA,jdbcTemplate).getStart_time();
+		Timestamp timeB = getShowInfoByid(idB,jdbcTemplate).getStart_time();
+		String sql = "update showinfo set start_time = ? where id = ?";
+		try {
+			jdbcTemplate.update(sql, new Object[] {timeB, idA});
+			jdbcTemplate.update(sql, new Object[] {timeA, idB});
+		}catch (Exception e) {
+			System.out.println("add showinfo failed!");
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	public static Boolean AllClear(JdbcTemplate jdbcTemplate) {
+		String sql = "delete from showinfo";
+		try {
+			jdbcTemplate.update(sql);
+		}catch (Exception e) {
+			System.out.println("delete from showinfo failed!");
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 }

@@ -16,9 +16,8 @@
 		}
 		return xmlhttp;
 	}
-	function startRain() {
+	function startRain(i) {
 		var httprequest = initAJAX();
-		var i = document.activeElement.id;
 		var url = encodeURI("startluckyrain?round=" + i);
 		if (confirm("确定开启红包雨吗？")) {
 			httprequest.open("get", url, true);
@@ -30,14 +29,31 @@
 </head>
 <body>
 	<form name="form" action="">
-		<input type="button" id="1" value="开启第一轮红包雨" onclick="startRain()"><br>
-		<input type="button" id="2" value="开启第二轮红包雨" onclick="startRain()"><br>
-		<input type="button" id="3" value="开启第三轮红包雨" onclick="startRain()"><br>
+	<c:if test="${round1!=null}">
+		<input type="button" id="1" value="开启第一轮红包雨" onclick="startRain(1)"><br>
+	</c:if>
+	<c:if test="${round1==null}">
+		<input type="button" id="1" value="开启第一轮红包雨" onclick="startRain(1)" disabled="disabled"><br>
+	</c:if>
+	<c:if test="${round2!=null}">
+		<input type="button" id="2" value="开启第二轮红包雨" onclick="startRain(2)"><br>
+	</c:if>
+	<c:if test="${round2==null}">
+		<input type="button" id="2" value="开启第二轮红包雨" onclick="startRain(2)" disabled="disabled"><br>
+	</c:if>
+	<c:if test="${round3!=null}">
+		<input type="button" id="3" value="开启第三轮红包雨" onclick="startRain(3)"><br>
+	</c:if>
+	<c:if test="${round3==null}">
+		<input type="button" id="3" value="开启第三轮红包雨" onclick="startRain(3)" disabled="disabled"><br>
+	</c:if>
 	</form>
 	<a href="showluckyrainresult">查看红包雨记录</a>
 	<hr>
 	<input type="button" value="添加节目" onclick="window.location.href='addshow'"><br>
 	<a href="adminGetShowlist">查看节目单</a>
+	
+	
 	<hr>
 	<input type="button" value="抢红包开启">
 </body>

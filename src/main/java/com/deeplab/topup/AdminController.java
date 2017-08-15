@@ -24,7 +24,12 @@ public class AdminController {
 	JdbcTemplate jdbcTemplate;
 	
 	@RequestMapping(value = "/admin")
-	public String admin() {
+	public String admin(Model model) {
+		if (LuckyMoneyDAO.getTotalByRound(1, jdbcTemplate)!=0){model.addAttribute("round1",0);}
+		if (LuckyMoneyDAO.getTotalByRound(2, jdbcTemplate)!=0){model.addAttribute("round2",0);}
+		if (LuckyMoneyDAO.getTotalByRound(3, jdbcTemplate)!=0){model.addAttribute("round3",0);}
+		long k = LuckyMoneyDAO.getTotalByRound(1, jdbcTemplate);
+		System.out.println(k);
 		return "administrator";
 	}
 	
@@ -44,10 +49,12 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = {"/addshowinfo","/addShowInfo"})
-	public String addShowInfo(String order, String show_name, String performer, String department, String start_time, Model model) {
-		int o = Integer.parseInt(order);
+	public String addShowInfo(String show_name, String performer, String department, String start_time, Model model) {
 		Timestamp ts = Timestamp.valueOf(start_time);
-		if(ShowInfoDAO.addShowInfo(o, show_name, performer, department, ts, jdbcTemplate)) {
+		if (department.equals("Soft")) {department="软件学院";}
+		if (department.equals("Teda")) {department="泰达学院";}
+		if (department.equals("Study")) {department="电竞学院";}
+		if(ShowInfoDAO.addShowInfo( show_name, performer, department, ts, jdbcTemplate)) {
 			return "addshow_result";
 		}else {
 			model.addAttribute("result", "节目信息填写错误！");
