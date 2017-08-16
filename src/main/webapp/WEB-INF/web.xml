@@ -16,6 +16,7 @@
 		<url-pattern>/js/*</url-pattern>
 		<url-pattern>/img/*</url-pattern>
 		<url-pattern>/html/*</url-pattern>
+		<url-pattern>/fonts/*</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<description></description>

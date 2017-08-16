@@ -59,13 +59,5 @@ public class UIController {
 		model.addAttribute("showlist", showlist);
 		return "showlist";
 	}
-	
-	@RequestMapping(value ="searchbyrule")
-	public String searchbyrule(String actor,String department,String name,Model model) {
-		List<ShowInfo> showlist = ShowInfoDAO.getShowInfoByRule(name, actor, department, jdbcTemplate);
-		model.addAttribute("showlist", showlist);
-		return "showlist";
-	}
-	
 
 }

@@ -271,13 +271,16 @@ public class AccountDAO {
 	 */
 	public static List<AccountTransaction> getAccountTransactions(String ordertype, String order, int account_id, JdbcTemplate jdbcTemplate) {
 		String sql = "SELECT id, amount, time, type FROM ";
-		sql += "((SELECT id, amount, account_id, time, '节目打赏支出' AS type ";
+		sql += "((SELECT id, amount, account_id, time, '打赏' AS type ";
 		sql += "FROM tip_transaction  AS t) ";
 		sql += "UNION ALL ";
-		sql += "(SELECT id, amount, account_id, time, '账户充值' AS type ";
-		sql += "FROM trade_transaction AS a) ";
+		sql += "(SELECT id, amount, account_id, time, '充值' AS type ";
+		sql += "FROM trade_transaction WHERE amount > 0) ";
 		sql += "UNION ALL ";
-		sql += "(SELECT id, amount, account_id, time, '获得红包' AS type " ;
+		sql += "(SELECT id, amount, account_id, time, '提现' AS type ";
+		sql += "FROM trade_transaction WHERE amount < 0) ";
+		sql += "UNION ALL ";
+		sql += "(SELECT id, amount, account_id, time, '红包雨' AS type " ;
 		sql += "FROM luckymoney_transaction AS a)) AS m ";
 		sql += "WHERE account_id = " + account_id;
 		sql += " ORDER BY " + ordertype + " " + order;
