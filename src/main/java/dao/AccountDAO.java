@@ -282,7 +282,13 @@ public class AccountDAO {
 		sql+="(SELECT id, amount, time, '账户充值' AS type ";
 		sql+="FROM topup_transaction AS a) ";
 		sql+="UNION ALL ";
-		sql+="(SELECT id, amount, time, '获得红包' AS type " ;
+		sql+="(SELECT id, amount, time, '账户提现' AS type ";
+		sql+="FROM trade_transaction AS s) ";
+		sql+="UNION ALL ";
+		sql+="(SELECT id, amount, time, '抢红包收入' AS type ";
+		sql+="FROM redpackage_transaction AS q) ";
+		sql+="UNION ALL ";
+		sql+="(SELECT id, amount, time, '红包雨发放' AS type " ;
 		sql+="FROM luckymoney_transaction AS a)) AS m ";
 		sql+="ORDER BY "+od+" "+order;
 		List<AccountTransaction> t = null;

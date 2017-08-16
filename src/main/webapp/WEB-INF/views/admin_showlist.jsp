@@ -11,6 +11,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/!/assets/libs.min.js?20170814"></script><script type="text/javascript" src="/!/assets/js.min.js?20170814"></script><link rel="stylesheet" type="text/css" href="/!/assets/css.min.css?20170814">
 <script>
 function adjustOrder(){
 	var beforeget = document.getElementById("before").value;
@@ -35,7 +36,7 @@ function adjustOrder(){
 		<div class="container">
 			<h2>节目列表</h2>
 			<br>
-			<form action="searchbyrule">节目名：<input name="actor"> &nbsp;&nbsp;表演者：<input name="department"> &nbsp;&nbsp;部门：<input name="name">&nbsp;&nbsp; <input type="submit" value="查询"></form>
+			<form action="searchbyrule">节目名：<input name="name"> &nbsp;&nbsp;表演者：<input name="actor"> &nbsp;&nbsp;部门：<input name="department">&nbsp;&nbsp; <input type="submit" value="查询"></form>
 			<br>
 			<table>
 			<tr>
@@ -69,7 +70,6 @@ function adjustOrder(){
 							<th>表演者</th>
 							<th>部门</th>
 							<th>开始时间</th>
-							
 						</tr>
 					</thead>
 					<tbody>
@@ -82,6 +82,7 @@ function adjustOrder(){
 								<td>${showinfo.start_time}</td>
 								<td id="${order.index+1}" style="display:none;">${showinfo.id}</td>
 							</tr>
+							
 						</c:forEach>
 					</tbody>
 				</table>
@@ -92,7 +93,4 @@ function adjustOrder(){
 			</div>
 		</div>
 	</c:if>
-	
-</body>
-
 </html>

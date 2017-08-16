@@ -47,6 +47,7 @@ public class LoginController {
 			}
 		}
 	}
+	
 		@RequestMapping(value = "/MyPage")
 		public String MyPage(Model model,HttpServletRequest request) {
 			Cookie[] cookies = request.getCookies();
@@ -58,7 +59,8 @@ public class LoginController {
 					return "UI";
 				}
 			}
+			
 			return "login";
 		}
-	
+		
 	}

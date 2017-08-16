@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import dao.LuckyMoneyDAO;
 import dao.LuckyMoneyTransactionDAO;
+import dao.RedPackageDAO;
 import dao.ShowInfoDAO;
 import entity.LuckyMoneyTransaction;
 import entity.ShowInfo;
@@ -96,6 +97,29 @@ public class AdminController {
 		List<ShowInfo> l = ShowInfoDAO.getAllShowInfoByOrder(jdbcTemplate);
 		model.addAttribute("showlist", l);
 		return "admin_showlist";
+	}
+	
+	@RequestMapping(value = {"/ActivateRedPackage","/activateredpackage"})
+	public String ActivateRedPackage(int round,Model model) {
+		RedPackageDAO.ActicateRound(round, jdbcTemplate);
+		return "redirect:/adminredpackage";
+	}
+	
+	@RequestMapping(value = {"/StopRedPackage","/stopredpackage"})
+	public String StopRedPackage(int round,Model model) {
+		RedPackageDAO.StopRound(round, jdbcTemplate);
+		return "redirect:/adminredpackage";
+	}
+	
+	@RequestMapping(value = {"/adminredpackage","/AdminRedPackage"})
+	public String adminredpackage(Model model) {
+		int round1 = RedPackageDAO.CheckStatus(1, jdbcTemplate);
+		int round2 = RedPackageDAO.CheckStatus(2, jdbcTemplate);
+		int round3 = RedPackageDAO.CheckStatus(3, jdbcTemplate);
+		model.addAttribute("round1", round1);
+		model.addAttribute("round2", round2);
+		model.addAttribute("round3", round3);
+		return "adminredpackage";
 	}
 	
 	@RequestMapping(value = {"/showluckyrainresult","/showLuckyrainResult"})

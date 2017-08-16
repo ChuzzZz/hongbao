@@ -23,7 +23,7 @@
 		<div class="container">
 			<h2>节目列表</h2>
 			<br>
-			<form action="searchbyrule">节目名：<input name="actor"> &nbsp;&nbsp;表演者：<input name="department"> &nbsp;&nbsp;部门：<input name="name">&nbsp;&nbsp; <input type="submit" value="查询"></form>
+			<form action="searchbyrule">节目名：<input name="name"> &nbsp;&nbsp;表演者：<input name="actor"> &nbsp;&nbsp;部门：<input name="department">&nbsp;&nbsp; <input type="submit" value="查询"></form>
 			<br>
 			<div class="table-responsive">
 				<table class="table table-striped table-bordered table-hover">
