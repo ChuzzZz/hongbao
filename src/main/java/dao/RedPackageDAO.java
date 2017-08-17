@@ -77,10 +77,11 @@ public class RedPackageDAO {
 	
 	public static synchronized int GiveMoney(int id, JdbcTemplate jdbcTemplate) 
 	{ 
+		int account_id = AccountDAO.getAccountByItcode(id, jdbcTemplate).getId();
 		System.out.println("现在开始分发红包");
 		int round = getActiveRound(jdbcTemplate);
 		System.out.println("获得的轮次为："+round);
-		if (!RedPackageTransactionDAO.CheckAccount(id, round, jdbcTemplate)) {System.out.println("领过了红包，退出");return -1;}
+		if (!RedPackageTransactionDAO.CheckAccount(account_id, round, jdbcTemplate)) {System.out.println("领过了红包，退出");return -1;}
 		long money=getTotalByRound(round,jdbcTemplate);
 		System.out.println("红包剩余金额："+money);
 		Random r = new Random();
@@ -92,9 +93,10 @@ public class RedPackageDAO {
 			money=money/(long)(AccountDAO.getAllAcounts(jdbcTemplate).size()*0.6)*r.nextInt(100)/50;
 			System.out.println("抢到金额："+money);
 		}
+		
 		RedPackageDAO.subTotal(round, money, jdbcTemplate);
-		RedPackageTransactionDAO.addTransaction(id, money, round, jdbcTemplate);
-		AccountDAO.addAccountBalance(id,money, jdbcTemplate);
+		RedPackageTransactionDAO.addTransaction(account_id, money, round, jdbcTemplate);
+		AccountDAO.addAccountBalance(account_id,money, jdbcTemplate);
 		
 		return (int) money;
 	}
