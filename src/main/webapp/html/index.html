@@ -1,47 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>主界面</title>
-<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen">
+<title>Hey</title>
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/simple-sidebar.css" rel="stylesheet">
 <script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/popper.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
-<script type="text/javascript">
-	
+
+<script>
+	$("#menu-toggle").click(function(e) {
+		e.preventDefault();
+		$("#wrapper").toggleClass("toggled");
+	});
 </script>
 </head>
-<body>
-	<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span2" style="width: 200px; display:inline">
-      <!--Sidebar content-->
-      asdf
-    </div>
-    <div class="span10" style="width: 200px; display:inline">
-      <!--Body content-->
-      <a href="#myModal" role="button" class="btn" data-toggle="modal">查看演示案例</a>
 
-	<!-- Modal -->
-	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"
-				aria-hidden="true">×</button>
-			<h3 id="myModalLabel">Modal header</h3>
+<body>
+
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper">
+			<ul class="sidebar-nav">
+				<li class="sidebar-brand"><a href="#"> Start Bootstrap </a></li>
+				<li><a href="#">Dashboard</a></li>
+				<li><a href="#">Shortcuts</a></li>
+				<li><a href="#">Overview</a></li>
+				<li><a href="#">Events</a></li>
+				<li><a href="#">About</a></li>
+				<li><a href="#">Services</a></li>
+				<li><a href="#">Contact</a></li>
+			</ul>
 		</div>
-		<div class="modal-body">
-			<p>One fine body…</p>
+		<!-- /#sidebar-wrapper -->
+
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<div class="container-fluid">
+				<h1>Simple Sidebar</h1>
+				<p>This template has a responsive menu toggling system. The menu
+					will appear collapsed on smaller screens, and will appear
+					non-collapsed on larger screens. When toggled using the button
+					below, the menu will appear/disappear. On small screens, the page
+					content will be pushed off canvas.</p>
+				<p>
+					Make sure to keep all page content within the
+					<code>#page-content-wrapper</code>
+					.
+				</p>
+				<a href="#menu-toggle" class="btn btn-primary" id="menu-toggle">Toggle
+					Menu</a>
+			</div>
 		</div>
-		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-			<button class="btn btn-primary">Save changes</button>
-		</div>
+		<!-- /#page-content-wrapper -->
+
 	</div>
-    </div>
-  </div>
-</div>
+	<!-- /#wrapper -->
 </body>
+
 </html>
