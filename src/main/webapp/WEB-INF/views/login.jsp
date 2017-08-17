@@ -89,6 +89,27 @@ body {
       </form>
 
     </div>
+    <h1>登陆才能变强</h1>
+	<hr>
+	<p>${serverTime}</p >
+	<form name="form" action="verify">
+		<table>
+			<tr>
+				<td>ITCode：</td>
+				<td><input name="itcode" id="itcode"></td>
+				<td><div id="w1" style="color: red"></div></td>
+			</tr>
+			<tr>
+				<td>姓名：</td>
+				<td><input name="username" id="username"></td>
+				<td><div id="w2" style="color: red"></div></td>
+			</tr>
+			<tr>
+				<td><input type="button" value="登陆" onclick="checkInfo()"></td>
+				<td><div id="w3" style="color: red">${login_result}</div></td>
+			</tr>
+		</table>
+	</form>
 </body>
 
 </html>

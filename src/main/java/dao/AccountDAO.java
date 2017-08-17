@@ -261,11 +261,7 @@ public class AccountDAO {
 		}
 		return true;
 	}
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
->>>>>>> 5db02b973bc513211b0a6af6511554a77056fb92
 	/**
 	 * 获取用户所有类型的交易记录
 	 * @param ordertype
@@ -286,7 +282,7 @@ public class AccountDAO {
 		sql += "(SELECT id, amount, account_id, time, '提现' AS type ";
 		sql += "FROM trade_transaction WHERE amount < 0) ";
 		sql += "UNION ALL ";
-		sql += "(SELECT id, amount, time, '抢红包收入' AS type ";
+		sql += "(SELECT id, amount, account_id, time, '抢红包收入' AS type ";
 		sql += "FROM redpackage_transaction AS q) ";
 		sql += "UNION ALL ";
 		sql += "(SELECT id, amount, account_id, time, '红包雨' AS type " ;

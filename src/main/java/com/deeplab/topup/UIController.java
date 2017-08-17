@@ -63,13 +63,6 @@ public class UIController {
 		return "showlist";
 	}
 	
-	@RequestMapping(value ="searchbyrule")
-	public String searchbyrule(String name,String actor,String department,Model model) {
-		List<ShowInfo> showlist = ShowInfoDAO.getShowInfoByRule(name, actor, department, jdbcTemplate);
-		model.addAttribute("showlist", showlist);
-		return "showlist";
-	}
-	
 	@RequestMapping(value ="redpackage")
 	public String getredpackage(Model model,HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
