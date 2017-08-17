@@ -29,7 +29,7 @@ public class AccountDAO {
 	 * @param jdbcTemplate
 	 * @return 能提现返回true,不能返回false
 	 */
-	private static boolean preTransaction(int account_id, long amount, JdbcTemplate jdbcTemplate) {
+	public static boolean preTransaction(int account_id, long amount, JdbcTemplate jdbcTemplate) {
 		String sql = "select balance from account where id = ?;";
 		long balance = 0;
 		try {
@@ -238,7 +238,14 @@ public class AccountDAO {
 		}
 		return true;
 	}
-
+	/**
+	 * 打赏
+	 * @param account_id
+	 * @param show_id
+	 * @param amount
+	 * @param jdbcTemplate
+	 * @return 打赏成功返回true,失败返回false
+	 */
 	public static boolean tip(int account_id, int show_id, long amount, JdbcTemplate jdbcTemplate) {
 		try {
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
@@ -254,6 +261,7 @@ public class AccountDAO {
 		}
 		return true;
 	}
+
 	
 	public static List<AccountTransaction> GetAccountTransactions(String od,int account_id, JdbcTemplate jdbcTemplate,HttpServletResponse response,HttpServletRequest request) {
 			String order = "";
@@ -296,7 +304,7 @@ public class AccountDAO {
 		try {
 			t = jdbcTemplate.query(sql, AccountTransaction_mapper);
 		} catch (Exception e) {
-			System.out.println("getAccountTransaction failed");
+			System.out.println("getAccountTransaction failed!");
 			e.printStackTrace();
 		}
 		return t;

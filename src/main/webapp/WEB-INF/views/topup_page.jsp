@@ -12,9 +12,13 @@ $(document).ready(function(){
 	$("#b1").click(function(){
 		var amount = document.form.amount.value;
 	 	if(amount.length == 0){
-	 		document.getElementById("d1").innerHTML = "金额不能为0！";
+	 		document.getElementById("d1").innerHTML = "金额不能为空！";
 	 	}else{
-	 		document.form.submit();
+	 		if(amount == 0){
+	 			$("#d1").html("不充钱还想变强？");
+	 		}else{
+	 			document.form.submit();
+	 		}
 	 	}
 	});
 });

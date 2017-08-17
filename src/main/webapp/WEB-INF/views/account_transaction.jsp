@@ -26,10 +26,10 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th><a href="">序号</a></th>
-							<th><a href="getaccounttransactions?od=amount">金额</a></th>
-							<th><a href="getaccounttransactions?od=time">时间</a></th>
-							<th><a href="getaccounttransactions?od=type">备注</a></th>
+							<th><label>序号</label></th>
+							<th><a href="getaccounttransactions?ordertype=amount">金额</a></th>
+							<th><a href="getaccounttransactions?ordertype=time">时间</a></th>
+							<th><a href="getaccounttransactions?ordertype=type">交易类型</a></th>
 						</tr>
 					</thead>
 					<tbody>
