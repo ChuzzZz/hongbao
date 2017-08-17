@@ -167,7 +167,7 @@ public class AccountDAO {
 	 */
 	public static boolean addAccountBalance(int account_id, long amount, JdbcTemplate jdbcTemplate) {
 		String sql = "update account set balance = balance + ? where id = ?";
-		amount *= 100;
+		
 		try {
 			jdbcTemplate.update(sql, new Object[] { amount, account_id });
 		} catch (Exception e) {
@@ -204,10 +204,11 @@ public class AccountDAO {
 	 * @return 充值成功true,失败false
 	 */
 	public static boolean topUp(int account_id, long amount, JdbcTemplate jdbcTemplate) {
+		amount *= 100;
 		try {
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
-			amount *= 100;
 			TradeTransactionDAO.addTopupTransaction(account_id, amount, ts, jdbcTemplate);
+			addAccountBalance(account_id, amount, jdbcTemplate);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -224,11 +225,12 @@ public class AccountDAO {
 	 * @return 提现成功true,失败false
 	 */
 	public static boolean withdraw(int account_id, long amount, JdbcTemplate jdbcTemplate) {
+		amount *= 100;
 		try {
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
-			amount *= 100;
 			if (preTransaction(account_id, amount, jdbcTemplate)) {
 				TradeTransactionDAO.addWithdrawTransaction(account_id, amount, ts, jdbcTemplate);
+				addAccountBalance(account_id, -1*amount, jdbcTemplate);
 			}else {
 				return false;
 			}
@@ -247,9 +249,9 @@ public class AccountDAO {
 	 * @return 打赏成功返回true,失败返回false
 	 */
 	public static boolean tip(int account_id, int show_id, long amount, JdbcTemplate jdbcTemplate) {
+		amount *= 100;
 		try {
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
-			amount *= 100;
 			if (preTransaction(account_id, amount, jdbcTemplate)) {
 				TipTransactionDAO.addTipTransaction(account_id, show_id, amount, ts, jdbcTemplate);
 			}else {
@@ -271,21 +273,21 @@ public class AccountDAO {
 	 * @return List<AccountTransaction>
 	 */
 	public static List<AccountTransaction> getAccountTransactions(String ordertype, String order, int account_id, JdbcTemplate jdbcTemplate) {
-		String sql = "SELECT id, amount, time, type FROM ";
+		String sql = "SELECT account_id, amount, time, type FROM ";
 
-		sql += "((SELECT id, amount, account_id, time, '打赏' AS type ";
+		sql += "((SELECT  amount, account_id, time, '打赏' AS type ";
 		sql += "FROM tip_transaction  AS t) ";
 		sql += "UNION ALL ";
-		sql += "(SELECT id, amount, account_id, time, '充值' AS type ";
+		sql += "(SELECT  amount, account_id, time, '充值' AS type ";
 		sql += "FROM trade_transaction WHERE amount > 0) ";
 		sql += "UNION ALL ";
-		sql += "(SELECT id, amount, account_id, time, '提现' AS type ";
+		sql += "(SELECT  amount, account_id, time, '提现' AS type ";
 		sql += "FROM trade_transaction WHERE amount < 0) ";
 		sql += "UNION ALL ";
-		sql += "(SELECT id, amount, account_id, time, '抢红包收入' AS type ";
+		sql += "(SELECT  amount, account_id, time, '抢红包收入' AS type ";
 		sql += "FROM redpackage_transaction AS q) ";
 		sql += "UNION ALL ";
-		sql += "(SELECT id, amount, account_id, time, '红包雨' AS type " ;
+		sql += "(SELECT  amount, account_id, time, '红包雨' AS type " ;
 		sql += "FROM luckymoney_transaction AS a)) AS m ";
 		sql += "WHERE account_id = " + account_id;
 		sql += " ORDER BY " + ordertype + " " + order;

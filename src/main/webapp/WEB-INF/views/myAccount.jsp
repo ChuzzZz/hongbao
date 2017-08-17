@@ -19,4 +19,4 @@
 	<a href="withdraw">提现</a>
 	<a href="getaccounttransactions?ordertype=time">查看交易记录</a>
 </body>
-</html>
+</html> 

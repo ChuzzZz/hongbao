@@ -49,7 +49,7 @@ public class UIController {
 		if (AccountDAO.hasAccount(itcode, jdbcTemplate)) {
 			Account account = AccountDAO.getAccountByItcode(itcode, jdbcTemplate);
 			model.addAttribute("account_id", account.getId());
-			model.addAttribute("balance", account.getBalance() / 100);
+			model.addAttribute("balance", (float)account.getBalance() / 100);
 			return "myAccount";
 		} else {
 			return "register_account";
@@ -77,7 +77,7 @@ public class UIController {
 			}
 		}
 		int money = RedPackageDAO.GiveMoney(itcode, jdbcTemplate);
-		if (money!=-1) model.addAttribute("redpackageresult", "恭喜获得"+money+"元红包！");
+		if (money!=-1) model.addAttribute("redpackageresult", "恭喜获得"+(float)money/100+"元红包！");
 		else model.addAttribute("redpackageresult", "您已经抢过这个红包了!");
 		return "redpackage_result";
 	}
