@@ -76,7 +76,7 @@ public class AccountController {
 		}
 		int account_id = AccountDAO.getAccountIdByItcode(itcode, jdbcTemplate);
 		System.out.println(ordertype+"======="+order+"======="+account_id);
-		List<AccountTransaction> t = AccountDAO.getAccountTransactions(ordertype, order, account_id, jdbcTemplate);
+		List<AccountTransaction> t = AccountDAO.getAccountTransactions(ordertype,account_id,order, jdbcTemplate);
 		model.addAttribute("AccountTransaction", t);
 		return "account_transaction";
 	}

@@ -261,6 +261,7 @@ public class AccountDAO {
 		}
 		return true;
 	}
+<<<<<<< HEAD
 	/**
 	 * 获取用户所有类型的交易记录
 	 * @param ordertype
@@ -280,20 +281,24 @@ public class AccountDAO {
 		sql += "(SELECT id, amount, account_id, time, '提现' AS type ";
 		sql += "FROM trade_transaction WHERE amount < 0) ";
 		sql += "UNION ALL ";
+		sql += "(SELECT id, amount, time, '抢红包收入' AS type ";
+		sql += "FROM redpackage_transaction AS q) ";
+		sql += "UNION ALL ";
 		sql += "(SELECT id, amount, account_id, time, '红包雨' AS type " ;
 		sql += "FROM luckymoney_transaction AS a)) AS m ";
 		sql += "WHERE account_id = " + account_id;
 		sql += " ORDER BY " + ordertype + " " + order;
 		System.out.println(sql);
+		
 		List<AccountTransaction> transactions = null;
 		RowMapper<AccountTransaction> AccountTransaction_mapper = new BeanPropertyRowMapper<AccountTransaction>(AccountTransaction.class);
 		try {
-			transactions = jdbcTemplate.query(sql, AccountTransaction_mapper);
+			t = jdbcTemplate.query(sql, AccountTransaction_mapper);
 		} catch (Exception e) {
 			System.out.println("getAccountTransaction failed!");
 			e.printStackTrace();
 		}
-		return transactions;
+		return t;
 	}
 	
 }

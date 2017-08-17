@@ -26,6 +26,7 @@
 					<thead>
 						<tr>
 							<th>用户ID</th>
+							<th>红包轮次</th>
 							<th>金额（元）</th>
 							<th>获得时间</th>
 						</tr>
@@ -34,6 +35,7 @@
 						<c:forEach items="${result}" var="result" varStatus="order">
 							<tr>
 								<td>${result.account_id}</td>
+								<td>${result.round}</td>
 								<td>${result.amount}</td>
 								<td>${result.time}</td>
 							</tr>

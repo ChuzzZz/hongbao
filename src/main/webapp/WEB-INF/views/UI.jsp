@@ -17,23 +17,11 @@
 </head>
 
 <body>
-	<div class="container-fluid">
-		<div class="row-fluid">
-			<div class="span2">
-				<!--Sidebar content-->
-				<a href="getshowlist">查看节目信息</a>
-				<hr>
-				<input type="button" name="luckyrain" value="抢红包">
-				<hr>
-				<a href="myaccount">我的钱包</a>
-			</div>
-			<div class="span10">
-				<!--Body content-->
-				2333333333
-			</div>
-		</div>
-	</div>
-
+<a href="getshowlist">查看节目信息</a>
+<hr>
+<input type="button" name="luckyrain" value="抢红包" onclick="window.location.href='redpackage'">
+<hr>
+<a href="myaccount">我的钱包</a>
 </body>
 
 </html>

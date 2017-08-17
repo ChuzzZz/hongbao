@@ -55,6 +55,6 @@
 	
 	
 	<hr>
-	<input type="button" value="抢红包开启">
+	<input type="button" value="抢红包管理" onclick="window.location.href='adminredpackage'">
 </body>
 </html>
