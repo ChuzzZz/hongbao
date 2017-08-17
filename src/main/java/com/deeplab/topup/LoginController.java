@@ -1,6 +1,7 @@
 package com.deeplab.topup;
 
-import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.LuckyMoneyDAO;
 import dao.UserDAO;
@@ -23,46 +25,54 @@ public class LoginController {
 	JdbcTemplate jdbcTemplate;
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-	@RequestMapping(value = {"/verify","Verify"})
-	public String verify(String itcode, String username, Model model,HttpServletResponse response) {
-		int ic = Integer.parseInt(itcode);
-		System.out.println(ic);
-		System.out.println(username);
-		if (ic == 10086 && username.equals("管理员")) {
-			if (LuckyMoneyDAO.getTotalByRound(1, jdbcTemplate)!=0){model.addAttribute("round1",0);}
-			if (LuckyMoneyDAO.getTotalByRound(2, jdbcTemplate)!=0){model.addAttribute("round2",0);}
-			if (LuckyMoneyDAO.getTotalByRound(3, jdbcTemplate)!=0){model.addAttribute("round3",0);}
-			long k = LuckyMoneyDAO.getTotalByRound(1, jdbcTemplate);
-			System.out.println(k);
+	@RequestMapping(value = { "/verify", "Verify" })
+	public @ResponseBody Map<String, Object> verify(String inputItcode, String inputName) {
+		int itcode = Integer.parseInt(inputItcode);
+		String name = inputName;
+		Map<String, Object> map = new HashMap<String, Object>();
+		if ((itcode == 10086 && name.equals("管理员")) || UserDAO.userExists(itcode, name, jdbcTemplate)) {
+			map.put("msg", "yes");
+		}else {
+			map.put("msg", "no");
+		}
+		return map;
+	}
+
+	@RequestMapping(value = "/login.do")
+	public String login(String inputItcode, String inputName, Model model, HttpServletResponse response) {
+		int itcode = Integer.parseInt(inputItcode);
+		String name = inputName;
+		if (itcode == 10086 && name.equals("管理员")) {
+			if (LuckyMoneyDAO.getTotalByRound(1, jdbcTemplate) != 0) {
+				model.addAttribute("round1", 0);
+			}
+			if (LuckyMoneyDAO.getTotalByRound(2, jdbcTemplate) != 0) {
+				model.addAttribute("round2", 0);
+			}
+			if (LuckyMoneyDAO.getTotalByRound(3, jdbcTemplate) != 0) {
+				model.addAttribute("round3", 0);
+			}
 			return "administrator";
 		} else {
-			if (UserDAO.userExists(ic, username, jdbcTemplate)) {
-				Cookie cookie = new Cookie("itcode", itcode.trim());
-//				cookie.setMaxAge(30 * 60);
-//				cookie.setPath("/");
-	            System.out.println("已添加===============");
-	            response.addCookie(cookie);
-				return "UI";
-			} else {
-				model.addAttribute("login_result", "用户不存在！");
-				return "login";
-			}
+			Cookie cookie = new Cookie("itcode", inputItcode.trim());
+			response.addCookie(cookie);
+			return "UI";
 		}
 	}
-	
-		@RequestMapping(value = "/MyPage")
-		public String MyPage(Model model,HttpServletRequest request) {
-			Cookie[] cookies = request.getCookies();
-			if (cookies == null) {
-				return "login";
-			}
-			for (Cookie c : cookies) {
-				if (c.getName().equals("itcode")) {
-					return "UI";
-				}
-			}
-			
+
+	@RequestMapping(value = "/MyPage")
+	public String MyPage(Model model, HttpServletRequest request) {
+		Cookie[] cookies = request.getCookies();
+		if (cookies == null) {
 			return "login";
 		}
-		
+		for (Cookie c : cookies) {
+			if (c.getName().equals("itcode")) {
+				return "UI";
+			}
+		}
+
+		return "login";
 	}
+
+}
