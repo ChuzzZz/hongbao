@@ -262,52 +262,42 @@ public class AccountDAO {
 		return true;
 	}
 
-	
-	public static List<AccountTransaction> GetAccountTransactions(String od,int account_id, JdbcTemplate jdbcTemplate,HttpServletResponse response,HttpServletRequest request) {
-			String order = "";
-			Cookie[] cookies = request.getCookies();
-			if (cookies == null) {
-				order="";
-			}
-			for (Cookie c : cookies) {
-				if (c.getName().equals("order")) {
-					if (c.getValue().equals("desc")){order="";}
-					else {order="desc";}
-					break;
-				}
-			}
-			
-		Cookie cookie = new Cookie("order", order);
-//		cookie.setMaxAge(30 * 60);
-//		cookie.setPath("/");
-        response.addCookie(cookie);
-       
-        
-		String sql = "select * from ";
-		sql+="((SELECT id, amount, time, '节目打赏支出' AS type ";
-		sql+="FROM tip_transaction AS t) ";
-		sql+="UNION ALL ";
-		sql+="(SELECT id, amount, time, '账户充值' AS type ";
-		sql+="FROM topup_transaction AS a) ";
-		sql+="UNION ALL ";
-		sql+="(SELECT id, amount, time, '账户提现' AS type ";
-		sql+="FROM trade_transaction AS s) ";
-		sql+="UNION ALL ";
-		sql+="(SELECT id, amount, time, '抢红包收入' AS type ";
+	/**
+	 * 获取用户所有类型的交易记录
+	 * @param ordertype
+	 * @param order
+	 * @param account_id
+	 * @param jdbcTemplate
+	 * @return List<AccountTransaction>
+	 */
+	public static List<AccountTransaction> getAccountTransactions(String ordertype, String order, int account_id, JdbcTemplate jdbcTemplate) {
+		String sql = "SELECT id, amount, time, type FROM ";
+		sql += "((SELECT id, amount, account_id, time, '节目打赏支出' AS type ";
+		sql += "FROM tip_transaction  AS t) ";
+		sql += "UNION ALL ";
+		sql += "(SELECT id, amount, account_id, time, '账户充值' AS type ";
+		sql += "FROM trade_transaction AS a) ";
+		sql += "UNION ALL ";
+		//sql+="(SELECT id, amount, time, '账户提现' AS type ";
+		//sql+="FROM trade_transaction AS s) ";
+		//sql+="UNION ALL ";
+		sql+="(SELECT id, amount,account_id, time, '抢红包收入' AS type ";
 		sql+="FROM redpackage_transaction AS q) ";
 		sql+="UNION ALL ";
-		sql+="(SELECT id, amount, time, '红包雨发放' AS type " ;
-		sql+="FROM luckymoney_transaction AS a)) AS m ";
-		sql+="ORDER BY "+od+" "+order;
-		List<AccountTransaction> t = null;
+		sql+="(SELECT id, amount,account_id, time, '红包雨发放' AS type " ;
+		
+		sql+="FROM luckymoney_transaction AS w)) AS m ";
+		sql+="ORDER BY "+ordertype+" "+order;
+		System.out.println(sql);
+		List<AccountTransaction> transactions = null;
 		RowMapper<AccountTransaction> AccountTransaction_mapper = new BeanPropertyRowMapper<AccountTransaction>(AccountTransaction.class);
 		try {
-			t = jdbcTemplate.query(sql, AccountTransaction_mapper);
+			transactions = jdbcTemplate.query(sql, AccountTransaction_mapper);
 		} catch (Exception e) {
 			System.out.println("getAccountTransaction failed!");
 			e.printStackTrace();
 		}
-		return t;
+		return transactions;
 	}
 	
 }
