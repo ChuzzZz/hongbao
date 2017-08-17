@@ -179,7 +179,6 @@ public class AccountController {
 				break;
 			}
 		}
-
 		Map<String, Object> map = new HashMap<String, Object>();
 		int account_id = AccountDAO.getAccountIdByItcode(itcode, jdbcTemplate);
 		long am = Long.parseLong(amount);

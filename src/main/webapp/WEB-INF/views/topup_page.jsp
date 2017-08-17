@@ -33,7 +33,7 @@ $(document).ready(function(){
 		<table>
 			<tr>
 				<td>充值金额：</td>
-				<td><input name="amount"> 元</td>
+				<td><input name="amount" maxlength=16> 元</td>
 			</tr>
 			<tr>
 				<td><input type="button" id="b1" value="下一步"></td>

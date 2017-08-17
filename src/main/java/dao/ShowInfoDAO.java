@@ -105,10 +105,9 @@ public class ShowInfoDAO {
 		return true;
 	}
 	
-	public static List<ShowInfo> getShowInfoByRule(String name,String actor,String department,JdbcTemplate jdbcTemplate){
-//		String sql = "select * from showinfo order by s_order desc;";
-		String sql = "select * from showinfo where show_name like '%"+name+"%' and performer like '%"+actor+"%' and department like '%"+department+"%'order by start_time;";
-		
+	public static List<ShowInfo> getShowInfoByRule(String show_name, String performer, String department, JdbcTemplate jdbcTemplate){
+		String sql = "select * from showinfo where show_name like '%" + show_name + "%' and performer like '%" + performer + "%' and department like '%" + department + "%' order by start_time;";
+		System.out.println(sql);
 		List<ShowInfo> shows = null;
 		RowMapper<ShowInfo> show_mapper = new BeanPropertyRowMapper<ShowInfo>(ShowInfo.class);
 		try {

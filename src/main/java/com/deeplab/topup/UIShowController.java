@@ -24,6 +24,13 @@ public class UIShowController {
 	JdbcTemplate jdbcTemplate;
 	private static final Logger logger = LoggerFactory.getLogger(UIShowController.class);
 
+	@RequestMapping(value ="searchbyrule")
+	public String searchByRule(String show_name, String performer, String department, Model model) {
+		List<ShowInfo> showlist = ShowInfoDAO.getShowInfoByRule(show_name, performer, department, jdbcTemplate);
+		model.addAttribute("showlist", showlist);
+		return "showlist";
+	}
+	
 	@RequestMapping(value = "/tip.do")
 	public String tip(int amount, int show_id, Model model, HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();// 这样便可以获取一个cookie数组

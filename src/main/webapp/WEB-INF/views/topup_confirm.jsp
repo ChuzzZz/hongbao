@@ -37,10 +37,10 @@
 	充值金额（元）：
 	<div style="color: red">${amount}</div>
 	<hr>
-	<form id="form" action="topupresult">
+	<form id="form" action="topupresult" method="post">
 		<input type="hidden" name="account_id" id="account_id" value="${account_id}">
 		<input type="hidden" name="amount" value="${amount}">
-		支付密码：<input type="password" name="paycode" id="paycode">
+		支付密码：<input type="password" name="paycode" id="paycode" maxlength=16>
 		<input type="button" name="b1" id="b1" value="充值"><br>
 	</form>
 	<table>
