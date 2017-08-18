@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.sql.Timestamp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -24,6 +24,54 @@
 
 <script>
 	$(document).ready(function() {
+		$("#registerButton").click(function(){
+			window.location.href="myaccount";
+		});
+		
+		$("#topupButton").click(function(){
+			window.location.href="topup";
+		});
+		
+		$("form").submit(function(e) {
+			var id = $(e.target).attr('id');
+			if (id == "searchForm") {
+				$(this).submit();
+			} else {
+				e.preventDefault();
+				//打赏
+				var amount = this.elements[1].value;
+				var show_id = this.elements[2].value;
+				if (amount == 0) {
+					//不充钱
+					alert('！！！');
+				} else {
+					alert("AJAX")
+					$.post("tip.do", {
+						amount : amount,
+						show_id : show_id
+					}, function(data) {
+						switch(data.result){
+						case "success":
+							var tip_amount = data.amount;
+							var tip_show = data.show_name;
+							$("#tipShow").text("打赏的节目：" + tip_show);
+							$("#tipAmount").text("打赏的金额：" + tip_amount);
+							$('#successModal').modal();
+							break;
+						case "failed":
+							alert("余额不足");
+							$('#failedModal').modal();
+							break;
+						case "erro":
+							alert("没激活钱包");
+							$('#registerModal').modal();
+							break;
+						}
+					},"json")
+				}
+			}
+		});
+
 		$("#myTable").tablesorter({
 			sortList : [ [ 0, 0 ] ],
 			headers : {
@@ -84,7 +132,7 @@
 		<div class="container">
 			<h2>节目列表</h2>
 			<br>
-			<form action="searchbyrule">
+			<form id="searchForm" action="searchbyrule">
 				节目名：<input name="show_name"> &nbsp;&nbsp;表演者：<input
 					name="performer"> &nbsp;&nbsp;部门：<input name="department">&nbsp;&nbsp;
 				<input type="submit" value="查询">
@@ -155,5 +203,61 @@
 			</div>
 		</div>
 	</c:if>
+	<!-- 没有激活账户的模态框 -->
+	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Tip Result</h4>
+	      </div>
+	      <div class="modal-body">
+	        	您还没有激活钱包账户，无法打赏<br>
+	        	是否前往激活钱包？
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">不，稍后再说</button>
+	        <button type="button" class="btn btn-primary" id="registerButton">是的，前往激活</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- 余额不足的模态框 -->
+	<div class="modal fade" id="failedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Tip Result</h4>
+	      </div>
+	      <div class="modal-body">
+	        	您的账户余额不足，无法打赏<br>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary" id="topupButton">我要变强</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- 打赏成功的模态框 -->
+	<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Tip Result</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<p id="tipShow"></p>
+	      	<p id="tipAmount"></p>
+	      	<p>打赏成功！</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 </body>
 </html>
