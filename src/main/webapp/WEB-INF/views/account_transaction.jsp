@@ -62,10 +62,6 @@
 </script>
 </head>
 <body>
-	<input class="btn" type="button" value="回退"
-		onclick="window.history.go(-1)">
-	<input class="btn" type="button" value="个人主页"
-		onclick="window.location.href='MyPage'">
 	<c:if test="${AccountTransaction!=null}">
 		<div class="container">
 			<h2>交易信息</h2>

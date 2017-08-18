@@ -29,7 +29,8 @@
 		});
 		
 		$("#topupButton").click(function(){
-			window.location.href="topup";
+			var body = $(this).parents("body");
+			body.load("topup");
 		});
 		
 		$("form").submit(function(e) {
@@ -45,7 +46,6 @@
 					//不充钱
 					alert('！！！');
 				} else {
-					alert("AJAX")
 					$.post("tip.do", {
 						amount : amount,
 						show_id : show_id
@@ -59,11 +59,9 @@
 							$('#successModal').modal();
 							break;
 						case "failed":
-							alert("余额不足");
 							$('#failedModal').modal();
 							break;
 						case "erro":
-							alert("没激活钱包");
 							$('#registerModal').modal();
 							break;
 						}
@@ -124,10 +122,6 @@
 </script>
 </head>
 <body>
-	<input class="btn" type="button" value="回退"
-		onclick="window.history.go(-1)">
-	<input class="btn" type="button" value="个人主页"
-		onclick="window.location.href='MyPage'">
 	<c:if test="${showlist!=null}">
 		<div class="container">
 			<h2>节目列表</h2>

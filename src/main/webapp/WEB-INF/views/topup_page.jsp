@@ -8,6 +8,7 @@
 <title>Top up</title>
 <script src="js/jquery-3.2.1.min.js"></script>
 <script type="application/javascript">
+	
 $(document).ready(function(){
 	$("#b1").click(function(){
 		var amount = document.form.amount.value;
@@ -24,22 +25,30 @@ $(document).ready(function(){
 });
 
 
+
 </script>
 </head>
 <body>
-	<h1>充值才能变强</h1>
-	<hr>
-	<form name="form" action="topup.do">
-		<table>
-			<tr>
-				<td>充值金额：</td>
-				<td><input name="amount" maxlength=16> 元</td>
-			</tr>
-			<tr>
-				<td><input type="button" id="b1" value="下一步"></td>
-				<td><div id="d1" style="color: red"></div></td>
-			</tr>
-		</table>
-	</form>
+	<div class="container" id="myContainer">
+
+		<!-- Main component for a primary marketing message or call to action -->
+		<h1>充值才能变强</h1>
+		<hr>
+		<form name="form" action="topup.do">
+			<table>
+				<tr>
+					<td>充值金额：</td>
+					<td><input name="amount" maxlength=16> 元</td>
+				</tr>
+				<tr>
+					<td><input type="button" id="b1" value="下一步"></td>
+					<td><div id="d1" style="color: red"></div></td>
+				</tr>
+			</table>
+		</form>
+
+	</div>
+	<!-- /container -->
+
 </body>
 </html>
