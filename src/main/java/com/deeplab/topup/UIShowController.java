@@ -52,13 +52,12 @@ public class UIShowController {
 			if (AccountDAO.tip(account_id, show_id, amount, jdbcTemplate)) {
 				// 余额足够打赏
 				
-				
 			} else {
 				// 余额不勾打赏
 				return "topup_page";
 			}
 		} else {
-			// 没有钱包账户
+			// 没有钱包账户 
 			return "register_account";
 		}
 
