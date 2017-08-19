@@ -96,8 +96,6 @@ public class RedPackageDAO {
 		
 		RedPackageDAO.subTotal(round, money, jdbcTemplate);
 		RedPackageTransactionDAO.addTransaction(account_id, money, round, jdbcTemplate);
-		AccountDAO.addAccountBalance(account_id,money, jdbcTemplate);
-		
 		return (int) money;
 	}
 

@@ -46,5 +46,20 @@ public class HomeController {
 		return "login";
 		
 	}
+	
+	@RequestMapping(value = {"/MyPage", "myPage"})
+	public String myPage(Model model, HttpServletRequest request) {
+		Cookie[] cookies = request.getCookies();
+		if (cookies == null) {
+			return "login";
+		}
+		for (Cookie c : cookies) {
+			if (c.getName().equals("itcode")) {
+				return "UI";
+			}
+		}
+
+		return "login";
+	}
 
 }

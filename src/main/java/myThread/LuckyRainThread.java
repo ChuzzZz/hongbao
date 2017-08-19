@@ -60,8 +60,6 @@ public class LuckyRainThread extends Thread {
 			System.out.println("发出了"+nowmoney+"元");
 			LuckyMoneyDAO.subTotal(round, nowmoney, jdbcTemplate);
 			LuckyMoneyTransactionDAO.addTransaction(accounts.get(i).getId(), nowmoney, round, jdbcTemplate);
-			AccountDAO.addAccountBalance(accounts.get(i).getId(), nowmoney, jdbcTemplate);
-			
 		}
 	}
 

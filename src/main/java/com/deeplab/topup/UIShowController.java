@@ -51,7 +51,7 @@ public class UIShowController {
 			int account_id = AccountDAO.getAccountByItcode(itcode, jdbcTemplate).getId();
 			if (AccountDAO.tip(account_id, show_id, amount, jdbcTemplate)) {
 				// ”‡∂Ó◊„πª¥Ú…Õ
-				String show_name = ShowInfoDAO.getShowInfoByid(show_id, jdbcTemplate).getShow_name();
+				String show_name = ShowInfoDAO.getShowInfoById(show_id, jdbcTemplate).getShow_name();
 				map.put("result", "success");
 				map.put("amount", amount);
 				map.put("show_name",show_name);

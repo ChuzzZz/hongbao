@@ -35,7 +35,7 @@ public class AccountController {
 	JdbcTemplate jdbcTemplate;
 	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 
-	@RequestMapping(value = { "topup", "Topup" })
+	@RequestMapping(value = { "topup" })
 	public String topup() {
 		return "topup_page";
 	}
@@ -46,37 +46,34 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = { "getaccounttransactions" })
-	public String getAccountTransactins(String ordertype, HttpServletRequest request, HttpServletResponse response, Model model) {
+	public String getAccountTransactins(HttpServletRequest request, Model model) {
 		// 确定排序的顺序
-		String order = null;
+//		String order = null;
 		int itcode = -1;
 		Cookie[] cookies = request.getCookies();
-		if (cookies == null) {
-			order = "";
-		}
 		for (Cookie c : cookies) {
-			if (c.getName().equals("order")) {
-				//如果之前是升序就变为降序,反之同理
-				if (c.getValue().equals("desc")) {
-					order = "";
-				} else {
-					order = "desc";
-				}
-			}
+//			if (c.getName().equals("order")) {
+//				//如果之前是升序就变为降序,反之同理
+//				if (c.getValue().equals("desc")) {
+//					order = "";
+//				} else {
+//					order = "desc";
+//				}
+//			}
 			if (c.getName().equals("itcode")) {
 				itcode = Integer.parseInt(c.getValue());
+				break;
 			}
 		}
 		// 将现在的排序顺序加入cookie
-		Cookie cookie = new Cookie("order", order);
-		response.addCookie(cookie);
+//		Cookie cookie = new Cookie("order", order);
+//		response.addCookie(cookie);
 		// 确定排序的类型
-		if (ordertype == null) {
-			ordertype = "time";
-		}
+//		if (ordertype == null) {
+//			ordertype = "time";
+//		}
 		int account_id = AccountDAO.getAccountIdByItcode(itcode, jdbcTemplate);
-		System.out.println(ordertype+"======="+order+"======="+account_id);
-		List<AccountTransaction> t = AccountDAO.getAccountTransactions(ordertype, order, account_id, jdbcTemplate);
+		List<AccountTransaction> t = AccountDAO.getAccountTransactionsOrderByTime(account_id, jdbcTemplate);
 		model.addAttribute("AccountTransaction", t);
 		return "account_transaction";
 	}
@@ -181,7 +178,7 @@ public class AccountController {
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		int account_id = AccountDAO.getAccountIdByItcode(itcode, jdbcTemplate);
-		long am = Long.parseLong(amount);
+		double am = Double.parseDouble(amount);
 		if (AccountDAO.preTransaction(account_id, am, jdbcTemplate)) {
 			map.put("msg", "yes");
 		} else {

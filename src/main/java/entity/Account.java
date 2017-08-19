@@ -53,5 +53,5 @@ public class Account {
 	public void setBalance(long balance) {
 		this.balance = balance;
 	}
-	
+
 }

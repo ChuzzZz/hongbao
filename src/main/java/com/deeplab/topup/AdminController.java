@@ -94,7 +94,7 @@ public class AdminController {
 	
 	@RequestMapping(value = {"/admingetshowlist","/adminGetShowlist"})
 	public String adminGetShowlist(Model model) {
-		List<ShowInfo> l = ShowInfoDAO.getAllShowInfoByOrder(jdbcTemplate);
+		List<ShowInfo> l = ShowInfoDAO.getAllShowInfoByTimeOrder(jdbcTemplate);
 		model.addAttribute("showlist", l);
 		return "admin_showlist";
 	}
@@ -134,7 +134,7 @@ public class AdminController {
 	@RequestMapping(value = "/adjustOrder")
 	public String adjustOrder(int before, int after, Model model) {
 		ShowInfoDAO.swapShowTime(before, after, jdbcTemplate);
-		List<ShowInfo> l = ShowInfoDAO.getAllShowInfoByOrder(jdbcTemplate);
+		List<ShowInfo> l = ShowInfoDAO.getAllShowInfoByTimeOrder(jdbcTemplate);
 		model.addAttribute("showlist", l);
 		return "admin_showlist";
 	}
@@ -143,7 +143,7 @@ public class AdminController {
 	@RequestMapping(value = "/export")
 	public ResponseEntity<byte[]> download(HttpServletResponse response, HttpServletRequest request)
 			throws IOException {
-		List<ShowInfo> s = ShowInfoDAO.getAllShowInfoByOrder(jdbcTemplate);
+		List<ShowInfo> s = ShowInfoDAO.getAllShowInfoByTimeOrder(jdbcTemplate);
 		// 新建Excel文件
 		String filePath = "";
 		try {

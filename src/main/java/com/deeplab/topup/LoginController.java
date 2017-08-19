@@ -60,18 +60,8 @@ public class LoginController {
 		}
 	}
 
-	@RequestMapping(value = "/MyPage")
-	public String MyPage(Model model, HttpServletRequest request) {
-		Cookie[] cookies = request.getCookies();
-		if (cookies == null) {
-			return "login";
-		}
-		for (Cookie c : cookies) {
-			if (c.getName().equals("itcode")) {
-				return "UI";
-			}
-		}
-
+	@RequestMapping(value = "/logout.do")
+	public String logout() {
 		return "login";
 	}
 

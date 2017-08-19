@@ -58,7 +58,7 @@ public class UIController {
 	
 	@RequestMapping(value = { "/getshowlist", "getShowlist" })
 	public String getShowlist(Model model) {
-		List<ShowInfo> showlist = ShowInfoDAO.getAllShowInfoByOrder(jdbcTemplate);
+		List<ShowInfo> showlist = ShowInfoDAO.getAllShowInfoByTimeOrder(jdbcTemplate);
 		model.addAttribute("showlist", showlist);
 		return "showlist";
 	}

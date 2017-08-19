@@ -56,8 +56,12 @@ public class ShowInfoDAO {
 		}
 		return shows;
 	}
-
-	public static List<ShowInfo> getAllShowInfoByOrder(JdbcTemplate jdbcTemplate){
+	/**
+	 * 获取按时间降序排序的节目集合
+	 * @param jdbcTemplate
+	 * @return List<ShowInfo>
+	 */
+	public static List<ShowInfo> getAllShowInfoByTimeOrder(JdbcTemplate jdbcTemplate){
 //		String sql = "select * from showinfo order by s_order desc;";
 		String sql = "select * from showinfo order by start_time;";
 		List<ShowInfo> shows = null;
@@ -70,17 +74,21 @@ public class ShowInfoDAO {
 		}
 		return shows;
 	}
-	
-	
-	public static ShowInfo getShowInfoByid(int id, JdbcTemplate jdbcTemplate) {
+	/**
+	 * 根据节目ID获取节目信息
+	 * @param id
+	 * @param jdbcTemplate
+	 * @return ShowInfo
+	 */
+	public static ShowInfo getShowInfoById(int id, JdbcTemplate jdbcTemplate) {
 		RowMapper<ShowInfo> ShowInfo_mapper = new BeanPropertyRowMapper<ShowInfo>(ShowInfo.class);
 		ShowInfo showinfo = jdbcTemplate.queryForObject("select * from showinfo where id = ?", ShowInfo_mapper, id);
 		return showinfo;
 	}
 	
 	public static boolean swapShowTime(int idA, int idB, JdbcTemplate jdbcTemplate) {
-		Timestamp timeA = getShowInfoByid(idA,jdbcTemplate).getStart_time();
-		Timestamp timeB = getShowInfoByid(idB,jdbcTemplate).getStart_time();
+		Timestamp timeA = getShowInfoById(idA,jdbcTemplate).getStart_time();
+		Timestamp timeB = getShowInfoById(idB,jdbcTemplate).getStart_time();
 		String sql = "update showinfo set start_time = ? where id = ?";
 		try {
 			jdbcTemplate.update(sql, new Object[] {timeB, idA});
