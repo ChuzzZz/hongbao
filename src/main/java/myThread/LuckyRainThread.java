@@ -43,35 +43,24 @@ public class LuckyRainThread extends Thread {
 
 	@Override
 	public void run() {
+		long money=LuckyMoneyDAO.getTotalByRound(round, jdbcTemplate);
+		long lmoney = money;
 		List<Account> accounts = AccountDAO.getAllAcounts(jdbcTemplate);
-		for(Account a : accounts) {
-			if(flag) {
-				long total = LuckyMoneyDAO.getTotalByRound(round, jdbcTemplate);
+		System.out.println("剩余金额为："+money+"account.size:"+accounts.size());
+		for (int i=0;i<accounts.size();i++){
+			long nowmoney = 0;
+			if (i==accounts.size()-1){nowmoney=lmoney;}
+			else if (lmoney==0) break;
+			else if (lmoney<money/accounts.size()*2) {nowmoney=lmoney;}
+			else {
 				Random r = new Random();
-				long amount;
-				if(total > 0) {
-					if(total > 5000) {
-						amount = r.nextInt(5000);
-					}else {
-						amount = total;
-					}
-				}else {
-					break;
-				}
-				
-				try {
-					if(LuckyMoneyDAO.subTotal(round, amount, jdbcTemplate)) {
-						Timestamp ts = new Timestamp(System.currentTimeMillis());
-						LuckyMoneyTransactionDAO.addTransaction(a.getId(), amount, round, ts, jdbcTemplate);
-						AccountDAO.addAccountBalance(a.getId(), amount, jdbcTemplate);
-						Thread.sleep(1000);
-					}
-				}catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				nowmoney=money/accounts.size()*r.nextInt(100)/50;
 			}
+			lmoney-=nowmoney;
+			System.out.println("发出了"+nowmoney+"元");
+			LuckyMoneyDAO.subTotal(round, nowmoney, jdbcTemplate);
+			LuckyMoneyTransactionDAO.addTransaction(accounts.get(i).getId(), nowmoney, round, jdbcTemplate);
 		}
-		
 	}
 
 	public static void main(String[] args) {

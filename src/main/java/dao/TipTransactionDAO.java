@@ -19,10 +19,10 @@ public class TipTransactionDAO {
 	 * @param jdbcTemplate
 	 * @return 成功返回true,失败返回false
 	 */
-	public static boolean addTipTransaction(int account_id, int show_id, long amount, Timestamp time,JdbcTemplate jdbcTemplate) {
+	public static boolean addTipTransaction(int account_id, int show_id, long amount, Timestamp ts, JdbcTemplate jdbcTemplate) {
 		String sql = "insert into tip_transaction values(null, ?, ?, ?, ?);";
 		try {
-			jdbcTemplate.update(sql, new Object[] {account_id, show_id, amount, time});
+			jdbcTemplate.update(sql, new Object[] {account_id, show_id, amount, ts});
 		}catch (Exception e) {
 			System.out.println("add tip transaction failed!");
 			e.printStackTrace();
@@ -40,11 +40,11 @@ public class TipTransactionDAO {
 		return addTipTransaction(t.getAccount_id(), t.getShow_id(), t.getAmount(), t.getTime(), jdbcTemplate);
 	}
 	/**
-	 * get所有打赏记录
+	 * 所有打赏记录
 	 * @param jdbcTemplate
 	 * @return List<TipTransaction>
 	 */
-	public static List<TipTransaction> getAllTransactions(JdbcTemplate jdbcTemplate){
+	public static List<TipTransaction> getAllTipTransactions(JdbcTemplate jdbcTemplate){
 		String sql = "select * from tip_transaction;";
 		List<TipTransaction> transactions = null;
 		RowMapper<TipTransaction> TipTransaction_mapper = new BeanPropertyRowMapper<TipTransaction>(TipTransaction.class);
@@ -57,12 +57,12 @@ public class TipTransactionDAO {
 		return transactions;
 	}
 	/**
-	 * get对应钱包账户的打赏记录
+	 * 获取对应钱包账户的打赏记录
 	 * @param account_id
 	 * @param jdbcTemplate
 	 * @return List<TipTransaction>
 	 */
-	public static List<TipTransaction> getTransactionsByAccountId(int account_id, JdbcTemplate jdbcTemplate){
+	public static List<TipTransaction> getTipTransactionsByAccountId(int account_id, JdbcTemplate jdbcTemplate){
 		String sql = "select * from tip_transaction where account_id = ?;";
 		List<TipTransaction> transactions = null;
 		RowMapper<TipTransaction> TipTransaction_mapper = new BeanPropertyRowMapper<TipTransaction>(TipTransaction.class);
@@ -80,7 +80,7 @@ public class TipTransactionDAO {
 	 * @param jdbcTemplate
 	 * @return List<TipTransaction>
 	 */
-	public static List<TipTransaction> getTransactionsByShowtId(int show_id, JdbcTemplate jdbcTemplate){
+	public static List<TipTransaction> getTipTransactionsByShowId(int show_id, JdbcTemplate jdbcTemplate){
 		String sql = "select * from tip_transaction where show_id = ?;";
 		List<TipTransaction> transactions = null;
 		RowMapper<TipTransaction> TipTransaction_mapper = new BeanPropertyRowMapper<TipTransaction>(TipTransaction.class);

@@ -1,10 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>添加节目</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<title>编辑节目信息</title>
+
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<style type="text/css">
+body {
+	min-height: 2000px;
+}
+
+.navbar-static-top {
+	margin-bottom: 19px;
+}
+</style>
 <script>
 function checkShowName(){
 	var name = document.form.show_name.value;
@@ -36,21 +52,7 @@ function checkPerformer(){
 		}
 	}
 }
-function checkOrder(){
-	var order = document.form.order.value;
-	if(document.activeElement.id == "4"){
-		document.getElementById("w4").innerHTML="";
-		return true;
-	}else{
-		if(order.length == 0){
-			document.getElementById("w4").innerHTML="表演顺序不能为空！";
-			return false;
-		}else{
-			document.getElementById("w4").innerHTML="";
-			return true;
-		}
-	}
-}
+
 function checkStartTime(){
 	var time = document.form.start_time.value;
 	var patern = new RegExp(/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/);
@@ -81,26 +83,56 @@ function check(){
 	var a = checkShowName();
 	var b = checkPerformer();
 	var c = checkStartTime();
-	var d = checkOrder();
-	if(a&&b&&c&&d){
+	if(a&&b&&c){
 		document.form.submit();
 	}
 }
 </script>
 </head>
 <body>
-<form name="form"  method="get" action="addShowInfo">
+	<nav class="navbar navbar-default navbar-static-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Project name</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="admin">主页</a></li>
+					<li><a href="adminLuckyrain">红包雨</a></li>
+					<li><a href="adminredpackage">抢红包</a></li>
+					<li class="active dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">节目管理<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="addshow">添加节目</a></li>
+							<li><a href="">导入员工信息</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="adminGetShowlist">查看节目单</a></li>
+						</ul></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="logout.do">Log out<span class="sr-only">(current)</span></a></li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</nav>
+	
+<form name="form"  method="get" action="addshowinfo">
 		<table cellpadding="2">
 			<tr>
 				<td>节目名称：</td>
 				<td><input name="show_name" id="1" onfocus="checkShowName()" onblur="checkShowName()"></td>
 				<td><div style="color:#FF0000" id="w1"></div></td>
 			</tr>
-			<tr>
-				<td>表演顺序:</td>
-				<td><input name="order" id="4" onfocus="checkOrder()" onblur="checkOrder()"></td>
-				<td><div style="color:#FF0000" id="w4"></div></td>
-			</tr>
+			
 			<tr>
 				<td>表演者:</td>
 				<td><input name="performer" id="2" onfocus="checkPerformer()" onblur="checkPerformer()"></td>
@@ -122,7 +154,7 @@ function check(){
 				</td>
 			</tr>
 			<tr>
-				<td><input type="button" value="添加" onclick="check()" ></td>
+				<td><input type="button" value="添加" onclick="check()"></td>
 				<td><div style="color:red">${result}</div></td>
 			</tr>
 		</table>

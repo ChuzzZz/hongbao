@@ -1,0 +1,42 @@
+package entity;
+
+public class RedPackage {
+	int round;
+	long total;
+	int is_on;
+	
+	public int getIs_on() {
+		return is_on;
+	}
+	public void setIs_on(int is_on) {
+		this.is_on = is_on;
+	}
+	public RedPackage() {}
+	public RedPackage(int round, long total) {
+		super();
+		this.round = round;
+		this.total = total;
+	}
+
+	public int getRound() {
+		return round;
+	}
+	
+	public void setRound(int round) {
+		this.round = round;
+	}
+	
+	public long getTotal() {
+		return total;
+	}
+	
+	public void setTotal(long total) {
+		this.total = total;
+	}
+	
+	@Override
+	public String toString() {
+		return ("µÚ" + round + "ÂÖ" + "  totoal:" + total);
+	}
+	
+}
