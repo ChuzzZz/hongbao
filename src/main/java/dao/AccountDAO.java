@@ -20,7 +20,13 @@ import entity.Account;
 import entity.AccountTransaction;
 
 public class AccountDAO {
-
+	
+	public static long toDbAmount(String amount) {
+		double a = Double.parseDouble(amount);
+		a *= 100;
+		Long l = Math.round(a);
+		return l;
+	}
 	/**
 	 * 提现前判断余额是否足够提现
 	 * @author Chuz
@@ -32,7 +38,6 @@ public class AccountDAO {
 	public static boolean preTransaction(int account_id, long amount, JdbcTemplate jdbcTemplate) {
 		String sql = "select balance from account where id = ?;";
 		long balance = 0;
-		amount *= 100;
 		try {
 			balance = jdbcTemplate.queryForLong(sql, account_id);
 		} catch (Exception e) {
@@ -252,7 +257,7 @@ public class AccountDAO {
 			JdbcTemplate jdbcTemplate) {
 		String sql = "SELECT account_id, amount, time, type FROM ";
 
-		sql += "((SELECT  amount, account_id, time, '打赏' AS type ";
+		sql += "((SELECT  -amount as amount, account_id, time, '打赏' AS type ";
 		sql += "FROM tip_transaction  AS t) ";
 		sql += "UNION ALL ";
 		sql += "(SELECT  amount, account_id, time, '充值' AS type ";
@@ -323,5 +328,4 @@ public class AccountDAO {
 		}
 		return transactions;
 	}
-
 }

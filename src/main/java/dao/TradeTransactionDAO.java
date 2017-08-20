@@ -22,7 +22,6 @@ public class TradeTransactionDAO {
 	 * @return 添加充值记录成功返回true,失败返回false
 	 */
 	public static boolean addTopupTransaction(int account_id, long amount, Timestamp ts, JdbcTemplate jdbcTemplate) {
-		amount *= 100;
 		String sql = "insert into trade_transaction values(null, ?, ?, ?)";
 		try {
 			jdbcTemplate.update(sql, new Object[] { account_id, amount, ts });
@@ -44,7 +43,7 @@ public class TradeTransactionDAO {
 	 * @return 添加提现记录成功返回true,失败返回false
 	 */
 	public static boolean addWithdrawTransaction(int account_id, long amount, Timestamp ts, JdbcTemplate jdbcTemplate) {
-		amount *= -100;
+		amount = -amount;
 		String sql = "insert into trade_transaction values(null, ?, ?, ?)";
 		try {
 			jdbcTemplate.update(sql, new Object[] { account_id, amount, ts });

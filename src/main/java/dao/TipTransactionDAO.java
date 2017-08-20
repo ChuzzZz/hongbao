@@ -20,7 +20,6 @@ public class TipTransactionDAO {
 	 * @return 成功返回true,失败返回false
 	 */
 	public static boolean addTipTransaction(int account_id, int show_id, long amount, Timestamp ts, JdbcTemplate jdbcTemplate) {
-		amount *= 100;
 		String sql = "insert into tip_transaction values(null, ?, ?, ?, ?);";
 		try {
 			jdbcTemplate.update(sql, new Object[] {account_id, show_id, amount, ts});
@@ -81,7 +80,7 @@ public class TipTransactionDAO {
 	 * @param jdbcTemplate
 	 * @return List<TipTransaction>
 	 */
-	public static List<TipTransaction> getTipTransactionsByShowtId(int show_id, JdbcTemplate jdbcTemplate){
+	public static List<TipTransaction> getTipTransactionsByShowId(int show_id, JdbcTemplate jdbcTemplate){
 		String sql = "select * from tip_transaction where show_id = ?;";
 		List<TipTransaction> transactions = null;
 		RowMapper<TipTransaction> TipTransaction_mapper = new BeanPropertyRowMapper<TipTransaction>(TipTransaction.class);

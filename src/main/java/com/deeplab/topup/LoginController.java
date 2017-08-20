@@ -4,11 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -23,7 +20,6 @@ import dao.UserDAO;
 public class LoginController {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
-	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 	@RequestMapping(value = { "/verify", "Verify" })
 	public @ResponseBody Map<String, Object> verify(String inputItcode, String inputName) {

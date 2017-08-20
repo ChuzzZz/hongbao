@@ -20,7 +20,6 @@ public class LuckyMoneyTransactionDAO {
 	 * @return 成功返回true,失败返回false
 	 */
 	public static boolean addTransaction(int account_id, long amount, int round, JdbcTemplate jdbcTemplate) {
-		amount *= 100;
 		String sql = "insert into luckymoney_transaction values(0,?,?,?,now());";
 		try {
 			jdbcTemplate.update(sql,new Object[] {account_id, amount, round});

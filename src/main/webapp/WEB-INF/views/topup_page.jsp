@@ -29,11 +29,12 @@ body {
 	$(document).ready(function() {
 		$("#b1").click(function() {
 			var amount = document.form.amount.value;
-			if (amount.length == 0) {
-				document.getElementById("d1").innerHTML = "金额不能为空！";
+			if (amount.length == 0 || amount == 0) {
+				$("#d1").html("不充钱还想变强？");
 			} else {
-				if (amount == 0) {
-					$("#d1").html("不充钱还想变强？");
+				var reg = /^\d+(\.\d{1,2})?$/;
+				if (!reg.test(amount)) {
+					alert("请输入整数或至多保留小数点后两位！");
 				} else {
 					document.form.submit();
 				}
@@ -61,15 +62,6 @@ body {
 					<li><a href="getshowlist">节目</a></li>
 					<li><a href="redpackage">红包</a></li>
 					<li class="active"><a href="myaccount">钱包</a></li>
-					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">钱包<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a>充值</a></li>
-							<li><a>提现</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a>交易记录</a></li>
-						</ul></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="logout.do">Log out<span class="sr-only">(current)</span></a></li>

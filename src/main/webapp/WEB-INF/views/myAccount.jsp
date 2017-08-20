@@ -51,15 +51,6 @@ body {
 					<li><a href="/topup/getshowlist">节目</a></li>
 					<li><a href="/topup/redpackage">红包</a></li>
 					<li class="active"><a href="/topup/myaccount">钱包</a></li>
-					<li class="dropdown"><a class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">钱包<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a>充值</a></li>
-							<li><a>提现</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a>交易记录</a></li>
-						</ul></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="logout.do">Log out<span class="sr-only">(current)</span></a></li>

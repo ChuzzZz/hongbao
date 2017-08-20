@@ -29,11 +29,11 @@ import entity.AccountTransaction;
 import form.AccountForm;
 
 @Controller
-public class AccountController {
+public class UIAccountController {
 
 	@Autowired
 	JdbcTemplate jdbcTemplate;
-	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
+	private static final Logger logger = LoggerFactory.getLogger(UIAccountController.class);
 
 	@RequestMapping(value = { "topup" })
 	public String topup() {
@@ -44,34 +44,23 @@ public class AccountController {
 	public String withdraw() {
 		return "withdraw_page";
 	}
-
+	/**
+	 * 查找用户的所有交易记录
+	 * @param request
+	 * @param model
+	 * @return 用户交易记录界面
+	 */
 	@RequestMapping(value = { "getaccounttransactions" })
 	public String getAccountTransactins(HttpServletRequest request, Model model) {
-		// 确定排序的顺序
-//		String order = null;
 		int itcode = -1;
 		Cookie[] cookies = request.getCookies();
 		for (Cookie c : cookies) {
-//			if (c.getName().equals("order")) {
-//				//如果之前是升序就变为降序,反之同理
-//				if (c.getValue().equals("desc")) {
-//					order = "";
-//				} else {
-//					order = "desc";
-//				}
-//			}
 			if (c.getName().equals("itcode")) {
 				itcode = Integer.parseInt(c.getValue());
 				break;
 			}
 		}
-		// 将现在的排序顺序加入cookie
-//		Cookie cookie = new Cookie("order", order);
-//		response.addCookie(cookie);
-		// 确定排序的类型
-//		if (ordertype == null) {
-//			ordertype = "time";
-//		}
+
 		int account_id = AccountDAO.getAccountIdByItcode(itcode, jdbcTemplate);
 		List<AccountTransaction> t = AccountDAO.getAccountTransactionsOrderByTime(account_id, jdbcTemplate);
 		model.addAttribute("AccountTransaction", t);
@@ -111,13 +100,11 @@ public class AccountController {
 			return "myAccount";
 		}
 	}
-
-	@RequestMapping(value = "/topup.do")
-	public String topupDo(String amount, Locale locale, HttpServletRequest request, Model model) {
+	
+	@RequestMapping(value = "/checkbalance")
+	public @ResponseBody Map<String, Object> checkBalance(String amount, HttpServletRequest request) {
+		//获取用户ITCODE
 		Cookie[] cookies = request.getCookies();
-		if (cookies == null) {
-			return "login";
-		}
 		int itcode = -1;
 		for (Cookie c : cookies) {
 			if (c.getName().equals("itcode")) {
@@ -125,10 +112,16 @@ public class AccountController {
 				break;
 			}
 		}
+		Map<String, Object> map = new HashMap<String, Object>();
 		int account_id = AccountDAO.getAccountIdByItcode(itcode, jdbcTemplate);
-		model.addAttribute("amount", amount);
-		model.addAttribute("account_id", account_id);
-		return "topup_confirm";
+		long a = AccountDAO.toDbAmount(amount);
+		if (AccountDAO.preTransaction(account_id, a, jdbcTemplate)) {
+			map.put("msg", "yes");
+		} else {
+			map.put("msg", "no");
+		}
+
+		return map;
 	}
 
 	@RequestMapping(value = { "/verifypaycode", "/verifyPaycode" })
@@ -147,28 +140,15 @@ public class AccountController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
-
-	@RequestMapping(value = { "/topupresult", "/topupResult" })
-	public String topupResult(String paycode, String account_id, String amount, Locale locale, Model model) {
-		int id = Integer.parseInt(account_id);
-		long am = Long.parseLong(amount);
-		String result = "";
-
-		if (AccountDAO.topUp(id, am, jdbcTemplate)) {
-			result = "你变强了！";
-		} else {
-			result = "充值失败！请稍后再试";
-		}
-
-		model.addAttribute("result", result);
-		return "topup_result";
-	}
-
-	@RequestMapping(value = "/checkbalance")
-	public @ResponseBody Map<String, Object> checkBalance(String amount, HttpServletRequest request) {
+	
+	@RequestMapping(value = "/topup.do")
+	public String topupDo(String amount, Locale locale, HttpServletRequest request, Model model) {
+		//获取用户ITCODE
 		Cookie[] cookies = request.getCookies();
+		if (cookies == null) {
+			return "login";
+		}
 		int itcode = -1;
 		for (Cookie c : cookies) {
 			if (c.getName().equals("itcode")) {
@@ -176,16 +156,26 @@ public class AccountController {
 				break;
 			}
 		}
-		Map<String, Object> map = new HashMap<String, Object>();
 		int account_id = AccountDAO.getAccountIdByItcode(itcode, jdbcTemplate);
-		double am = Double.parseDouble(amount);
-		if (AccountDAO.preTransaction(account_id, am, jdbcTemplate)) {
-			map.put("msg", "yes");
+		model.addAttribute("amount", amount);
+		model.addAttribute("account_id", account_id);
+		return "topup_confirm";
+	}
+
+	@RequestMapping(value = { "/topupresult", "/topupResult" })
+	public String topupResult(String paycode, String account_id, String amount, Locale locale, Model model) {
+		int id = Integer.parseInt(account_id);
+		long a = AccountDAO.toDbAmount(amount);
+		String result = "";
+
+		if (AccountDAO.topUp(id, a, jdbcTemplate)) {
+			result = "你变强了！";
 		} else {
-			map.put("msg", "no");
+			result = "充值失败！请稍后再试";
 		}
 
-		return map;
+		model.addAttribute("result", result);
+		return "topup_result";
 	}
 
 	@RequestMapping(value = "/withdraw.do")
@@ -210,10 +200,10 @@ public class AccountController {
 	@RequestMapping(value = { "/withdrawresult", "/withdrawResult" })
 	public String withdrawResult(String paycode, String account_id, String amount, Locale locale, Model model) {
 		int id = Integer.parseInt(account_id);
-		long am = Long.parseLong(amount);
+		long a = AccountDAO.toDbAmount(amount);
 		String result = "";
 
-		if (AccountDAO.withdraw(id, am, jdbcTemplate)) {
+		if (AccountDAO.withdraw(id, a, jdbcTemplate)) {
 			result = "你变弱了！";
 		} else {
 			result = "提现失败！请稍后再试";
