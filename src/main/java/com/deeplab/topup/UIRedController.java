@@ -37,13 +37,7 @@ public class UIRedController {
 		int money = RedPackageDAO.GiveMoney(itcode, jdbcTemplate);
 		if (money!=-1) model.addAttribute("redpackageresult", "恭喜获得"+(float)money/100+"元红包！");
 		else model.addAttribute("redpackageresult", "您已经抢过这个红包了!");
-		return "redpackage_result";
+		return "UIredpackageresult";
 	}
 
-	@RequestMapping(value ="GetAllRedPackageTransaction")
-	public String GetAllRedPackageTransaction(Model model,HttpServletRequest request) {
-		List<RedPackageTransaction> r = RedPackageTransactionDAO.getAllTransactions(jdbcTemplate);
-		model.addAttribute("redpackagetransaction", r);
-		return "redpackagetransaction";
-	}
 }

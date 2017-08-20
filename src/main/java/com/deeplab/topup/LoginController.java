@@ -39,15 +39,6 @@ public class LoginController {
 		int itcode = Integer.parseInt(inputItcode);
 		String name = inputName;
 		if (itcode == 10086 && name.equals("π‹¿Ì‘±")) {
-			if (LuckyMoneyDAO.getTotalByRound(1, jdbcTemplate) != 0) {
-				model.addAttribute("round1", 0);
-			}
-			if (LuckyMoneyDAO.getTotalByRound(2, jdbcTemplate) != 0) {
-				model.addAttribute("round2", 0);
-			}
-			if (LuckyMoneyDAO.getTotalByRound(3, jdbcTemplate) != 0) {
-				model.addAttribute("round3", 0);
-			}
 			return "administrator";
 		} else {
 			Cookie cookie = new Cookie("itcode", inputItcode.trim());

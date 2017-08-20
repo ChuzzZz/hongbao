@@ -54,12 +54,7 @@ public class AdminController {
 	JdbcTemplate jdbcTemplate;
 	
 	@RequestMapping(value = "/admin")
-	public String admin(Model model) {
-		if (LuckyMoneyDAO.getTotalByRound(1, jdbcTemplate)!=0){model.addAttribute("round1",0);}
-		if (LuckyMoneyDAO.getTotalByRound(2, jdbcTemplate)!=0){model.addAttribute("round2",0);}
-		if (LuckyMoneyDAO.getTotalByRound(3, jdbcTemplate)!=0){model.addAttribute("round3",0);}
-		long k = LuckyMoneyDAO.getTotalByRound(1, jdbcTemplate);
-		System.out.println(k);
+	public String admin() {
 		return "administrator";
 	}
 	

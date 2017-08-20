@@ -1,17 +1,29 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 <title>节目信息</title>
+
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/!/assets/libs.min.js?20170814"></script><script type="text/javascript" src="/!/assets/js.min.js?20170814"></script><link rel="stylesheet" type="text/css" href="/!/assets/css.min.css?20170814">
+<script type="text/javascript" src="/!/assets/libs.min.js?20170814"></script>
+<script type="text/javascript" src="/!/assets/js.min.js?20170814"></script>
+<link rel="stylesheet" type="text/css" href="/!/assets/css.min.css?20170814">
+<style type="text/css">
+body {
+	min-height: 2000px;
+}
+
+.navbar-static-top {
+	margin-bottom: 19px;
+}
+</style>
 <script>
 function adjustOrder(){
 	var beforeget = document.getElementById("before").value;
@@ -25,13 +37,41 @@ function adjustOrder(){
 </script>
 </head>
 <body>
-	<!--  <a href="admin">返回主页</a><br><br>-->
+	<nav class="navbar navbar-default navbar-static-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Project name</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="admin">主页</a></li>
+					<li><a href="adminLuckyrain">红包雨</a></li>
+					<li><a href="adminredpackage">抢红包</a></li>
+					<li class="active dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">节目管理<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="addshow">添加节目</a></li>
+							<li><a href="">导入员工信息</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="adminGetShowlist">查看节目单</a></li>
+						</ul></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="logout.do">Log out<span class="sr-only">(current)</span></a></li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</nav>
 	
-	
-	<input class="btn" type="button" value="回退"
-		onclick="window.history.go(-1)">
-	<input class="btn" type="button" value="管理界面"
-	onclick="window.location.href='admin'">
 	<c:if test="${showlist!=null}">
 		<div class="container">
 			<h2>节目列表</h2>
