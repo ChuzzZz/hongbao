@@ -7,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<title>管理员首页</title>
+<title>红包雨管理</title>
 
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <script src="js/jquery-3.2.1.min.js"></script>
@@ -21,7 +21,26 @@ body {
 	margin-bottom: 19px;
 }
 </style>
-
+<script>
+	function initAJAX() {
+		var xmlhttp;
+		if (window.XMLHttpRequest) {
+			xmlhttp = new XMLHttpRequest();
+		} else {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		return xmlhttp;
+	}
+	function startRain(i) {
+		var httprequest = initAJAX();
+		var url = encodeURI("startluckyrain?round=" + i);
+		if (confirm("确定开启红包雨吗？")) {
+			httprequest.open("get", url, true);
+			httprequest.send();
+			document.getElementById(i).disabled = "disabled";
+		}
+	}
+</script>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-static-top">
@@ -38,8 +57,8 @@ body {
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="admin">主页</a></li>
-					<li><a href="adminLuckyrain">红包雨</a></li>
+					<li><a href="admin">主页</a></li>
+					<li class="active"><a href="adminLuckyrain">红包雨</a></li>
 					<li><a href="adminredpackage">抢红包</a></li>
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -59,24 +78,24 @@ body {
 		</div>
 	</nav>
 	
-	<div class="container" id="myContainer">
-
-		<!-- Main component for a primary marketing message or call to action -->
-		<div class="jumbotron">
-			<h1>Navbar example</h1>
-			<p>This example is a quick exercise to illustrate how the
-				default, static and fixed to top navbar work. It includes the
-				responsive CSS and HTML, so it also adapts to your viewport and
-				device.</p>
-			<p>To see the difference between static and fixed top navbars,
-				just scroll.</p>
-			<p>
-				<a class="btn btn-lg btn-primary" href="#" role="button">View
-					navbar docs &raquo;</a>
-			</p>
-		</div>
-
-	</div>
-	<!-- /container -->
+	<c:if test="${round1!=null}">
+		<button class="btn btn-primary" id="1" onclick="startRain(1)">开启第一轮红包雨</button><br>
+	</c:if>
+	<c:if test="${round1==null}">
+		<button class="btn btn-primary" id="1" onclick="startRain(1)" disabled>开启第一轮红包雨</button><br>
+	</c:if>
+	<c:if test="${round2!=null}">
+		<button class="btn btn-primary" id="2" onclick="startRain(2)">开启第二轮红包雨</button><br>
+	</c:if>
+	<c:if test="${round2==null}">
+		<button class="btn btn-primary" id="2" onclick="startRain(2)" disabled>开启第二轮红包雨</button><br>
+	</c:if>
+	<c:if test="${round3!=null}">
+		<button class="btn btn-primary" id="3" onclick="startRain(3)">开启第三轮红包雨</button><br>
+	</c:if>
+	<c:if test="${round3==null}">
+		<button class="btn btn-primary" id="3" onclick="startRain(3)" disabled>开启第三轮红包雨</button><br>
+	</c:if>
+	<a href="showluckyrainresult">查看红包雨记录</a>
 </body>
 </html>

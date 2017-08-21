@@ -21,16 +21,9 @@ public class TradeTransactionDAO {
 	 * @param jdbcTemplate
 	 * @return 添加充值记录成功返回true,失败返回false
 	 */
-	public static boolean addTopupTransaction(int account_id, long amount, Timestamp ts, JdbcTemplate jdbcTemplate) {
-		String sql = "insert into trade_transaction values(null, ?, ?, ?)";
-		try {
-			jdbcTemplate.update(sql, new Object[] { account_id, amount, ts });
-		} catch (Exception e) {
-			System.out.println("add topup transaction failed!");
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+	public static String addTopupTransaction(int account_id, long amount, Timestamp ts, JdbcTemplate jdbcTemplate) {
+		String sql = "insert into trade_transaction values(null," + account_id +"," + amount + ",'" + ts + "');";
+		return sql;
 	}
 
 	/**
@@ -42,17 +35,10 @@ public class TradeTransactionDAO {
 	 * @param jdbcTemplate
 	 * @return 添加提现记录成功返回true,失败返回false
 	 */
-	public static boolean addWithdrawTransaction(int account_id, long amount, Timestamp ts, JdbcTemplate jdbcTemplate) {
-		String sql = "insert into trade_transaction values(null, ?, ?, ?)";
+	public static String addWithdrawTransaction(int account_id, long amount, Timestamp ts, JdbcTemplate jdbcTemplate) {
 		amount = -amount;
-		try {
-			jdbcTemplate.update(sql, new Object[] { account_id, amount, ts });
-		} catch (Exception e) {
-			System.out.println("add withdraw transaction failed!");
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+		String sql = "insert into trade_transaction values(null," + account_id +"," + amount + ",'" + ts + "');";
+		return sql;
 	}
 
 	/**
@@ -77,7 +63,7 @@ public class TradeTransactionDAO {
 
 	/**
 	 * 获取所有充值记录
-	 * 
+	 * @author Chuz
 	 * @param jdbcTemplate
 	 * @return List<TradeTransaction>
 	 */

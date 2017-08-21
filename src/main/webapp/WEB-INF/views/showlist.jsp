@@ -21,17 +21,25 @@
 <script src="js/jquery.tablesorter.widgets.js"></script>
 <script src="js/jquery.tablesorter.pager.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<style type="text/css">
+body {
+	min-height: 2000px;
+}
 
+.navbar-static-top {
+	margin-bottom: 19px;
+}
+</style>
 <script>
 	$(document).ready(function() {
-		$("#registerButton").click(function(){
-			window.location.href="myaccount";
+		$("#registerButton").click(function() {
+			window.location.href = "myaccount";
 		});
-		
-		$("#topupButton").click(function(){
-			window.location.href="topup";
+
+		$("#topupButton").click(function() {
+			window.location.href = "topup";
 		});
-		
+
 		$("form").submit(function(e) {
 			var id = $(e.target).attr('id');
 			if (id == "searchForm") {
@@ -45,12 +53,11 @@
 					//不充钱
 					alert('！！！');
 				} else {
-					alert("AJAX")
 					$.post("tip.do", {
 						amount : amount,
 						show_id : show_id
 					}, function(data) {
-						switch(data.result){
+						switch (data.result) {
 						case "success":
 							var tip_amount = data.amount;
 							var tip_show = data.show_name;
@@ -59,15 +66,13 @@
 							$('#successModal').modal();
 							break;
 						case "failed":
-							alert("余额不足");
 							$('#failedModal').modal();
 							break;
 						case "erro":
-							alert("没激活钱包");
 							$('#registerModal').modal();
 							break;
 						}
-					},"json")
+					}, "json")
 				}
 			}
 		});
@@ -124,19 +129,35 @@
 </script>
 </head>
 <body>
-	<input class="btn" type="button" value="回退"
-		onclick="window.history.go(-1)">
-	<input class="btn" type="button" value="个人主页"
-		onclick="window.location.href='MyPage'">
+	<nav class="navbar navbar-default navbar-static-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Project name</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="myPage">Home</a></li>
+					<li class="active"><a href="getshowlist">节目</a></li>
+					<li><a href="redpackage">红包</a></li>
+					<li><a href="myaccount">钱包</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="logout.do">Log out<span class="sr-only">(current)</span></a></li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</nav>
 	<c:if test="${showlist!=null}">
 		<div class="container">
 			<h2>节目列表</h2>
-			<br>
-			<form id="searchForm" action="searchbyrule">
-				节目名：<input name="show_name"> &nbsp;&nbsp;表演者：<input
-					name="performer"> &nbsp;&nbsp;部门：<input name="department">&nbsp;&nbsp;
-				<input type="submit" value="查询">
-			</form>
 			<br>
 
 			<div class="table-responsive">
@@ -204,60 +225,71 @@
 		</div>
 	</c:if>
 	<!-- 没有激活账户的模态框 -->
-	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel">Tip Result</h4>
-	      </div>
-	      <div class="modal-body">
-	        	您还没有激活钱包账户，无法打赏<br>
-	        	是否前往激活钱包？
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">不，稍后再说</button>
-	        <button type="button" class="btn btn-primary" id="registerButton">是的，前往激活</button>
-	      </div>
-	    </div>
-	  </div>
+	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Tip Result</h4>
+				</div>
+				<div class="modal-body">
+					您还没有激活钱包账户，无法打赏<br> 是否前往激活钱包？
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">不，稍后再说</button>
+					<button type="button" class="btn btn-primary" id="registerButton">是的，前往激活</button>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- 余额不足的模态框 -->
-	<div class="modal fade" id="failedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel">Tip Result</h4>
-	      </div>
-	      <div class="modal-body">
-	        	您的账户余额不足，无法打赏<br>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary" id="topupButton">我要变强</button>
-	      </div>
-	    </div>
-	  </div>
+	<div class="modal fade" id="failedModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Tip Result</h4>
+				</div>
+				<div class="modal-body">
+					您的账户余额不足，无法打赏<br>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="topupButton">我要变强</button>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- 打赏成功的模态框 -->
-	<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	  <div class="modal-dialog" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel">Tip Result</h4>
-	      </div>
-	      <div class="modal-body">
-	      	<p id="tipShow"></p>
-	      	<p id="tipAmount"></p>
-	      	<p>打赏成功！</p>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-	      </div>
-	    </div>
-	  </div>
+	<div class="modal fade" id="successModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">Tip Result</h4>
+				</div>
+				<div class="modal-body">
+					<p id="tipShow"></p>
+					<p id="tipAmount"></p>
+					<p>打赏成功！</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

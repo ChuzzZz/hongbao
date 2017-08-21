@@ -19,16 +19,9 @@ public class TipTransactionDAO {
 	 * @param jdbcTemplate
 	 * @return 成功返回true,失败返回false
 	 */
-	public static boolean addTipTransaction(int account_id, int show_id, long amount, Timestamp ts, JdbcTemplate jdbcTemplate) {
-		String sql = "insert into tip_transaction values(null, ?, ?, ?, ?);";
-		try {
-			jdbcTemplate.update(sql, new Object[] {account_id, show_id, amount, ts});
-		}catch (Exception e) {
-			System.out.println("add tip transaction failed!");
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+	public static String addTipTransaction(int account_id, int show_id, long amount, Timestamp ts, JdbcTemplate jdbcTemplate) {
+		String sql = "insert into tip_transaction values(null," + account_id + "," + show_id + "," + amount + ",'" + ts + "');";
+		return sql;
 	}
 	/**
 	 * 添加打赏记录
@@ -36,7 +29,7 @@ public class TipTransactionDAO {
 	 * @param jdbcTemplate
 	 * @return 成功返回true,失败返回false
 	 */
-	public static boolean addTipTransaction(TipTransaction t, JdbcTemplate jdbcTemplate) {
+	public static String addTipTransaction(TipTransaction t, JdbcTemplate jdbcTemplate) {
 		return addTipTransaction(t.getAccount_id(), t.getShow_id(), t.getAmount(), t.getTime(), jdbcTemplate);
 	}
 	/**
@@ -80,7 +73,7 @@ public class TipTransactionDAO {
 	 * @param jdbcTemplate
 	 * @return List<TipTransaction>
 	 */
-	public static List<TipTransaction> getTipTransactionsByShowtId(int show_id, JdbcTemplate jdbcTemplate){
+	public static List<TipTransaction> getTipTransactionsByShowId(int show_id, JdbcTemplate jdbcTemplate){
 		String sql = "select * from tip_transaction where show_id = ?;";
 		List<TipTransaction> transactions = null;
 		RowMapper<TipTransaction> TipTransaction_mapper = new BeanPropertyRowMapper<TipTransaction>(TipTransaction.class);

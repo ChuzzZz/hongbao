@@ -20,16 +20,9 @@ public class RedPackageTransactionDAO {
 	 * @param jdbcTemplate
 	 * @return 成功返回true,失败返回false
 	 */
-	public static boolean addTransaction(int account_id, long amount, int round,  JdbcTemplate jdbcTemplate) {
-		String sql = "insert into redpackage_transaction values(0,?,?,?,now());";
-		try {
-			jdbcTemplate.update(sql,new Object[] {account_id, amount, round});
-		}catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("add Transaction failed!");
-			return false;
-		}
-		return true;
+	public static String addTransaction(int account_id, long amount, int round, JdbcTemplate jdbcTemplate) {
+		String sql = "insert into redpackage_transaction values(0,"+ account_id + ","+amount+ ","+round+",now());";
+		return sql;
 	}
 	/**
 	 * 添加红包记录

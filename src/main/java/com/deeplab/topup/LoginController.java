@@ -4,11 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -23,7 +20,6 @@ import dao.UserDAO;
 public class LoginController {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
-	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
 	@RequestMapping(value = { "/verify", "Verify" })
 	public @ResponseBody Map<String, Object> verify(String inputItcode, String inputName) {
@@ -43,15 +39,6 @@ public class LoginController {
 		int itcode = Integer.parseInt(inputItcode);
 		String name = inputName;
 		if (itcode == 10086 && name.equals("π‹¿Ì‘±")) {
-			if (LuckyMoneyDAO.getTotalByRound(1, jdbcTemplate) != 0) {
-				model.addAttribute("round1", 0);
-			}
-			if (LuckyMoneyDAO.getTotalByRound(2, jdbcTemplate) != 0) {
-				model.addAttribute("round2", 0);
-			}
-			if (LuckyMoneyDAO.getTotalByRound(3, jdbcTemplate) != 0) {
-				model.addAttribute("round3", 0);
-			}
 			return "administrator";
 		} else {
 			Cookie cookie = new Cookie("itcode", inputItcode.trim());
@@ -60,18 +47,8 @@ public class LoginController {
 		}
 	}
 
-	@RequestMapping(value = "/MyPage")
-	public String MyPage(Model model, HttpServletRequest request) {
-		Cookie[] cookies = request.getCookies();
-		if (cookies == null) {
-			return "login";
-		}
-		for (Cookie c : cookies) {
-			if (c.getName().equals("itcode")) {
-				return "UI";
-			}
-		}
-
+	@RequestMapping(value = "/logout.do")
+	public String logout() {
 		return "login";
 	}
 

@@ -1,14 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.Timestamp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <title>交易信息</title>
 
@@ -21,11 +19,37 @@
 <script src="js/jquery.tablesorter.widgets.js"></script>
 <script src="js/jquery.tablesorter.pager.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<style type="text/css">
+body {
+	min-height: 2000px;
+}
 
+.navbar-static-top {
+	margin-bottom: 19px;
+}
+</style>
 <script>
 	$(document).ready(function() {
+		$.tablesorter.addParser({
+			  // set a unique id
+			  id: 'time',
+			  is: function(s, table, cell, $cell) {
+			    // return false so this parser is not auto detected
+				  return false;
+			  },
+			  format: function(s, table, cell, cellIndex) {
+			    // format your data for normalization
+				  s = s.replace(/\-/g," ");
+			      s = s.replace(/:/g," ");
+			      s = s.replace(/\./g," ");
+			      s = s.split(" ");
+			      var d = new Date(s[0], s[1], s[2], s[3], s[4], s[5], s[6]);
+			      return d.getTime();
+			  },
+			  // set type, either numeric or text
+			  type: 'numeric'
+			});
 		$("#myTable").tablesorter({
-			sortList : [ [ 2, 0 ] ],
 			widthFixed : true,
 			widgets : [ 'zebra', 'filter', 'columns' ],
 			widgetOptions : {
@@ -62,10 +86,32 @@
 </script>
 </head>
 <body>
-	<input class="btn" type="button" value="回退"
-		onclick="window.history.go(-1)">
-	<input class="btn" type="button" value="个人主页"
-		onclick="window.location.href='MyPage'">
+	<nav class="navbar navbar-default navbar-static-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Project name</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="myPage">Home</a></li>
+					<li><a href="getshowlist">节目</a></li>
+					<li><a href="redpackage">红包</a></li>
+					<li class="active"><a href="myaccount">钱包</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="logout.do">Log out<span class="sr-only">(current)</span></a></li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</nav>
 	<c:if test="${AccountTransaction!=null}">
 		<div class="container">
 			<h2>交易信息</h2>
@@ -76,7 +122,7 @@
 						<tr>
 							<th><label>序号</label></th>
 							<th><label>金额</label></th>
-							<th><label>时间</label></th>
+							<th class="sorter-time"><label>时间</label></th>
 							<th class="filter-select filter-exact"
 								data-placeholder="All Types"><label>交易类型</label></th>
 						</tr>
@@ -88,7 +134,7 @@
 							<tr>
 								<td>${order.index + 1}</td>
 								<td>${AccountTransaction.amount/100}</td>
-								<td>${Timestamp.valueOf(AccountTransaction.time)}</td>
+								<td>${AccountTransaction.time}</td>
 								<td>${AccountTransaction.type}</td>
 							</tr>
 						</c:forEach>
