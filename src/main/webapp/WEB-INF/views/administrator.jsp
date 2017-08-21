@@ -43,12 +43,12 @@ body {
 					<li><a href="adminredpackage">抢红包</a></li>
 					<li class="dropdown"><a class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">节目管理<span class="caret"></span></a>
+						aria-expanded="false">后台管理<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="addshow">添加节目</a></li>
-							<li><a href="">导入员工信息</a></li>
+							<li><a href="adminGetShowlist">节目单管理</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a href="adminGetShowlist">查看节目单</a></li>
+							<li><a href="userlist">员工管理</a></li>
 						</ul></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">

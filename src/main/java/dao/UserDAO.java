@@ -1,9 +1,12 @@
 package dao;
 
+import java.util.List;
+
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import entity.Account;
 import entity.User;
 
 public class UserDAO {
@@ -104,9 +107,34 @@ public class UserDAO {
 		return false;
 	}
 
+	public static List<User> getAllUsers(JdbcTemplate jdbcTemplate) {
+		String sql = "select * from user;";
+		List<User> user = null;
+		RowMapper<User> User_mapper = new BeanPropertyRowMapper<User>(User.class);
+		try {
+			user = jdbcTemplate.query(sql, User_mapper);
+		} catch (Exception e) {
+			System.out.println("getAllAcounts failed");
+			e.printStackTrace();
+		}
+		return user;
+
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public static boolean DeleteAllUsers(JdbcTemplate jdbcTemplate) {
+		String sql = "delete from user;";
+		try {
+			jdbcTemplate.update(sql);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 }
