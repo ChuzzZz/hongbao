@@ -12,7 +12,9 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +33,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.ShowInfoDAO;
 import entity.ShowInfo;
@@ -45,36 +49,36 @@ import jxl.write.biff.RowsExceededException;
 
 @Controller
 public class AdminShowController {
-	
+
 	@Autowired
 	JdbcTemplate jdbcTemplate;
-	
-	@RequestMapping(value = {"/addshow","/addShow"})
+
+	@RequestMapping(value = { "/addshow", "/addShow" })
 	public String addShow() {
 		return "edit_showinfo";
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = {"/addshowinfo","/addShowInfo"})
-	public String addShowInfo(String show_name, String performer, String department, String start_time, Model model) {
+	public Map<String, Object> addShowInfo(String show_name, String performer, String department, String start_time) {
 		Timestamp ts = Timestamp.valueOf(start_time);
-		if (department.equals("Soft")) {department="软件学院";}
-		if (department.equals("Teda")) {department="泰达学院";}
-		if (department.equals("Study")) {department="电竞学院";}
-		if(ShowInfoDAO.addShowInfo( show_name, performer, department, ts, jdbcTemplate)) {
-			return "addshow_result";
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(ShowInfoDAO.addShowInfo(show_name, performer, department, ts, jdbcTemplate)) {
+			map.put("msg", "success");
 		}else {
-			model.addAttribute("result", "节目信息填写错误！");
-			return "edit_showinfo";
+			map.put("msg", "failed");
 		}
+		return map;
 	}
-	
-	@RequestMapping(value = {"/admingetshowlist","/adminGetShowlist"})
+
+	@RequestMapping(value = { "/admingetshowlist", "/adminGetShowlist" })
 	public String adminGetShowlist(Model model) {
 		List<ShowInfo> l = ShowInfoDAO.getAllShowInfoByTimeOrder(jdbcTemplate);
 		model.addAttribute("showlist", l);
 		return "admin_showlist";
 	}
-	
+
 	@RequestMapping(value = "/adjustOrder")
 	public String adjustOrder(int before, int after, Model model) {
 		ShowInfoDAO.swapShowTime(before, after, jdbcTemplate);
@@ -82,7 +86,7 @@ public class AdminShowController {
 		model.addAttribute("showlist", l);
 		return "admin_showlist";
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/export")
 	public ResponseEntity<byte[]> download(HttpServletResponse response, HttpServletRequest request)

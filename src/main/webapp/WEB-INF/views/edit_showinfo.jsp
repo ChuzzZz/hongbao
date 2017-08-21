@@ -1,11 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <title>编辑节目信息</title>
 
@@ -22,71 +24,55 @@ body {
 }
 </style>
 <script>
-function checkShowName(){
-	var name = document.form.show_name.value;
-	if(document.activeElement.id == "1"){
-		document.getElementById("w1").innerHTML="";
-		return true;
-	}else{
-		if(name.length == 0){
-			document.getElementById("w1").innerHTML="节目名称不能为空！";
-			return false;
-		}else{
-			document.getElementById("w1").innerHTML="";
-			return true;
-		}
-	}
-}
-function checkPerformer(){
-	var performer = document.form.performer.value;
-	if(document.activeElement.id == "2"){
-		document.getElementById("w2").innerHTML="";
-		return true;
-	}else{
-		if(performer.length == 0){
-			document.getElementById("w2").innerHTML="表演者不能为空！";
-			return false;
-		}else{
-			document.getElementById("w2").innerHTML="";
-			return true;
-		}
-	}
-}
-
-function checkStartTime(){
-	var time = document.form.start_time.value;
-	var patern = new RegExp(/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/);
-	var patern2 = new RegExp(/^2017-08-01\s+(19|20|21|22):[0-5]\d:[0-5]\d$/);
-	if(document.activeElement.id == "3"){
-		document.getElementById("w3").innerHTML = "";
-		return true;
-	}else{
-		if(time.length== 0){
-			document.getElementById("w3").innerHTML = "时间不能为空！"
-		}else{
-			if(patern.exec(time)){
-				if(patern2.exec(time)){
-					document.getElementById("w3").innerHTML="";
-					return true;
+	$(document).ready(function() {
+		//var time = $("#5").val();
+		//time = time.replace(/T/g, " ");
+		//alert(time);
+		$("#4").click(function(){
+			data = $("#form").serialize();
+			$.post("addshowinfo", data, function(result){
+				if(result.msg == "success"){
+					$("#successModal").modal();
 				}else{
-					document.getElementById("w3").innerHTML="不在表演时间范围内！";
+					$('#failedModal').modal();
+				}
+			},"json");
+		});
+		$("#showButton").click(function(){
+			window.location.href = "admingetshowlist";
+		});
+		
+		$("#3").blur(function(){
+			checkStartTime()
+		});
+		$("#3").focus(function(){
+			checkStartTime()
+		});
+	});
+
+	function checkStartTime() {
+		var time = document.form.start_time.value;
+		var patern = new RegExp(
+				/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/);
+		var patern2 = new RegExp(/^2017-08-01\s+(19|20|21|22):[0-5]\d:[0-5]\d$/);
+		if (document.activeElement.id == "3") {
+			document.getElementById("w3").innerHTML = "";
+			return true;
+		} else {
+			if (patern.exec(time)) {
+				if (patern2.exec(time)) {
+					document.getElementById("w3").innerHTML = "";
+					return true;
+				} else {
+					document.getElementById("w3").innerHTML = "不在表演时间范围内！";
 					return false;
 				}
-			}else{
-				document.getElementById("w3").innerHTML="时间格式不正确！";
+			} else {
+				document.getElementById("w3").innerHTML = "时间格式不正确！";
 				return false;
 			}
 		}
 	}
-}
-function check(){
-	var a = checkShowName();
-	var b = checkPerformer();
-	var c = checkStartTime();
-	if(a&&b&&c){
-		document.form.submit();
-	}
-}
 </script>
 </head>
 <body>
@@ -124,40 +110,83 @@ function check(){
 			<!--/.nav-collapse -->
 		</div>
 	</nav>
-	
-<form name="form"  method="get" action="addshowinfo">
+
+	<form name="form" id="form">
 		<table cellpadding="2">
 			<tr>
 				<td>节目名称：</td>
-				<td><input name="show_name" id="1" onfocus="checkShowName()" onblur="checkShowName()"></td>
-				<td><div style="color:#FF0000" id="w1"></div></td>
+				<td><input name="show_name" id="1"></td>
 			</tr>
-			
 			<tr>
 				<td>表演者:</td>
-				<td><input name="performer" id="2" onfocus="checkPerformer()" onblur="checkPerformer()"></td>
-				<td><div style="color:#FF0000" id="w2"></div></td>
+				<td><input name="performer" id="2"></td>
 			</tr>
 			<tr>
 				<td>开始时间：</td>
-				<td><input name="start_time" id="3" onfocus="checkStartTime()" onblur="checkStartTime()"></td>
-				<td><div style="color:#FF0000" id="w3"></div></td>
+				<td><input name="start_time" id="3"></td>
+				<td><div style="color: #FF0000" id="w3"></div></td>
 			</tr>
 			<tr>
 				<td>报送单位：</td>
-				<td>
-					<select name="department">
-						<option value="Soft">软件学院</option>
-						<option value="Teda">泰达学院</option>
-						<option value="Study">电竞学院</option>
-					</select>
-				</td>
+				<td><select name="department">
+						<option value="软件学院">软件学院</option>
+						<option value="泰达学院">泰达学院</option>
+						<option value="电竞学院">电竞学院</option>
+				</select></td>
 			</tr>
+<!-- 			<tr> -->
+<!-- 				<td><input type="datetime-local" id="5" -->
+<!-- 					value="2018-01-01T19:00:00" /></td> -->
+<!-- 			</tr> -->
 			<tr>
-				<td><input type="button" value="添加" onclick="check()"></td>
-				<td><div style="color:red">${result}</div></td>
+				<td><input type="button" id="4" value="添加"></td>
+				<td><input type="reset" value="重置"></td>
 			</tr>
 		</table>
 	</form>
+	
+	<!-- 添加节目失败的模态框 -->
+	<div class="modal fade" id="failedModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">结果</h4>
+				</div>
+				<div class="modal-body">
+					添加节目信息失败
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 添加节目成功的模态框 -->
+	<div class="modal fade" id="successModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">结果</h4>
+				</div>
+				<div class="modal-body">
+					添加节目信息成功！
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="showButton"data-dismiss="modal">查看节目单</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

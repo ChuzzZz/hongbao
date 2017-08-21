@@ -20,9 +20,9 @@ public class ShowInfoDAO {
 	 * @return 成功返回true,失败返回false
 	 */
 	public static boolean addShowInfo(String show_name,String performer, String department, Timestamp time, JdbcTemplate jdbcTemplate) {
-		String sql = "insert into showinfo values(0,?,?,?,?)";
+		String sql = "insert into showinfo values(0, ?, ?, ?, ?)";
 		try {
-			jdbcTemplate.update(sql, new Object[] { show_name, performer, department, time});
+			jdbcTemplate.update(sql, new Object[] { show_name, performer, department, time });
 		}catch (Exception e) {
 			System.out.println("add showinfo failed!");
 			e.printStackTrace();
