@@ -43,8 +43,8 @@ body {
 			      s = s.replace(/:/g," ");
 			      s = s.replace(/\./g," ");
 			      s = s.split(" ");
-			      var d = new Date(s[0], s[1], s[2], s[3], s[4], s[5], s[6]);
-			      return d.getTime();
+			      var d = new Date(s[0], s[1]-1 , s[2], s[3], s[4], s[5], s[6]);
+			      return $.tablesorter.formatFloat(d.getTime());
 			  },
 			  // set type, either numeric or text
 			  type: 'numeric'
@@ -116,8 +116,7 @@ body {
 		<div class="container">
 			<h2>交易信息</h2>
 			<div class="table-responsive">
-				<table id="myTable"
-					class="table table-striped table-bordered table-hover tablesorter">
+				<table id="myTable" class="table table-striped table-bordered table-hover tablesorter">
 					<thead>
 						<tr>
 							<th><label>序号</label></th>

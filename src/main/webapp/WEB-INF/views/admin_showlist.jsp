@@ -12,9 +12,6 @@
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/!/assets/libs.min.js?20170814"></script>
-<script type="text/javascript" src="/!/assets/js.min.js?20170814"></script>
-<link rel="stylesheet" type="text/css" href="/!/assets/css.min.css?20170814">
 <style type="text/css">
 body {
 	min-height: 2000px;
@@ -75,9 +72,6 @@ function adjustOrder(){
 	<c:if test="${showlist!=null}">
 		<div class="container">
 			<h2>节目列表</h2>
-			<br>
-			<form action="searchbyrule">节目名：<input name="name"> &nbsp;&nbsp;表演者：<input name="actor"> &nbsp;&nbsp;部门：<input name="department">&nbsp;&nbsp; <input type="submit" value="查询"></form>
-			<br>
 			<table>
 			<tr>
 				<th>
@@ -90,7 +84,7 @@ function adjustOrder(){
 					</table>
 					</form>
 				</th>
-				<th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+				<th>&nbsp;</th>
 				<th>
 					<form action="export">
 						<input type="submit" value="导出节目单" >
@@ -98,9 +92,7 @@ function adjustOrder(){
 				</th>
 			</tr>
 			</table>
-	<br>
-	
-	<br>
+			<br>
 			<div class="table-responsive">
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
@@ -128,8 +120,9 @@ function adjustOrder(){
 				</table>
 				<form name="form" action="adjustOrder">
 				交换节目顺序：
-				<input id = "before" name="before">And<input id = "after" name="after"><input type="submit" value="确认" onclick="adjustOrder()">
-	</form>
+				<input id="before" name="before">And<input id="after" name="after">
+				<input type="submit" value="确认" onclick="adjustOrder()">
+				</form>
 			</div>
 		</div>
 	</c:if>
