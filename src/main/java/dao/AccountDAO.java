@@ -191,7 +191,10 @@ public class AccountDAO {
 	public static boolean topUp(int account_id, long amount, JdbcTemplate jdbcTemplate) {
 		try {
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
-			TradeTransactionDAO.addTopupTransaction(account_id, amount, ts, jdbcTemplate);
+			String[] sql = new String [2];
+			sql[0] = TradeTransactionDAO.addTopupTransaction(account_id, amount, ts, jdbcTemplate);
+			sql[1] = AccountDAO.addbalance(account_id, amount, jdbcTemplate);
+			jdbcTemplate.batchUpdate(sql);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -211,7 +214,10 @@ public class AccountDAO {
 		try {
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
 			if (preTransaction(account_id, amount, jdbcTemplate)) {
-				TradeTransactionDAO.addWithdrawTransaction(account_id, amount, ts, jdbcTemplate);
+				String[] sql = new String [2];
+				sql[0] = TradeTransactionDAO.addWithdrawTransaction(account_id, amount, ts, jdbcTemplate);
+				sql[1] = AccountDAO.withdrawbalance(account_id, amount, jdbcTemplate);
+				jdbcTemplate.batchUpdate(sql);
 			} else {
 				return false;
 			}
@@ -235,7 +241,11 @@ public class AccountDAO {
 		try {
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
 			if (preTransaction(account_id, amount, jdbcTemplate)) {
-				TipTransactionDAO.addTipTransaction(account_id, show_id, amount, ts, jdbcTemplate);
+				String[] sql = new String [1];
+				sql[0] = TipTransactionDAO.addTipTransaction(account_id, show_id, amount, ts, jdbcTemplate);
+				System.out.print(sql[0]);
+				//sql[1] = AccountDAO.withdrawbalance(account_id, amount, jdbcTemplate);
+				jdbcTemplate.batchUpdate(sql);
 			} else {
 				return false;
 			}
@@ -246,6 +256,17 @@ public class AccountDAO {
 		return true;
 	}
 
+	
+	public static String addbalance(int account_id, long amount, JdbcTemplate jdbcTemplate) {
+		String sql = "update account set balance = balance + "+ amount + " where id = " + account_id + ";";
+		return sql;
+	}
+	
+	public static String withdrawbalance(int account_id, long amount, JdbcTemplate jdbcTemplate) {
+		String sql = "update account set balance = balance - "+ amount + " where id = " + account_id + ";";
+		return sql;
+	}
+	
 	/**
 	 * 获取用户所有类型的交易记录，按时间排序
 	 * 

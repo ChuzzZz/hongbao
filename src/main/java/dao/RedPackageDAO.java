@@ -45,15 +45,9 @@ public class RedPackageDAO {
 		return round;
 	}
 	
-	public static boolean subTotal(int round, long amount, JdbcTemplate jdbcTemplate) {
-		String sql = "update redpackage set total = total-? where round = ?;";
-		try {
-			jdbcTemplate.update(sql, new Object[] {amount, round});
-		}catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+	public static String subTotal(int round, long amount, JdbcTemplate jdbcTemplate) {
+		String sql = "update redpackage set total = total - " + amount + " where round = " + round + " ;";
+		return sql;
 	}
 	
 	
@@ -93,9 +87,11 @@ public class RedPackageDAO {
 			money=money/(long)(AccountDAO.getAllAcounts(jdbcTemplate).size()*0.6)*r.nextInt(100)/50;
 			System.out.println("ÇÀµ½½ð¶î£º"+money);
 		}
-		
-		RedPackageDAO.subTotal(round, money, jdbcTemplate);
-		RedPackageTransactionDAO.addTransaction(account_id, money, round, jdbcTemplate);
+		String[] sql = new String [3];
+		sql[0] = RedPackageDAO.subTotal(round, money, jdbcTemplate);
+		sql[1] = RedPackageTransactionDAO.addTransaction(account_id, money, round, jdbcTemplate);
+		sql[2] = AccountDAO.addbalance(account_id, money, jdbcTemplate);
+		jdbcTemplate.batchUpdate(sql);
 		return (int) money;
 	}
 

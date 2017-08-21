@@ -58,4 +58,10 @@ public class AdminController {
 		return "administrator";
 	}
 	
+	@RequestMapping(value = "/userlist")
+	public String userlist() {
+		
+		return "administrator";
+	}
+	
 }

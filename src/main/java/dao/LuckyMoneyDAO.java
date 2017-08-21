@@ -29,15 +29,9 @@ public class LuckyMoneyDAO {
 		return total;
 	}
 	
-	public static boolean subTotal(int round, long amount, JdbcTemplate jdbcTemplate) {
-		String sql = "update luckymoney set total = total-? where round = ?;";
-		try {
-			jdbcTemplate.update(sql, new Object[] {amount, round});
-		}catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+	public static String subTotal(int round, long amount, JdbcTemplate jdbcTemplate) {
+		String sql = "update luckymoney set total = total - " +amount+ " where round = " + round +";";
+		return sql;
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

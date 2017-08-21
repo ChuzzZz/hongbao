@@ -168,12 +168,14 @@ public class UIAccountController {
 		long a = AccountDAO.toDbAmount(amount);
 		String result = "";
 
+		
 		if (AccountDAO.topUp(id, a, jdbcTemplate)) {
 			result = "你变强了！";
 		} else {
 			result = "充值失败！请稍后再试";
 		}
 
+		
 		model.addAttribute("result", result);
 		return "topup_result";
 	}

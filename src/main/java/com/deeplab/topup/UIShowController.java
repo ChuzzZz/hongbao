@@ -48,9 +48,13 @@ public class UIShowController {
 		if (AccountDAO.hasAccount(itcode, jdbcTemplate)) {
 			// 有钱包账户
 			int account_id = AccountDAO.getAccountByItcode(itcode, jdbcTemplate).getId();
-			if (AccountDAO.tip(account_id, show_id, l, jdbcTemplate)) {
+			Boolean ok = AccountDAO.tip(account_id, show_id, l, jdbcTemplate);
+			if (ok) {
+			//if (true) {
 				// 余额足够打赏
+
 				String show_name = ShowInfoDAO.getShowInfoById(show_id, jdbcTemplate).getShow_name();
+
 				map.put("result", "success");
 				map.put("amount", amount);
 				map.put("show_name",show_name);
@@ -59,8 +63,9 @@ public class UIShowController {
 				map.put("result", "failed");
 			}
 		} else {
+
 			// 没有钱包账户
-			map.put("result", "erro");
+			map.put("result", "error");
 		}
 		return map;
 	}
