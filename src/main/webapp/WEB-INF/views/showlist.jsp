@@ -169,8 +169,8 @@ body {
 							<th>节目名</th>
 							<th>表演者</th>
 							<th>部门</th>
-							<th>开始时间</th>
-							<th class="sorter-false filter-false"></th>
+							<th width="250">开始时间</th>
+							<th class="sorter-false filter-false" width="250"></th>
 						</tr>
 					</thead>
 
@@ -184,8 +184,8 @@ body {
 								<td>${showinfo.start_time}</td>
 								<td><form action="tip.do">
 										<input type="submit" value="打赏"><input class="span2"
-											name="amount"> 元 <input type="hidden" name="show_id"
-											value="${showinfo.id}">
+											name="amount" style="width:50px;"> 元 <input type="hidden" name="show_id"
+											value="${showinfo.id}" style="width:0px;">
 									</form></td>
 							</tr>
 						</c:forEach>

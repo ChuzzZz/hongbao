@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=0, shrink-to-fit=no">
 
 <title>注册钱包账户</title>
 
@@ -15,7 +15,10 @@
 <script src="js/jquery.validate.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <style type="text/css">
-body {
+<script src="libs/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
+
+<link rel="stylesheet" type="text/css" href="css/index.css">
+.body {
 	min-height: 2000px;
 }
 
@@ -23,109 +26,80 @@ body {
 	margin-bottom: 19px;
 }
 </style>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#b1").click(function() {
-			var paycode = document.getElementById("paycode");
-			var b1 = document.getElementById("b1");
-			if (paycode.type == "password") {
-				paycode.type = "text";
-				b1.value = "隐藏";
-			} else {
-				paycode.type = "password";
-				b1.value = "显示";
+
+<script src="js/kit.js"></script>
+		<!--[if IE]>
+		<script src="js/ieFix.js"></script>
+		<![endif]-->
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-30210234-1']);
+			_gaq.push(['_trackPageview']);
+			(function() {
+				var ga = document.createElement('script');
+				ga.type = 'text/javascript';
+				ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(ga, s);
+			})();
+
+		</script>
+		<script src="js/dom.js"></script>
+		<script src="js/form.js"></script>
+		<link rel="stylesheet" href="css/css.css" />
+		<link rel="stylesheet" href="css/login.css" />
+		<link rel="stylesheet" href="css/validator.css" />
+		<!--validator-->
+		<script src="js/validator.js"></script>
+		<script src="js/autowired.validator.js"></script>
+		<style>
+			table td {
+				font-size: 14px;
 			}
-		});
-
-		$("#myform").validate({
-			debug : true, //调试模式取消submit的默认提交功能   
-			focusInvalid : false, //当为false时，验证无效时，没有焦点响应  
-			//onkeyup : false,
-			//onfocusout: false,
-			submitHandler : function(form) {
-				form.submit();
-			},
-
-			rules : {
-				itcode : {
-					required : true
-				},
-				paycode : {
-					required : true,
-					rangelength : [ 6, 16 ]
-				},
-				confirm_paycode : {
-					required : true,
-					equalTo : "#paycode"
-				}
-			},
-			messages : {
-				itcode : {
-					required : "ITcode必填"
-				},
-				paycode : {
-					required : "支付密码不能为空",
-					rangelength : "密码长度应该为6-16位"
-				},
-				confirm_paycode : {
-					required : "确认密码不能为空",
-					equalTo : "两次密码输入不一致"
-				}
+			label {
+				cursor: pointer;
+				margin-right: 1em;
 			}
-
-		});
-	});
-</script>
+		</style>
 </head>
 
 <body>
-<nav class="navbar navbar-default navbar-static-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">Project name</a>
-			</div>
-			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="myPage">Home</a></li>
-					<li><a href="getshowlist">节目</a></li>
-					<li><a href="redpackage">红包</a></li>
-					<li class="active"><a href="myaccount">钱包</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="logout.do">Log out<span class="sr-only">(current)</span></a></li>
-				</ul>
-			</div>
-			<!--/.nav-collapse -->
+
+
+	<div id="regist-main">
+			<form id="registForm" action="register.do" method="post" onsubmit="alert('验证通过，可以提交！');return true;">
+				<ol>
+					<li>
+						<label for="UserName">工号：
+						<span class="kitjs-validator" for="@UserName" rules="[{notNull:true, message:'工号不能为空'}]"></span>
+						</label>
+						<span class="field-validation-valid" data-valmsg-for="UserName" data-valmsg-replace="true"></span>
+						<input id="itcode" name="itcode" type="text" value="">
+					</li>
+					
+					<li>
+						<label for="Password">设置支付密码：
+						<span class="kitjs-validator" for="@Password" rules="[{notNull:true, message:'密码不能为空'},{minLength:'6',message:'密码长度最少为6位'}]"></span>
+						</label>
+						<span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+						<input id="paycode" name="paycode" type="password">
+					</li>
+					<li>
+						<label for="ConfirmPassword">重新输入密码：
+						<span class="kitjs-validator" for="@ConfirmPassword" rules="[{notNull:true, message:'重新输入密码不能为空'},{equalWith:'@Password',message:'两次输入密码必须一致'},{minLength:'6',message:'密码长度最少为6位'}]"></span>
+						</label>
+						<span class="field-validation-valid" data-valmsg-for="ConfirmPassword" data-valmsg-replace="true"></span>
+						<input id="confirm_paycode" name="confirm_paycode" type="password">
+					</li>
+				</ol>
+				<div class="registError"></div>
+				<input type="submit" value="注册" class="btn-submit">
+			</form>
 		</div>
-	</nav>
-	<div style="color: red">${message}</div>
-	<form id="myform" action="register.do">
-		<table>
-			<tr>
-				<td>ITCode：</td>
-				<td><input name="itcode"></td>
-			</tr>
-			<tr>
-				<td>设置支付密码：</td>
-				<td><input type="button" id="b1" value="显示"><input
-					type="password" id="paycode" name="paycode"></td>
-			</tr>
-			<tr>
-				<td>确认支付密码：</td>
-				<td><input type="password" id="confirm_paycode"
-					name="confirm_paycode"></td>
-			</tr>
-			<tr>
-				<td><input type="submit" value="注册"></td>
-			</tr>
-		</table>
-	</form>
+	
+	
+	
+	
 </body>
 </html>

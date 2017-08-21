@@ -37,10 +37,11 @@ public class UIController {
 		}
 		if (AccountDAO.hasAccount(itcode, jdbcTemplate)) {
 			Account account = AccountDAO.getAccountByItcode(itcode, jdbcTemplate);
-			model.addAttribute("account_id", account.getId());
+			model.addAttribute("account_id", account.getItcode());
 			model.addAttribute("balance", (float)account.getBalance() / 100);
 			return "myAccount";
 		} else {
+			model.addAttribute("itcode", itcode);
 			return "register_account";
 		}
 	}

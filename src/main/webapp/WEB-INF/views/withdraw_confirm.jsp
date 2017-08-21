@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 <title>确认提现信息</title>
 
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -83,6 +84,24 @@ body {
 		<input type="hidden" name="account_id" id="account_id" value="${account_id}">
 		<input type="hidden" name="amount" value="${amount}"> 
 		支付密码：<input type="password" name="paycode" id="paycode" maxlength=16> 
+		<div id="payPassword_container" class="alieditContainer clearfix" data-busy="0">
+	<label for="i_payPassword" class="i-block">支付密码：</label>
+	<div class="i-block" data-error="i_error">
+		<div class="i-block six-password">
+			<input class="i-text sixDigitPassword" id="payPassword_rsainput" type="password" autocomplete="off" required="required" value="" name="payPassword_rsainput" data-role="sixDigitPassword" tabindex="" maxlength="6" minlength="6" aria-required="true">
+			<div tabindex="0" class="sixDigitPassword-box" style="width: 180px;">
+				<i style="width: 29px; border-color: transparent;" class=""><b style="visibility: hidden;"></b></i>
+				<i style="width: 29px;"><b style="visibility: hidden;"></b></i>
+				<i style="width: 29px;"><b style="visibility: hidden;"></b></i>
+				<i style="width: 29px;"><b style="visibility: hidden;"></b></i>
+				<i style="width: 29px;"><b style="visibility: hidden;"></b></i>
+				<i style="width: 29px;"><b style="visibility: hidden;"></b></i>
+				<span style="width: 29px; left: 0px; visibility: hidden;" id="cardwrap" data-role="cardwrap"></span>
+			</div>
+		</div>
+		<span>请输入6位支付密码( 数字！)</span>
+	</div>
+</div>
 		<input type="button" id="b1" name="b1" value="提现"><br>
 	</form>
 	<table>

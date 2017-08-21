@@ -34,6 +34,7 @@ public class UIRedController {
 				break;
 			}
 		}
+		if (RedPackageDAO.getActiveRound(jdbcTemplate)==-1) {model.addAttribute("redpackageresult", "红包尚未开启!");return "UIredpackageresult";}
 		int money = RedPackageDAO.GiveMoney(itcode, jdbcTemplate);
 		if (money!=-1) model.addAttribute("redpackageresult", "恭喜获得"+(float)money/100+"元红包！");
 		else model.addAttribute("redpackageresult", "您已经抢过这个红包了!");

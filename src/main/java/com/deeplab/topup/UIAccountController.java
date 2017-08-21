@@ -97,7 +97,7 @@ public class UIAccountController {
 				model.addAttribute("account_id", AccountDAO.getAccountByItcode(itcode, jdbcTemplate).getId());
 				model.addAttribute("balance", 0);
 			}
-			return "myAccount";
+			return "redirect:/myaccount";
 		}
 	}
 	
@@ -124,27 +124,10 @@ public class UIAccountController {
 		return map;
 	}
 
-	@RequestMapping(value = { "/verifypaycode", "/verifyPaycode" })
-	public void verifyPaycode(String paycode, String account_id, HttpServletResponse response) {
-		int id = Integer.parseInt(account_id);
-		response.setCharacterEncoding("UTF-8");
-		PrintWriter out;
-		try {
-			out = response.getWriter();
-			if (AccountDAO.verifyPaycode(id, paycode, jdbcTemplate)) {
-				out.print("支付密码正确");
-			} else {
-				out.print("支付密码错误");
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 	
-	@RequestMapping(value = "/topup.do")
-	public String topupDo(String amount, Locale locale, HttpServletRequest request, Model model) {
-		//获取用户ITCODE
+	@RequestMapping(value = { "/topup.do", "/Topup.do" })
+	public String topupResult(String paycode, String amount, Locale locale, Model model,HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
 			return "login";
@@ -156,32 +139,24 @@ public class UIAccountController {
 				break;
 			}
 		}
-		int account_id = AccountDAO.getAccountIdByItcode(itcode, jdbcTemplate);
-		model.addAttribute("amount", amount);
-		model.addAttribute("account_id", account_id);
-		return "topup_confirm";
-	}
-
-	@RequestMapping(value = { "/topupresult", "/topupResult" })
-	public String topupResult(String paycode, String account_id, String amount, Locale locale, Model model) {
-		int id = Integer.parseInt(account_id);
+		int id = AccountDAO.getAccountIdByItcode(itcode, jdbcTemplate);
 		long a = AccountDAO.toDbAmount(amount);
 		String result = "";
-
-		
-		if (AccountDAO.topUp(id, a, jdbcTemplate)) {
-			result = "你变强了！";
-		} else {
-			result = "充值失败！请稍后再试";
-		}
-
-		
-		model.addAttribute("result", result);
-		return "topup_result";
+		if (AccountDAO.verifyPaycode(id, paycode, jdbcTemplate)){
+			if (AccountDAO.topUp(id, a, jdbcTemplate)) {
+				result = "充值成功！";
+			} else {
+				result = "充值失败！请输入正确的金额";
+			}
+		} 
+		else result = "密码错误！";
+			model.addAttribute("result", result);
+			return "topup_result";
 	}
 
-	@RequestMapping(value = "/withdraw.do")
-	public String withdrawDo(String amount, Locale locale, HttpServletRequest request, Model model) {
+
+	@RequestMapping(value = { "/withdraw.do", "/withdraw.do" })
+	public String withdrawResult(String paycode, String amount, Locale locale, Model model,HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
 		if (cookies == null) {
 			return "login";
@@ -193,26 +168,21 @@ public class UIAccountController {
 				break;
 			}
 		}
-		int account_id = AccountDAO.getAccountIdByItcode(itcode, jdbcTemplate);
-		model.addAttribute("amount", amount);
-		model.addAttribute("account_id", account_id);
-		return "withdraw_confirm";
-	}
-
-	@RequestMapping(value = { "/withdrawresult", "/withdrawResult" })
-	public String withdrawResult(String paycode, String account_id, String amount, Locale locale, Model model) {
-		int id = Integer.parseInt(account_id);
+		int id = AccountDAO.getAccountIdByItcode(itcode, jdbcTemplate);
 		long a = AccountDAO.toDbAmount(amount);
 		String result = "";
 
-		if (AccountDAO.withdraw(id, a, jdbcTemplate)) {
-			result = "你变弱了！";
-		} else {
-			result = "提现失败！请稍后再试";
+		if (AccountDAO.verifyPaycode(id, paycode, jdbcTemplate)){
+			if (AccountDAO.getAccountById(id, jdbcTemplate).getBalance()<a){result = "余额不足！";}
+			else if (AccountDAO.withdraw(id, a, jdbcTemplate)) {
+				result = "提现成功！";
+			} else {
+				result = "提现失败！请输入正确的金额";
+			}
 		}
-
+		else result = "密码错误！";
 		model.addAttribute("result", result);
 		return "withdraw_result";
-	}
+		}
 
 }

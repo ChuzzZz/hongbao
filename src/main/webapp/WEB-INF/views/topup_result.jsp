@@ -13,6 +13,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+
 <style type="text/css">
 body {
 	min-height: 2000px;
@@ -51,11 +52,30 @@ body {
 			<!--/.nav-collapse -->
 		</div>
 	</nav>
-	<h1>卢本伟牛逼！</h1>
-	<hr>
-	${result}<br>
-	<a href="topup">继续充值</a>
-	<a href="myaccount">我的钱包</a>
+
+
+	
+
+	<div id="hello">
+	    <div class="container">
+	    	<div class="row">
+	    		<div class="col-lg-8 col-lg-offset-2 centered">
+	    			<h1>${result}</h1>
+	    			<h2>TOP UP RESULT</h2>
+	    			<hr>
+	    			<table>
+	    			<tr>
+	    			<td><h4><a  href="getaccounttransactions">交易记录</a></h4></td>
+	    			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td><h4> <a href="myaccount">我的钱包</a></h4></td>
+					</tr>
+					</table>
+	    		</div><!-- /col-lg-8 -->
+	    	</div><!-- /row -->
+	    </div> <!-- /container -->
+	</div><!-- /hello -->
+	
+	
 </body>
 
 </html>

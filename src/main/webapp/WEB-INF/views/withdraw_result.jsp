@@ -7,11 +7,13 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
 <title>Topup Result</title>
 
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+
 <style type="text/css">
 body {
 	min-height: 2000px;
@@ -24,7 +26,7 @@ body {
 </head>
 
 <body>
-	<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-default navbar-static-top">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
@@ -50,11 +52,30 @@ body {
 			<!--/.nav-collapse -->
 		</div>
 	</nav>
-	<h1>卢本伟牛逼！</h1>
-	<hr>
-	${result}<br>
-	<a href="withdraw">继续提现</a>
-	<a href="myaccount">我的钱包</a>
+
+
+	
+
+	<div id="hello">
+	    <div class="container">
+	    	<div class="row">
+	    		<div class="col-lg-8 col-lg-offset-2 centered">
+	    			<h1>${result}</h1>
+	    			<h2>WITHDRAW RESULT</h2>
+	    			<hr>
+	    			<table>
+	    			<tr>
+	    			<td><h4><a  href="getaccounttransactions">交易记录</a></h4></td>
+	    			<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td><h4> <a href="myaccount">我的钱包</a></h4></td>
+					</tr>
+					</table>
+	    		</div><!-- /col-lg-8 -->
+	    	</div><!-- /row -->
+	    </div> <!-- /container -->
+	</div><!-- /hello -->
+	
+	
 </body>
 
 </html>
