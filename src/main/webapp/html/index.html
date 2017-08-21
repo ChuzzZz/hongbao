@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
 <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Hey</title>
@@ -12,16 +13,32 @@
 <script src="../js/popper.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 
-<script>
-	$("#menu-toggle").click(function(e) {
-		e.preventDefault();
-		$("#wrapper").toggleClass("toggled");
-	});
-</script>
 </head>
 
 <body>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button>
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Tip Result</h4>
+      </div>
+      <div class="modal-body">
+        	打赏成功！<br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">看节目看节目</button>
+      </div>
+    </div>
+  </div>
+</div>
 	<div id="wrapper">
 
 		<!-- Sidebar -->
@@ -53,7 +70,7 @@
 					<code>#page-content-wrapper</code>
 					.
 				</p>
-				<a href="#menu-toggle" class="btn btn-primary" id="menu-toggle">Toggle
+				<a href="" class="btn btn-primary" id="menu-toggle">Toggle
 					Menu</a>
 			</div>
 		</div>
@@ -61,6 +78,12 @@
 
 	</div>
 	<!-- /#wrapper -->
+	<script>
+		$("#menu-toggle").click(function(e) {
+			e.preventDefault();
+			$("#wrapper").toggleClass("toggled");
+		});
+	</script>
 </body>
 
 </html>
