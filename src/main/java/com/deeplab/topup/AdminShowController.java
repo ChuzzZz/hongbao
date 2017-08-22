@@ -55,20 +55,21 @@ public class AdminShowController {
 
 	@RequestMapping(value = { "/addshow", "/addShow" })
 	public String addShow() {
-		return "edit_showinfo";
+		return "addshowinfo";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = {"/addshowinfo","/addShowInfo"})
 	public Map<String, Object> addShowInfo(String show_name, String performer, String department, String start_time) {
 		Timestamp ts = Timestamp.valueOf(start_time);
-		
+		System.out.print(show_name);
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(ShowInfoDAO.addShowInfo(show_name, performer, department, ts, jdbcTemplate)) {
 			map.put("msg", "success");
 		}else {
 			map.put("msg", "failed");
 		}
+		System.out.println(map.toString());
 		return map;
 	}
 

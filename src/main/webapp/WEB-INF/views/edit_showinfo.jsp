@@ -10,8 +10,41 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <title>编辑节目信息</title>
+<script type="text/javascript" src="js/jquery-1.7.min.js"></script>
+<style type="text/css">
+*{margin:0;padding:0;list-style-type:none;}
+a,img{border:0;}
+body{font-size:12px;background:#efeeeb;color:#666;}
+a,a:hover{text-decoration:none; color:#666;}
 
+.demo{width:300px;margin:40px auto 0 auto;}
+
+/* select */
+.select{position:relative;float:left;margin:0 10px;}
+.select dt{height:28px;display:inline-block;border:1px solid #d2ccc4;background:#fcfcfb url(images/ico.gif) no-repeat 97px center;line-height:28px;font-weight:bold;padding-left:10px;cursor:pointer;width:90px;padding-right:12px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;position:relative;z-index:99;}
+.select dt:hover,.select dt.cur{border:1px solid #409DFE;box-shadow:0 0 3px #409DFE;}
+.select dd{position:absolute;left:0;top:29px;border:1px solid #d2ccc4;background:#fff;display:none;}
+.select dd ul{padding:4px;width:104px;max-height:250px;overflow:auto;}
+.select dd ul li a{line-height:28px;display:block;padding:0 8px;}
+.select dd ul li a:hover{background:#f5f5f5;}
+</style>
+<script type="text/javascript">
+$(function(){
+	$(".select").each(function(){
+		var s=$(this);
+		var z=parseInt(s.css("z-index"));
+		var dt=$(this).children("dt");
+		var dd=$(this).children("dd");
+		var _show=function(){dd.slideDown(200);dt.addClass("cur");s.css("z-index",z+1);};   //展开效果
+		var _hide=function(){dd.slideUp(200);dt.removeClass("cur");s.css("z-index",z);};    //关闭效果
+		dt.click(function(){dd.is(":hidden")?_show():_hide();});
+		dd.find("a").click(function(){dt.html($(this).html());_hide();});     //选择效果（如需要传值，可自定义参数，在此处返回对应的“value”值 ）
+		$("body").click(function(i){ !$(i.target).parents(".select").first().is(s) ? _hide():"";});
+	})
+})
+</script>
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <style type="text/css">
@@ -128,11 +161,24 @@ body {
 			</tr>
 			<tr>
 				<td>报送单位：</td>
-				<td><select name="department">
-						<option value="软件学院">软件学院</option>
-						<option value="泰达学院">泰达学院</option>
-						<option value="电竞学院">电竞学院</option>
-				</select></td>
+				<td>
+				
+		<div class="demo">
+			<dl class="select">
+				<dt>请选择部门</dt>
+				<dd>
+					<ul>
+						<li><a href="#">12131</a></li>
+						<li><a href="#">下拉2</a></li>
+						<li><a href="#">下拉3</a></li>
+						<li><a href="#">下拉4</a></li>
+						<li><a href="#">下拉5</a></li>
+						<li><a href="#">下拉6</a></li>
+					</ul>
+				</dd>
+			</dl>
+		</div>
+</td>
 			</tr>
 <!-- 			<tr> -->
 <!-- 				<td><input type="datetime-local" id="5" -->
@@ -183,7 +229,7 @@ body {
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" class="btn btn-primary" id="showButton"data-dismiss="modal">查看节目单</button>
+					<button type="button" class="btn btn-primary" id="showButton" data-dismiss="modal">查看节目单</button>
 				</div>
 			</div>
 		</div>

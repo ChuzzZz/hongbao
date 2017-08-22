@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!DOCTYPE html>	
 <html>
 <head>
 <meta charset="UTF-8">
@@ -42,6 +42,10 @@ body {
 		}
 	}
 </script>
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<!-- Font-Awesome 图标-->
+	<link href="assets/css/font-awesome.min.css" rel="stylesheet">
+	<link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-static-top">
@@ -100,5 +104,72 @@ body {
 	</c:if><br>
 	<a href="showluckyrainresult">查看红包雨记录</a>
 	</div><br>
+	
+	
+	
+	
+	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<!-- Font-Awesome 图标-->
+	<link href="assets/css/font-awesome.min.css" rel="stylesheet">
+	<link href="assets/css/style.css" rel="stylesheet">
+
+<section id="services" class="services padding-120 bg-color">
+		<div class="container">
+			<div class="section-header text-center">
+				<h3>Our Services</h3>
+				<p><i>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse in facilisis ex, vitae maximus diam. Maecenas nisl dui.</i></p>
+			</div>
+			<div class="service-items">
+				<div class="row">
+					<div class="col-md-4 col-sm-6 col-xs-12">
+						<div class="service-item">
+							<span><i class="fa fa-desktop" aria-hidden="true"></i></span>
+							<h4>Web Design</h4>
+							<p>Interdum et malesuada fames ac ante ipsum primis faucib. Suspendisse volutpat porta felises ut cursus.</p>
+						</div><!-- service-item -->
+					</div>
+					<div class="col-md-4 col-sm-6 col-xs-12">
+						<div class="service-item">
+							<span><i class="fa fa-code" aria-hidden="true"></i></span>
+							<h4>Development</h4>
+							<p>Interdum et malesuada fames ac ante ipsum primis faucib. Suspendisse volutpat porta felises ut cursus.</p>
+						</div><!-- service-item -->
+					</div>
+					<div class="col-md-4 col-sm-6 col-xs-12">
+						<div class="service-item">
+							<span><i class="fa fa-camera-retro" aria-hidden="true"></i></span>
+							<h4>Photography</h4>
+							<p>Interdum et malesuada fames ac ante ipsum primis faucib. Suspendisse volutpat porta felises ut cursus.</p>
+						</div><!-- service-item -->
+					</div>
+					<div class="col-md-4 col-sm-6 col-xs-12">
+						<div class="service-item">
+							<span><i class="fa fa-line-chart" aria-hidden="true"></i></span>
+							<h4>SEO</h4>
+							<p>Interdum et malesuada fames ac ante ipsum primis faucib. Suspendisse volutpat porta felises ut cursus.</p>
+						</div><!-- service-item -->
+					</div>
+					<div class="col-md-4 col-sm-6 col-xs-12">
+						<div class="service-item">
+							<span><i class="fa fa-shopping-bag" aria-hidden="true"></i></span>
+							<h4>Marketing</h4>
+							<p>Interdum et malesuada fames ac ante ipsum primis faucib. Suspendisse volutpat porta felises ut cursus.</p>
+						</div><!-- service-item -->
+					</div>
+					<div class="col-md-4 col-sm-6 col-xs-12">
+						<div class="service-item">
+							<span><i class="fa fa-cogs" aria-hidden="true"></i></span>
+							<h4>Support</h4>
+							<p>Interdum et malesuada fames ac ante ipsum primis faucib. Suspendisse volutpat porta felises ut cursus.</p>
+						</div><!-- service-item -->
+					</div>
+				</div><!-- row -->
+			</div><!-- service-items -->
+		</div><!-- container -->
+	</section>
+	
+	
+	
+	
 </body>
 </html>

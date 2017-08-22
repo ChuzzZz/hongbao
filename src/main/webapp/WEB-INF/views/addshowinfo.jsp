@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=0, shrink-to-fit=no">
 
-<title>注册钱包账户</title>
+<title>节目报送</title>
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <script src="js/jquery-3.2.1.min.js"></script>
@@ -21,11 +21,11 @@ a,img{border:0;}
 body{font-size:12px;background:#efeeeb;color:#666;}
 a,a:hover{text-decoration:none; color:#666;}
 
-.demo{width:300px;margin:40px auto 0 auto;}
+.demo{width:300px;margin:10px auto 0 auto;padding-right:12px;}
 
 /* select */
-.select{position:relative;float:left;margin:0 10px;}
-.select dt{height:28px;display:inline-block;border:1px solid #d2ccc4;background:#fcfcfb url(images/ico.gif) no-repeat 97px center;line-height:28px;font-weight:bold;padding-left:10px;cursor:pointer;width:90px;padding-right:12px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;position:relative;z-index:99;}
+.select{position:relative;float:right;margin:0 10px;}
+.select dt{height:28px;display:inline-block;border:1px solid #d2ccc4;background:#fcfcfb url(images/ico.gif) no-repeat 97px center;line-height:28px;font-weight:bold;padding-left:10px;cursor:pointer;width:90px;padding-right:12px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;position:right;z-index:99;}
 .select dt:hover,.select dt.cur{border:1px solid #409DFE;box-shadow:0 0 3px #409DFE;}
 .select dd{position:absolute;left:0;top:29px;border:1px solid #d2ccc4;background:#fff;display:none;}
 .select dd ul{padding:4px;width:104px;max-height:250px;overflow:auto;}
@@ -33,6 +33,7 @@ a,a:hover{text-decoration:none; color:#666;}
 .select dd ul li a:hover{background:#f5f5f5;}
 </style>
 <script type="text/javascript">
+
 $(function(){
 	$(".select").each(function(){
 		var s=$(this);
@@ -47,18 +48,20 @@ $(function(){
 	})
 })
 </script>
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <style type="text/css">
-<script src="libs/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
-
-<link rel="stylesheet" type="text/css" href="css/index.css">
 .body {
 	min-height: 2000px;
 }
-
 .navbar-static-top {
 	margin-bottom: 19px;
 }
 </style>
+<script src="libs/jquery-1.12.4.min.js" type="text/javascript" charset="utf-8"></script>
+
+<link rel="stylesheet" type="text/css" href="css/index.css">
 
 <script src="js/kit.js"></script>
 		<!--[if IE]>
@@ -78,6 +81,9 @@ $(function(){
 			})();
 
 		</script>
+		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+
 		<script src="js/dom.js"></script>
 		<script src="js/form.js"></script>
 		<link rel="stylesheet" href="css/css.css" />
@@ -95,47 +101,127 @@ $(function(){
 				margin-right: 1em;
 			}
 		</style>
+		
+		
+<script>
+	function choose(a){
+		document.getElementById("department").value=a;
+	}
+
+</script>
+
+<script>
+	$(document).ready(function() {
+		$("#ok").click(function(){
+			data = $("#registForm").serialize();
+			$.post("addshowinfo", data, function(result){
+				if(result.msg == "success"){
+					$("#successModal").modal();
+				}else{
+					$('#failedModal').modal();
+				}
+			},"json");
+		});
+		$("#showButton").click(function(){
+			window.location.href = "admingetshowlist";
+		});
+	});
+
+</script>
 </head>
 
 <body>
 
 
 	<div id="regist-main">
-			<form id="registForm" action="register.do" method="post" >
+			<form id="registForm"  >
 				<ol>
 					<li>
-						<label for="UserName">工号：
+						<label for="UserName">节目名称：
 						<span class="kitjs-validator" for="@UserName" rules="[{notNull:true, message:'工号不能为空'}]"></span>
 						</label>
 						<span class="field-validation-valid" data-valmsg-for="UserName" data-valmsg-replace="true"></span>
-						<input id="itcode" name="itcode" type="text" value="">
+						<input id="show_name" name="show_name" type="text" value="">
 					</li>
 					
 					<li>
-						<label for="Password">设置支付密码：
+						<label for="Password">表演者：
 						<span class="kitjs-validator" for="@Password" rules="[{notNull:true, message:'密码不能为空'},{minLength:'6',message:'密码长度最少为6位'}]"></span>
 						</label>
 						<span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
-						<input id="paycode" name="paycode" type="password">
+						<input id="performer" name="performer" type="text">
 					</li>
+					
 					<li>
-						<label for="ConfirmPassword">重新输入密码：
-						<span class="kitjs-validator" for="@ConfirmPassword" rules="[{notNull:true, message:'重新输入密码不能为空'},{equalWith:'@Password',message:'两次输入密码必须一致'},{minLength:'6',message:'密码长度最少为6位'}]"></span>
-						</label>
-						<span class="field-validation-valid" data-valmsg-for="ConfirmPassword" data-valmsg-replace="true"></span>
-						<input id="confirm_paycode" name="confirm_paycode" type="password">
+					<table><tr>
+						<td>报送部门：<input type="text" id="department" name="department" readonly="readonly"></td>
+						</tr><tr>
+						<td><div class="demo">
+						<dl class="select">
+						<dt>选择部门</dt>
+							<dd>
+								<ul>
+									<li><a onclick="choose('软件学院')">软件学院</a></li>
+									<li><a onclick="choose('泰达学院')">泰达学院</a></li>
+									<li><a onclick="choose('信息学院')">信息学院</a></li>
+								</ul>
+							</dd>
+						</dl>
 						
+						
+						</div>
+						</td>
+						</tr>
+						</table>
 					</li>
 				</ol>
 				<div class="registError"></div>
-				<input type="submit" value="注册" class="btn-submit">
+				<input type="hidden" value = "2017-08-01 19:00:00" name = "start_time">
+				<input type="submit" value="确定" id = "ok" class="btn-submit">
 			</form>
 		</div>
-		
-		
-
-	
-	
-	
+<!-- 添加节目失败的模态框 -->
+	<div class="modal fade" id="failedModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">结果</h4>
+				</div>
+				<div class="modal-body">
+					添加节目信息失败
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 添加节目成功的模态框 -->
+	<div class="modal fade" id="successModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">结果</h4>
+				</div>
+				<div class="modal-body">
+					添加节目信息成功！
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" id="showButton" data-dismiss="modal">查看节目单</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
