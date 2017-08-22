@@ -151,7 +151,7 @@ body {
 		<form class="form-signin" id="myForm" name="myForm" role="form"
 			method="get" action="login.do">
 
-			<h2 class="form-signin-heading">Please sign in</h2>
+			<h2 class="form-signin-heading">用户登录</h2>
 
 			<div class="form-group">
 				<label for="inputItcode" class="sr-only">IT Code</label> <input
@@ -167,13 +167,12 @@ body {
 
 			<div class="checkbox">
 				<label> <input type="checkbox" value="remember-me">
-					Remember me
+					记住我
 				</label>
 			</div>
 
 			<div class="form-group">
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
-					in</button>
+				<button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
 			</div>
 
 		</form>

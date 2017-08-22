@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import dao.AccountDAO;
 import dao.RedPackageDAO;
 import dao.RedPackageTransactionDAO;
 import entity.RedPackageTransaction;
@@ -34,6 +35,7 @@ public class UIRedController {
 				break;
 			}
 		}
+		if (!AccountDAO.hasAccount(itcode, jdbcTemplate)){return "redirect:/myaccount";}
 		if (RedPackageDAO.getActiveRound(jdbcTemplate)==-1) {model.addAttribute("redpackageresult", "红包尚未开启!");return "UIredpackageresult";}
 		int money = RedPackageDAO.GiveMoney(itcode, jdbcTemplate);
 		if (money!=-1) model.addAttribute("redpackageresult", "恭喜获得"+(float)money/100+"元红包！");

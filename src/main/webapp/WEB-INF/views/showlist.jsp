@@ -24,6 +24,7 @@
 <style type="text/css">
 body {
 	min-height: 2000px;
+	
 }
 
 .navbar-static-top {
@@ -37,7 +38,7 @@ body {
 		});
 
 		$("#topupButton").click(function() {
-			window.location.href = "topup";
+			window.location.href = "myaccount";
 		});
 
 		$("form").submit(function(e) {
@@ -139,7 +140,7 @@ body {
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Project name</a>
+				<a class="navbar-brand" href="#">年会系统</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
@@ -263,7 +264,7 @@ body {
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" id="topupButton">我要变强</button>
+					<button type="button" class="btn btn-primary" id="topupButton">我的钱包</button>
 				</div>
 			</div>
 		</div>

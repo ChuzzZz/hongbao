@@ -90,7 +90,11 @@ public class UIAccountController {
 					break;
 				}
 			}
-
+			int itcode2 = accountForm.getItcode();
+			if (itcode!=itcode2) {
+				model.addAttribute("message", "请勿使用他人账号注册钱包！");
+				return "register_account";
+			}
 			String paycode = accountForm.getPaycode();
 			if (AccountDAO.initAccount(itcode, paycode, jdbcTemplate)) {
 

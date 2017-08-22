@@ -24,8 +24,8 @@ body {
 </style>
 </head>
 
-<body>
-	<nav class="navbar navbar-default navbar-static-top">
+<body >
+	<nav class="navbar navbar-default navbar-static-top" >
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
@@ -35,7 +35,7 @@ body {
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Project name</a>
+				<a class="navbar-brand" href="#">年会系统</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
@@ -56,16 +56,11 @@ body {
 
 		<!-- Main component for a primary marketing message or call to action -->
 		<div class="jumbotron">
-			<h1>Navbar example</h1>
-			<p>This example is a quick exercise to illustrate how the
-				default, static and fixed to top navbar work. It includes the
-				responsive CSS and HTML, so it also adapts to your viewport and
-				device.</p>
-			<p>To see the difference between static and fixed top navbars,
-				just scroll.</p>
+			<h1>XX企业年会</h1>
+			<p>本次年会将于2017-08-01 19:00:00开始</p>
+			<p>参与节目、抢红包，尽情享受年会</p>
 			<p>
-				<a class="btn btn-lg btn-primary" href="#" role="button">View
-					navbar docs &raquo;</a>
+				<a class="btn btn-lg btn-primary" href="getshowlist" role="button">查看节目列表 &raquo;</a>
 			</p>
 		</div>
 

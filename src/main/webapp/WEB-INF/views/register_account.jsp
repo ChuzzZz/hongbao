@@ -68,7 +68,7 @@
 
 
 	<div id="regist-main">
-			<form id="registForm" action="register.do" method="post" onsubmit="alert('验证通过，可以提交！');return true;">
+			<form id="registForm" action="register.do" method="post" >
 				<ol>
 					<li>
 						<label for="UserName">工号：

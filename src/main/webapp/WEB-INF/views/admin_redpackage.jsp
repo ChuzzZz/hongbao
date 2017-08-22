@@ -8,22 +8,42 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <title>抢红包管理</title>
-
+<link rel="stylesheet" href="css/set_8.css">
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link href="css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/general.css">
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <style type="text/css">
 body {
 	min-height: 2000px;
+	
 }
 
 .navbar-static-top {
 	margin-bottom: 19px;
 }
 </style>
+
+
+<script language="javascript" type="text/javascript"> 
+function active(round){
+    window.location.href="ActivateRedPackage?round="+round; 
+}
+function stop(round){
+    window.location.href="StopRedPackage?round="+round; 
+}
+function redpackagehistory(){
+	window.location.href="GetAllRedPackageTransaction"; 
+}
+</script> 
+
 </head>
 
-<body>
+
+
+<body >
 	<nav class="navbar navbar-default navbar-static-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -34,7 +54,7 @@ body {
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Project name</a>
+				<a class="navbar-brand" href="#">年会系统</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
@@ -61,17 +81,29 @@ body {
 	
 	<h1>红包管理</h1>
 	<hr>
-	<table>
-	<tr>
-	<c:if test="${round1==0}"><th><input type="button" value="开启第一轮抢红包" onclick="window.location.href='ActivateRedPackage?round=1'"></th></c:if>
-	<c:if test="${round1==1}"><th><input type="button" value="停止第一轮抢红包" onclick="window.location.href='StopRedPackage?round=1'"></th></c:if>
-	<c:if test="${round2==0}"><th><input type="button" value="开启第二轮抢红包" onclick="window.location.href='ActivateRedPackage?round=2'"></th></c:if>
-	<c:if test="${round2==1}"><th><input type="button" value="停止第二轮抢红包" onclick="window.location.href='StopRedPackage?round=2'"></th></c:if>
-	<c:if test="${round3==0}"><th><input type="button" value="开启第三轮抢红包" onclick="window.location.href='ActivateRedPackage?round=3'"></th></c:if>
-	<c:if test="${round3==1}"><th><input type="button" value="停止第三轮抢红包" onclick="window.location.href='StopRedPackage?round=3'"></th></c:if>
-	</tr>
+	
+	<!--Set 8 start-->
+	<div class="container_even" style = "text-align:center">
+	    <div class="set_container">
+		<c:if test="${round1==0}"><th><div class="set_8_button4 outline" onclick="active(1)">开启第一轮抢红包<span class="lines"></span></div></th></c:if>
+		<c:if test="${round1==1}"><th><div class="set_8_button4 outline" onclick="stop(1)">停止第一轮抢红包<span class="lines"></span></div></th></c:if>
+		<c:if test="${round2==0}"><th><div class="set_8_button2 outline" onclick="active(2)">开启第二轮抢红包<span class="lines"></span></div></th></c:if>
+		<c:if test="${round2==1}"><th><div class="set_8_button2 outline" onclick="stop(2)">停止第二轮抢红包<span class="lines"></span></div></th></c:if>
+		<div style="clear:both"></div>
+	    </div>
+	    <br>
+		<div class="set_container" style = "text-align:center">
+		<c:if test="${round3==0}"><th><div class="set_8_button3 outline" onclick="active(3)">开启第三轮抢红包<span class="lines"></span></div></th></c:if>
+		<c:if test="${round3==1}"><th><div class="set_8_button3 outline" onclick="stop(3)">停止第三轮抢红包<span class="lines"></span></div></th></c:if>
+		<div class="set_8_button outline" onclick="redpackagehistory()">查看红包发放记录<span class="lines"></span></div>
+		<div style="clear:both"></div>
+	  </div>
 
-	</table>
-	<input type="button" value="查看抢红包记录" onclick="window.location.href='GetAllRedPackageTransaction'">
+	</div>
+
+	 
+
+	<!--Set 8 end--> 
+
 </body>
 </html>

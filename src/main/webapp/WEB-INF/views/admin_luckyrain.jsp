@@ -15,6 +15,7 @@
 <style type="text/css">
 body {
 	min-height: 2000px;
+	background-image: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
 }
 
 .navbar-static-top {
@@ -53,7 +54,7 @@ body {
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Project name</a>
+				<a class="navbar-brand" href="#">年会系统</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
@@ -77,25 +78,27 @@ body {
 			<!--/.nav-collapse -->
 		</div>
 	</nav>
-	
+	<div style="text-align:center">
+	<br><br>
 	<c:if test="${round1!=null}">
 		<button class="btn btn-primary" id="1" onclick="startRain(1)">开启第一轮红包雨</button><br>
-	</c:if>
+	</c:if><br>
 	<c:if test="${round1==null}">
 		<button class="btn btn-primary" id="1" onclick="startRain(1)" disabled>开启第一轮红包雨</button><br>
-	</c:if>
+	</c:if><br>
 	<c:if test="${round2!=null}">
 		<button class="btn btn-primary" id="2" onclick="startRain(2)">开启第二轮红包雨</button><br>
-	</c:if>
+	</c:if><br>
 	<c:if test="${round2==null}">
 		<button class="btn btn-primary" id="2" onclick="startRain(2)" disabled>开启第二轮红包雨</button><br>
-	</c:if>
+	</c:if><br>
 	<c:if test="${round3!=null}">
 		<button class="btn btn-primary" id="3" onclick="startRain(3)">开启第三轮红包雨</button><br>
-	</c:if>
+	</c:if><br>
 	<c:if test="${round3==null}">
 		<button class="btn btn-primary" id="3" onclick="startRain(3)" disabled>开启第三轮红包雨</button><br>
-	</c:if>
+	</c:if><br>
 	<a href="showluckyrainresult">查看红包雨记录</a>
+	</div><br>
 </body>
 </html>
