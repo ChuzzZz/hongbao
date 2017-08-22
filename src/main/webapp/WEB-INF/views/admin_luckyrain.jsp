@@ -8,13 +8,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <title>红包雨管理</title>
-
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<!-- Font-Awesome 图标-->
+	<link href="assets/css/font-awesome.min.css" rel="stylesheet">
+	<link href="assets/css/style.css" rel="stylesheet">
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <style type="text/css">
 body {
-	min-height: 2000px;
 	background-image: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
 }
 
@@ -82,94 +84,78 @@ body {
 			<!--/.nav-collapse -->
 		</div>
 	</nav>
-	<div style="text-align:center">
-	<br><br>
-	<c:if test="${round1!=null}">
-		<button class="btn btn-primary" id="1" onclick="startRain(1)">开启第一轮红包雨</button><br>
-	</c:if><br>
-	<c:if test="${round1==null}">
-		<button class="btn btn-primary" id="1" onclick="startRain(1)" disabled>开启第一轮红包雨</button><br>
-	</c:if><br>
-	<c:if test="${round2!=null}">
-		<button class="btn btn-primary" id="2" onclick="startRain(2)">开启第二轮红包雨</button><br>
-	</c:if><br>
-	<c:if test="${round2==null}">
-		<button class="btn btn-primary" id="2" onclick="startRain(2)" disabled>开启第二轮红包雨</button><br>
-	</c:if><br>
-	<c:if test="${round3!=null}">
-		<button class="btn btn-primary" id="3" onclick="startRain(3)">开启第三轮红包雨</button><br>
-	</c:if><br>
-	<c:if test="${round3==null}">
-		<button class="btn btn-primary" id="3" onclick="startRain(3)" disabled>开启第三轮红包雨</button><br>
-	</c:if><br>
-	<a href="showluckyrainresult">查看红包雨记录</a>
-	</div><br>
-	
-	
-	
-	
-	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-	<!-- Font-Awesome 图标-->
-	<link href="assets/css/font-awesome.min.css" rel="stylesheet">
-	<link href="assets/css/style.css" rel="stylesheet">
 
 <section id="services" class="services padding-120 bg-color">
 		<div class="container">
 			<div class="section-header text-center">
-				<h3>Our Services</h3>
-				<p><i>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse in facilisis ex, vitae maximus diam. Maecenas nisl dui.</i></p>
+				<h3>红包雨管理</h3>
+				<p><i>可以在这里选择开启红包雨，为每个用户发放红包！</i></p>
 			</div>
 			<div class="service-items">
 				<div class="row">
-					<div class="col-md-4 col-sm-6 col-xs-12">
+				<c:if test="${round1!=null}">
+				
+					<div class="col-md-4 col-sm-6 col-xs-12" id="1" onclick="startRain(1)">
 						<div class="service-item">
-							<span><i class="fa fa-desktop" aria-hidden="true"></i></span>
-							<h4>Web Design</h4>
-							<p>Interdum et malesuada fames ac ante ipsum primis faucib. Suspendisse volutpat porta felises ut cursus.</p>
+							<span><i class="fa fa-desktop" aria-hidden="false"></i></span>
+							<h4>第一轮红包雨</h4>
+							<p>点击开启本轮红包雨</p>
 						</div><!-- service-item -->
 					</div>
-					<div class="col-md-4 col-sm-6 col-xs-12">
+				</c:if>
+				<c:if test="${round1==null}">
+					<div class="col-md-4 col-sm-6 col-xs-12" id="1">
 						<div class="service-item">
-							<span><i class="fa fa-code" aria-hidden="true"></i></span>
-							<h4>Development</h4>
-							<p>Interdum et malesuada fames ac ante ipsum primis faucib. Suspendisse volutpat porta felises ut cursus.</p>
+							<span><i class="fa fa-desktop" aria-hidden="false"></i></span>
+							<h4>第一轮红包雨</h4>
+							<p>本轮红包雨已开启过</p>
 						</div><!-- service-item -->
 					</div>
-					<div class="col-md-4 col-sm-6 col-xs-12">
+				</c:if>
+				
+					<c:if test="${round2!=null}">
+					<div class="col-md-4 col-sm-6 col-xs-12" id="2" onclick="startRain(2)">
 						<div class="service-item">
-							<span><i class="fa fa-camera-retro" aria-hidden="true"></i></span>
-							<h4>Photography</h4>
-							<p>Interdum et malesuada fames ac ante ipsum primis faucib. Suspendisse volutpat porta felises ut cursus.</p>
+							<span><i class="fa fa-desktop" aria-hidden="false"></i></span>
+							<h4>第二轮红包雨</h4>
+							<p>点击开启本轮红包雨</p>
 						</div><!-- service-item -->
 					</div>
-					<div class="col-md-4 col-sm-6 col-xs-12">
+				</c:if>
+				<c:if test="${round2==null}">
+					<div class="col-md-4 col-sm-6 col-xs-12" id="2">
 						<div class="service-item">
-							<span><i class="fa fa-line-chart" aria-hidden="true"></i></span>
-							<h4>SEO</h4>
-							<p>Interdum et malesuada fames ac ante ipsum primis faucib. Suspendisse volutpat porta felises ut cursus.</p>
+							<span><i class="fa fa-desktop" aria-hidden="false"></i></span>
+							<h4>第二轮红包雨</h4>
+							<p>本轮红包雨已开启过</p>
 						</div><!-- service-item -->
 					</div>
-					<div class="col-md-4 col-sm-6 col-xs-12">
+				</c:if>
+					<c:if test="${round3!=null}">
+				
+					<div class="col-md-4 col-sm-6 col-xs-12" id="3" onclick="startRain(3)">
 						<div class="service-item">
-							<span><i class="fa fa-shopping-bag" aria-hidden="true"></i></span>
-							<h4>Marketing</h4>
-							<p>Interdum et malesuada fames ac ante ipsum primis faucib. Suspendisse volutpat porta felises ut cursus.</p>
+							<span><i class="fa fa-desktop" aria-hidden="false"></i></span>
+							<h4>第三轮红包雨</h4>
+							<p>点击开启本轮红包雨</p>
 						</div><!-- service-item -->
 					</div>
-					<div class="col-md-4 col-sm-6 col-xs-12">
+				</c:if>
+				<c:if test="${round3==null}">
+					<div class="col-md-4 col-sm-6 col-xs-12" id="3">
 						<div class="service-item">
-							<span><i class="fa fa-cogs" aria-hidden="true"></i></span>
-							<h4>Support</h4>
-							<p>Interdum et malesuada fames ac ante ipsum primis faucib. Suspendisse volutpat porta felises ut cursus.</p>
+							<span><i class="fa fa-desktop" aria-hidden="false"></i></span>
+							<h4>第三轮红包雨</h4>
+							<p>本轮红包雨已开启过</p>
 						</div><!-- service-item -->
 					</div>
+				</c:if>
 				</div><!-- row -->
 			</div><!-- service-items -->
 		</div><!-- container -->
-	</section>
-	
-	
-	
-	
+		<br><br><br><br><br><br><br><br>
+		<br><br><br><br><br><br><br><br>
+</section>
+
 </body>
 </html>

@@ -113,6 +113,7 @@ $(function(){
 <script>
 	$(document).ready(function() {
 		$("#ok").click(function(){
+			alert(result.msg);
 			data = $("#registForm").serialize();
 			$.post("addshowinfo", data, function(result){
 				if(result.msg == "success"){
