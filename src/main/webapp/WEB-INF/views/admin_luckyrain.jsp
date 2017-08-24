@@ -24,26 +24,17 @@ body {
 	margin-bottom: 19px;
 }
 </style>
-<script>
-	function initAJAX() {
-		var xmlhttp;
-		if (window.XMLHttpRequest) {
-			xmlhttp = new XMLHttpRequest();
-		} else {
-			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		return xmlhttp;
-	}
-	function startRain(i) {
-		var httprequest = initAJAX();
-		var url = encodeURI("startluckyrain?round=" + i);
-		if (confirm("确定开启红包雨吗？")) {
-			httprequest.open("get", url, true);
-			httprequest.send();
-			document.getElementById(i).disabled = "disabled";
-		}
-	}
-</script>
+<script language="javascript" type="text/javascript"> 
+function startRain(round){
+    window.location.href="startLuckyrain?round="+round; 
+}
+function stop(round){
+    window.location.href="StopRedPackage?round="+round; 
+}
+function redpackagehistory(){
+	window.location.href="GetAllRedPackageTransaction"; 
+}
+</script> 
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<!-- Font-Awesome 图标-->
 	<link href="assets/css/font-awesome.min.css" rel="stylesheet">

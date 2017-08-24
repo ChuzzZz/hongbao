@@ -34,13 +34,13 @@ public class AdminLuckyRainContorller {
 	}
 	
 	@RequestMapping(value = {"/startluckyrain","/startLuckyrain"})
-	public void startLuckyrain(String round) {
-		int i = Integer.parseInt(round);
+	public String startLuckyrain(int round) {
 		LuckyRainThread t = new LuckyRainThread();
 		t.setJdbcTemplate(jdbcTemplate);
-		t.setRound(i);
+		t.setRound(round);
 		t.setFlag(true);
 		t.start();
+		return "redirect:/showluckyrainresult";
 	}
 	
 	@RequestMapping(value = {"/showluckyrainresult","/showLuckyrainResult"})

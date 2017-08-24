@@ -14,7 +14,6 @@
 <script src="js/bootstrap.min.js"></script>
 <style type="text/css">
 body {
-	min-height: 2000px;
 }
 
 .navbar-static-top {
@@ -79,7 +78,7 @@ body {
 							<tr>
 								<td>${result.account_id}</td>
 								<td>${result.round}</td>
-								<td>${result.amount}</td>
+								<td>${result.amount/100}</td>
 								<td>${result.time}</td>
 							</tr>
 						</c:forEach>

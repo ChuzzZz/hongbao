@@ -20,7 +20,7 @@
 <script src="js/bootstrap.min.js"></script>
 <style type="text/css">
 body {
-	min-height: 2000px;
+
 }
 
 .navbar-static-top {
@@ -131,6 +131,7 @@ $(document).ready(function() {
 							<th>账户ID</th>
 							<th>金额（元）</th>
 							<th class="sorter-time">获得时间</th>
+							
 							<th class="filter-select filter-exact"
 								data-placeholder="所有轮次">红包轮次</th>
 						</tr>

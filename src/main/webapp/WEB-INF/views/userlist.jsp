@@ -17,7 +17,6 @@
 <link rel="stylesheet" type="text/css" href="/!/assets/css.min.css?20170814">
 <style type="text/css">
 body {
-	min-height: 2000px;
 }
 
 .navbar-static-top {

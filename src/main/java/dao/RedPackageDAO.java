@@ -79,7 +79,7 @@ public class RedPackageDAO {
 		long money=getTotalByRound(round,jdbcTemplate);
 		System.out.println("红包剩余金额："+money);
 		Random r = new Random();
-		if (getTotalByRound(round, jdbcTemplate)<=money/(long)(AccountDAO.getAllAcounts(jdbcTemplate).size()*0.6)*2){
+		if (AccountDAO.getAllAcounts(jdbcTemplate).size()==1||getTotalByRound(round, jdbcTemplate)<=money/(long)(AccountDAO.getAllAcounts(jdbcTemplate).size()*0.6)*2){
 			money=getTotalByRound(round, jdbcTemplate);
 			System.out.println("因为剩余金额较少，全部分配出去，得到："+money);
 		}

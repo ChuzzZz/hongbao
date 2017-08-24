@@ -16,7 +16,6 @@
 
 <style type="text/css">
 body {
-	min-height: 2000px;
 }
 
 .navbar-static-top {

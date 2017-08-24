@@ -58,9 +58,9 @@ public class AdminShowController {
 		return "addshowinfo";
 	}
 	
-	@ResponseBody
+
 	@RequestMapping(value = {"/addshowinfo","/addShowInfo"})
-	public Map<String, Object> addShowInfo(String show_name, String performer, String department, String start_time) {
+	public String addShowInfo(String show_name, String performer, String department, String start_time) {
 		Timestamp ts = Timestamp.valueOf(start_time);
 		System.out.print(show_name);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -70,7 +70,7 @@ public class AdminShowController {
 			map.put("msg", "failed");
 		}
 		System.out.println(map.toString());
-		return map;
+		return "addshowinfo";
 	}
 
 	@RequestMapping(value = { "/admingetshowlist", "/adminGetShowlist" })

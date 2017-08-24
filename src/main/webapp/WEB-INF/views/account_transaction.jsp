@@ -21,7 +21,6 @@
 <script src="js/bootstrap.min.js"></script>
 <style type="text/css">
 body {
-	min-height: 2000px;
 }
 
 .navbar-static-top {

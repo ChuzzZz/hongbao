@@ -53,7 +53,6 @@ $(function(){
 <script src="js/bootstrap.min.js"></script>
 <style type="text/css">
 .body {
-	min-height: 2000px;
 }
 .navbar-static-top {
 	margin-bottom: 19px;
@@ -110,32 +109,14 @@ $(function(){
 
 </script>
 
-<script>
-	$(document).ready(function() {
-		$("#ok").click(function(){
-			alert(result.msg);
-			data = $("#registForm").serialize();
-			$.post("addshowinfo", data, function(result){
-				if(result.msg == "success"){
-					$("#successModal").modal();
-				}else{
-					$('#failedModal').modal();
-				}
-			},"json");
-		});
-		$("#showButton").click(function(){
-			window.location.href = "admingetshowlist";
-		});
-	});
 
-</script>
 </head>
 
 <body>
 
 
 	<div id="regist-main">
-			<form id="registForm"  >
+			<form id="registForm" action="addshowinfo" >
 				<ol>
 					<li>
 						<label for="UserName">节目名称：
@@ -181,48 +162,5 @@ $(function(){
 				<input type="submit" value="确定" id = "ok" class="btn-submit">
 			</form>
 		</div>
-<!-- 添加节目失败的模态框 -->
-	<div class="modal fade" id="failedModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">结果</h4>
-				</div>
-				<div class="modal-body">
-					添加节目信息失败
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- 添加节目成功的模态框 -->
-	<div class="modal fade" id="successModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel">结果</h4>
-				</div>
-				<div class="modal-body">
-					添加节目信息成功！
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-					<button type="button" class="btn btn-primary" id="showButton" data-dismiss="modal">查看节目单</button>
-				</div>
-			</div>
-		</div>
-	</div>
 </body>
 </html>

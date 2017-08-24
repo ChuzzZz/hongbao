@@ -17,7 +17,6 @@
 <script src="js/bootstrap.min.js"></script>
 <style type="text/css">
 body {
-	min-height: 2000px;
 	
 }
 
@@ -57,7 +56,7 @@ function redpackagehistory(){
 				<a class="navbar-brand" href="#">年会系统</a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
+				<ul class="nav navbar-nav"> 
 					<li><a href="admin">主页</a></li>
 					<li><a href="adminLuckyrain">红包雨</a></li>
 					<li class="active"><a href="adminredpackage">抢红包</a></li>
